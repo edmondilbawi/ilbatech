@@ -1,6 +1,6 @@
-# International Technology Group Website
+# ILBATECH Website
 
-Official public website for International Technology Group (ITG), a business-led technology solutions and consulting company.
+Official public website for ILBATECH, a business-led technology solutions and consulting company.
 
 ## Production
 
@@ -57,7 +57,7 @@ The interaction and destination map is recorded in `UX_ACCEPTANCE.md`.
 Business identity and deployment defaults are centralized in `src/config/site.ts`:
 
 - company name and short name
-- public contact email
+- public contact email and WhatsApp details
 - GitHub Pages production URL
 - repository URL
 - default project-site base path
@@ -68,17 +68,17 @@ All internal paths pass through `getSitePath`. Contextual service and solution C
 
 ## Contact Form
 
-The branded ITG contact form submits directly to the owner’s published Google Form:
+The branded ILBATECH contact form submits directly to the owner’s published Google Form:
 
 ```text
-ITG contact form
+ILBATECH contact form
   → public Google Forms formResponse endpoint
   → Google Form responses
   → linked Google Sheet
   → owner-controlled new-response email notification
 ```
 
-Submission uses a native HTML POST targeted at a hidden iframe. The visitor remains on the ITG website; no server, API key, OAuth token, Google credential, or application secret is required.
+Submission uses a native HTML POST targeted at a hidden iframe. The visitor remains on the ILBATECH website; no server, API key, OAuth token, Google credential, or application secret is required.
 
 The verified public form contract is centralized in `src/config/google-form.ts`. Contextual Contact URLs are validated against the exact allowed Google option values before the select field is initialized. Invalid query values are ignored.
 
@@ -106,6 +106,6 @@ No custom domain is configured in this phase. When a domain is purchased:
 6. Rebuild and verify metadata, Open Graph URLs, `robots.txt`, `sitemap.xml`, every internal route, and every static asset.
 7. Repeat the production browser and Google Forms acceptance checks.
 
-## Future Brand Migration
+## Brand and Deployment Constraints
 
-Production remains International Technology Group / ITG. A future approved rename should update `src/config/site.ts`, visible copy where the full name is intentionally written, metadata, documentation, the favicon/brand assets if required, and the contact ownership details. Re-run the full build and public browser acceptance after any rebrand.
+The public brand is ILBATECH. The repository name, GitHub Pages URL, `/itg-website` base path, and internal identifiers may retain `itg` where required for deployment or compatibility.

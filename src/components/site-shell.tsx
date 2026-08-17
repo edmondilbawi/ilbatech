@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronRight, Mail } from "lucide-react";
+import { ArrowRight, ChevronRight, Mail, MessageCircleMore } from "lucide-react";
 import type { ReactNode } from "react";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { SERVICE_AREAS } from "@/config/offerings";
@@ -11,7 +11,7 @@ export function Wordmark() {
       className="wordmark"
       aria-label={`${SITE.name} home`}
     >
-      {SITE.shortName}<span>.</span>
+      {SITE.wordmark.lead}<span>{SITE.wordmark.accent}</span>
     </a>
   );
 }
@@ -76,12 +76,22 @@ export function SiteFooter() {
             <Mail aria-hidden="true" size={15} />
             {SITE.email}
           </a>
+          <a
+            className="footer-whatsapp"
+            href={SITE.whatsappUrl}
+            aria-label={`Contact ${SITE.shortName} on WhatsApp at ${SITE.phoneDisplay}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircleMore aria-hidden="true" size={15} />
+            {SITE.phoneDisplay}
+          </a>
         </div>
         <nav aria-label="Footer navigation">
           <h2>Explore</h2>
           <a href={getSitePath("/services")}>Services</a>
           <a href={getSitePath("/solutions")}>Solutions</a>
-          <a href={getSitePath("/about")}>About ITG</a>
+          <a href={getSitePath("/about")}>About ILBATECH</a>
           <a href={getSitePath("/contact")}>Contact</a>
         </nav>
         <nav aria-label="Service areas">

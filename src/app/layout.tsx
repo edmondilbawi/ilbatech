@@ -11,21 +11,21 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: {
-    default: "ITG | Business-led technology consulting",
-    template: "%s | ITG",
+    default: `${SITE.shortName} | Business-led technology consulting`,
+    template: `%s | ${SITE.shortName}`,
   },
   description: SITE.description,
   applicationName: SITE.name,
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: "ITG | Business-led technology consulting",
+    title: `${SITE.shortName} | Business-led technology consulting`,
     description: SITE.description,
     ...(siteUrl ? { url: siteUrl } : {}),
   },
   twitter: {
     card: "summary",
-    title: "ITG | Business-led technology consulting",
+    title: `${SITE.shortName} | Business-led technology consulting`,
     description: SITE.description,
   },
 };

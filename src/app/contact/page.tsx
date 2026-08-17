@@ -6,11 +6,11 @@ import { SITE } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Tell ITG what is making your business harder to operate and explore whether technology can help.",
-  openGraph: { title: "Contact ITG", description: "Start with the problem. Find the right technology." },
+  description: "Tell ILBATECH what is making your business harder to operate and explore whether technology can help.",
+  openGraph: { title: "Contact ILBATECH", description: "Start with the problem. Find the right technology." },
 };
 
-const nextSteps = [[MessageCircleMore, "Tell us about the challenge", "Share what is making your business harder to operate—whether or not you know what technology might help."], [SearchCheck, "We understand & analyze", "ITG reviews the situation and considers where technology may create genuine value."], [Send, "We recommend the right approach", "If technology can help, we recommend an appropriate direction based on the actual business need."]] as const;
+const nextSteps = [[MessageCircleMore, "Tell us about the challenge", "Share what is making your business harder to operate—whether or not you know what technology might help."], [SearchCheck, "We understand & analyze", "ILBATECH reviews the situation and considers where technology may create genuine value."], [Send, "We recommend the right approach", "If technology can help, we recommend an appropriate direction based on the actual business need."]] as const;
 const principles = ["No unnecessary solutions", "No overpromising", "Clear communication", "Business-first recommendations", "Long-term relationships"];
 
 export default function ContactPage() {
@@ -20,7 +20,7 @@ export default function ContactPage() {
       <main id="top">
         <section className="contact-hero">
           <div className="container">
-            <SectionEyebrow>Contact ITG</SectionEyebrow>
+            <SectionEyebrow>Contact ILBATECH</SectionEyebrow>
             <h1>
               Let’s talk about <em>your business.</em>
             </h1>
@@ -43,11 +43,27 @@ export default function ContactPage() {
                 we&apos;ll start there. The conversation is about understanding
                 the problem—not choosing a service from a list.
               </p>
-              <div className="email-card">
-                <Mail aria-hidden="true" size={20} strokeWidth={1.5} />
-                <div>
-                  <span>Prefer email?</span>
-                  <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              <div className="contact-methods">
+                <div className="contact-card">
+                  <Mail aria-hidden="true" size={20} strokeWidth={1.5} />
+                  <div>
+                    <span>Prefer email?</span>
+                    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                  </div>
+                </div>
+                <div className="contact-card">
+                  <MessageCircleMore aria-hidden="true" size={20} strokeWidth={1.5} />
+                  <div>
+                    <span>Prefer WhatsApp?</span>
+                    <a
+                      href={SITE.whatsappUrl}
+                      aria-label={`Contact ${SITE.shortName} on WhatsApp at ${SITE.phoneDisplay}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {SITE.phoneDisplay}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,7 +79,7 @@ export default function ContactPage() {
                 <h2>A conversation before a recommendation.</h2>
               </div>
               <p>
-                Contacting ITG does not mean you need to purchase a service. It
+                Contacting ILBATECH does not mean you need to purchase a service. It
                 is a chance to explore the situation with clarity.
               </p>
             </div>

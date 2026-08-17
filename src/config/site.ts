@@ -1,9 +1,18 @@
+const WHATSAPP_DIGITS = "96181958984";
+
 export const SITE = {
-  name: "International Technology Group",
-  shortName: "ITG",
+  name: "ILBATECH",
+  shortName: "ILBATECH",
+  wordmark: {
+    lead: "ILBA",
+    accent: "TECH",
+  },
   description:
-    "International Technology Group helps businesses improve the way they operate through practical, business-led technology solutions.",
+    "ILBATECH helps businesses improve the way they operate through practical, business-led technology solutions.",
   email: "edmondilbawi@gmail.com",
+  phoneDisplay: "+961 81 958 984",
+  whatsappDigits: WHATSAPP_DIGITS,
+  whatsappUrl: `https://wa.me/${WHATSAPP_DIGITS}`,
   productionUrl: "https://edmondilbawi.github.io/itg-website",
   repositoryUrl: "https://github.com/edmondilbawi/itg-website",
 } as const;

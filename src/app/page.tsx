@@ -34,7 +34,7 @@ export default function Home() {
                 Technology should solve business problems, <em>not create more complexity.</em>
               </h1>
               <p className="hero-copy">
-                ITG helps businesses improve the way they operate through
+                ILBATECH helps businesses improve the way they operate through
                 technology. We first understand the problem, then recommend what
                 will genuinely create value.
               </p>
@@ -47,7 +47,7 @@ export default function Home() {
               <div className="orb orb-one" />
               <div className="orb orb-two" />
               <div className="art-card">
-                <span>ITG</span>
+                <span>ILBATECH</span>
                 <div className="art-line" />
                 <div className="art-line short" />
                 <p>Clarity before complexity</p>
@@ -63,7 +63,7 @@ export default function Home() {
               <h2>Better technology starts with a better understanding of the business.</h2>
               <p className="lead">
                 Technology is only useful when it makes the business work better.
-                ITG brings a practical, business-first perspective to every
+                ILBATECH brings a practical, business-first perspective to every
                 conversation—helping leaders make considered decisions with a
                 clear purpose.
               </p>
@@ -134,7 +134,7 @@ export default function Home() {
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>The ITG process</SectionEyebrow>
+                <SectionEyebrow>The ILBATECH process</SectionEyebrow>
                 <h2>A considered path from question to clarity.</h2>
               </div>
             </div>
@@ -153,11 +153,11 @@ export default function Home() {
         <section id="why-itg" className="why section">
           <div className="container why-grid">
             <div className="why-visual">
-              <span>ITG</span>
+              <span>ILBATECH</span>
               <p>Business<br />before<br /><i>technology.</i></p>
             </div>
             <div>
-              <SectionEyebrow>Why ITG</SectionEyebrow>
+              <SectionEyebrow>Why ILBATECH</SectionEyebrow>
               <h2>Advice that stays anchored in what matters.</h2>
               <p className="lead">
                 The right answer is not always the newest platform or the most
@@ -170,7 +170,7 @@ export default function Home() {
                 <div><strong>Clear-minded</strong><p>We make complex decisions easier to navigate.</p></div>
               </div>
               <a className="text-link" href={getSitePath("/about")}>
-                Learn about ITG <ArrowRight aria-hidden="true" size={16} />
+                Learn about ILBATECH <ArrowRight aria-hidden="true" size={16} />
               </a>
             </div>
           </div>

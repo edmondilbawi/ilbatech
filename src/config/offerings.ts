@@ -315,7 +315,7 @@ export const SOLUTION_AREAS: Offering[] = [
     summary:
       "Simplify repetitive tasks, handoffs, and follow-up while keeping people in control of important decisions.",
     introduction:
-      "A useful automation solution begins with the process, not the tool. ITG examines how work currently moves, where effort is repeated, and where automation can create reliable value.",
+      "A useful automation solution begins with the process, not the tool. ILBATECH examines how work currently moves, where effort is repeated, and where automation can create reliable value.",
     problemStatement:
       "Repetitive activity and manual coordination can create delays, inconsistent results, and limited visibility—especially as volume grows.",
     whoFor: [

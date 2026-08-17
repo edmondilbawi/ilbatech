@@ -39,11 +39,11 @@ export function OfferingDetail({ offering, kind }: OfferingDetailProps) {
               <div className="hero-actions">
                 <Button href={contactPath}>Discuss Your Project</Button>
                 <Button href="#how-itg-helps" variant="secondary">
-                  See How ITG Can Help
+                  See How ILBATECH Can Help
                 </Button>
               </div>
             </div>
-            <aside className="detail-signal" aria-label="ITG approach">
+            <aside className="detail-signal" aria-label="ILBATECH approach">
               <span>{kind === "service" ? "Service" : "Solution"}</span>
               <p>Business need</p>
               <ArrowRight aria-hidden="true" size={19} />
@@ -89,7 +89,7 @@ export function OfferingDetail({ offering, kind }: OfferingDetailProps) {
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>How ITG can help</SectionEyebrow>
+                <SectionEyebrow>How ILBATECH can help</SectionEyebrow>
                 <h2>Shape the right response around the business.</h2>
               </div>
               <p>
@@ -152,7 +152,7 @@ export function OfferingDetail({ offering, kind }: OfferingDetailProps) {
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>The ITG approach</SectionEyebrow>
+                <SectionEyebrow>The ILBATECH approach</SectionEyebrow>
                 <h2>Understand, decide, and implement with purpose.</h2>
               </div>
               <p>
@@ -177,7 +177,7 @@ export function OfferingDetail({ offering, kind }: OfferingDetailProps) {
             <div className="section-heading">
               <div>
                 <SectionEyebrow>Continue exploring</SectionEyebrow>
-                <h2>Related ways ITG can help.</h2>
+                <h2>Related ways ILBATECH can help.</h2>
               </div>
             </div>
             <div className="related-grid">
@@ -199,7 +199,7 @@ export function OfferingDetail({ offering, kind }: OfferingDetailProps) {
             <SectionEyebrow>Start a conversation</SectionEyebrow>
             <h2>Bring the business need. We’ll start there.</h2>
             <p>
-              Tell ITG what needs to work better. The contact form will
+              Tell ILBATECH what needs to work better. The contact form will
               preselect the closest service category for this conversation.
             </p>
             <div className="hero-actions">

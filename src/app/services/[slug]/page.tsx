@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { OfferingDetail } from "@/components/offering-detail";
 import { getServiceArea, SERVICE_AREAS } from "@/config/offerings";
+import { SITE } from "@/config/site";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -23,7 +24,7 @@ export async function generateMetadata({
     title: offering.title,
     description: offering.summary,
     openGraph: {
-      title: `${offering.title} | ITG`,
+      title: `${offering.title} | ${SITE.shortName}`,
       description: offering.summary,
     },
   };

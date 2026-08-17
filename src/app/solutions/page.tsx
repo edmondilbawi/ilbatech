@@ -24,9 +24,9 @@ import { getSitePath } from "@/config/site";
 export const metadata: Metadata = {
   title: "Solutions",
   description:
-    "Explore how ITG addresses customer experience, process automation, operational systems, and digital transformation challenges.",
+    "Explore how ILBATECH addresses customer experience, process automation, operational systems, and digital transformation challenges.",
   openGraph: {
-    title: "Solutions | ITG",
+    title: "Solutions | ILBATECH",
     description: "Start with the problem. Find the right technology.",
   },
 };
@@ -71,7 +71,7 @@ export default function SolutionsPage() {
               <SectionEyebrow>Business solutions</SectionEyebrow>
               <h1>Start with the problem. <em>Find the right technology.</em></h1>
               <p className="hero-copy">
-                ITG helps businesses identify operational challenges, understand
+                ILBATECH helps businesses identify operational challenges, understand
                 where technology can create genuine value, and implement practical
                 solutions without unnecessary complexity.
               </p>
@@ -175,7 +175,7 @@ export default function SolutionsPage() {
 
         <section className="right-solution">
           <div className="container right-solution-grid">
-            <p className="right-solution-mark">ITG</p>
+            <p className="right-solution-mark">ILBATECH</p>
             <div>
               <SectionEyebrow>Our philosophy</SectionEyebrow>
               <h2>The right solution, <em>not the most complicated one.</em></h2>
@@ -192,7 +192,7 @@ export default function SolutionsPage() {
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>The ITG consulting approach</SectionEyebrow>
+                <SectionEyebrow>The ILBATECH consulting approach</SectionEyebrow>
                 <h2>Clear steps, considered decisions.</h2>
               </div>
             </div>

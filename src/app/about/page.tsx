@@ -4,8 +4,8 @@ import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/sit
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn how International Technology Group approaches technology: understanding the business first, then recommending practical solutions.",
-  openGraph: { title: "About ITG", description: "Technology starts with understanding." },
+  description: "Learn how ILBATECH approaches technology: understanding the business first, then recommending practical solutions.",
+  openGraph: { title: "About ILBATECH", description: "Technology starts with understanding." },
 };
 
 const principles = [
@@ -28,12 +28,12 @@ export default function AboutPage() {
         <section className="about-hero">
           <div className="container about-hero-grid">
             <div>
-              <SectionEyebrow>About ITG</SectionEyebrow>
+              <SectionEyebrow>About ILBATECH</SectionEyebrow>
               <h1>
                 Technology starts with <em>understanding.</em>
               </h1>
               <p className="hero-copy">
-                ITG helps businesses make better use of technology by first
+                ILBATECH helps businesses make better use of technology by first
                 understanding how the business works, where challenges exist,
                 and where technology can genuinely create value.
               </p>
@@ -45,7 +45,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="about-mark" aria-hidden="true">
-              <span>ITG</span>
+              <span>ILBATECH</span>
               <p>
                 Listen.
                 <br />
@@ -59,11 +59,11 @@ export default function AboutPage() {
 
         <section className="who-itg section">
           <div className="container positioning-grid">
-            <SectionEyebrow>Who is ITG?</SectionEyebrow>
+            <SectionEyebrow>Who is ILBATECH?</SectionEyebrow>
             <div>
               <h2>Business-led technology consulting.</h2>
               <p className="lead">
-                International Technology Group (ITG) helps businesses improve
+                ILBATECH helps businesses improve
                 the way they operate through technology. We do not believe in
                 selling services simply for the sake of selling. Instead, we
                 focus on understanding the business and recommending solutions
@@ -108,7 +108,7 @@ export default function AboutPage() {
 
         <section className="thinking section">
           <div className="container">
-            <SectionEyebrow>How ITG thinks</SectionEyebrow>
+            <SectionEyebrow>How ILBATECH thinks</SectionEyebrow>
             <h2>
               Start with the business, <em>not the technology.</em>
             </h2>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                   technology help?”
                 </blockquote>
                 <p>
-                  This is where ITG begins: with the business context and the
+                  This is where ILBATECH begins: with the business context and the
                   problem worth solving.
                 </p>
               </article>

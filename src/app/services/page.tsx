@@ -25,9 +25,9 @@ import { getSitePath } from "@/config/site";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Explore ITG services for websites, commerce, software, applications, automation, AI, business systems, and technology consulting.",
+    "Explore ILBATECH services for websites, commerce, software, applications, automation, AI, business systems, and technology consulting.",
   openGraph: {
-    title: "Services | ITG",
+    title: "Services | ILBATECH",
     description: "Technology services built around the way your business needs to work.",
   },
 };
@@ -76,7 +76,7 @@ export default function ServicesPage() {
             <SectionEyebrow>Services</SectionEyebrow>
             <h1>Technology solutions <em>built around your business.</em></h1>
             <p className="hero-copy">
-              ITG starts with the way your business works today, the challenge in
+              ILBATECH starts with the way your business works today, the challenge in
               front of you, and the outcome you need. Then we recommend technology
               that earns its place.
             </p>
@@ -139,7 +139,7 @@ export default function ServicesPage() {
             <div>
               <p className="lead">
                 Businesses often know something is getting in the way, but not
-                necessarily what will solve it. ITG evaluates the problem first,
+                necessarily what will solve it. ILBATECH evaluates the problem first,
                 then determines whether technology is the right answer—and, if so,
                 what kind.
               </p>
@@ -157,7 +157,7 @@ export default function ServicesPage() {
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>The ITG approach</SectionEyebrow>
+                <SectionEyebrow>The ILBATECH approach</SectionEyebrow>
                 <h2>A disciplined route from business need to better operation.</h2>
               </div>
             </div>

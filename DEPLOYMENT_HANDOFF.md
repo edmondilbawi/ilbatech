@@ -1,4 +1,4 @@
-# ITG GitHub Pages Deployment Handoff
+# ILBATECH GitHub Pages Deployment Handoff
 
 ## Authorized Destination
 
@@ -76,7 +76,7 @@ A branded `404.html` is generated for invalid static routes. All detail routes u
 ## Google Forms Lead Pipeline
 
 ```text
-ITG Contact page
+ILBATECH Contact page
   → native cross-origin HTML POST
   → published Google Forms /formResponse endpoint
   → hidden named iframe
@@ -91,7 +91,7 @@ Verified public contract:
 | Website field | Google entry ID | Google required? |
 | --- | --- | --- |
 | Full Name | `entry.1344544065` | Yes |
-| Email | `entry.1542327069` | No; required by ITG |
+| Email | `entry.1542327069` | No; required by ILBATECH |
 | Company Name | `entry.1123393057` | Yes |
 | Service | `entry.415823819` | Yes |
 | Project | `entry.231616111` | Yes |
@@ -144,4 +144,4 @@ When a domain is purchased and explicitly authorized:
 6. revalidate metadata, Open Graph, robots, sitemap, routes, assets, and the contact pipeline;
 7. update documentation with the final URL.
 
-Production branding remains International Technology Group / ITG until a separate rebrand is approved.
+Production branding is ILBATECH. The repository, GitHub Pages URL, and `/itg-website` base path remain unchanged for deployment compatibility.

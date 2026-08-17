@@ -1,4 +1,4 @@
-name: Deploy ITG website to GitHub Pages
+name: Deploy ILBATECH website to GitHub Pages
 
 on:
   push:
