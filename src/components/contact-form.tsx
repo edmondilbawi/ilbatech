@@ -270,6 +270,11 @@ export function ContactForm() {
         <p className="form-required">
           <b>*</b> Required fields
         </p>
+        <p className="form-disclosure">
+          Submitting sends the information you enter to ILBATECH through Google
+          Forms. Please do not include passwords, payment details, health
+          information, or other sensitive data.
+        </p>
         <button
           type="submit"
           className="button button--primary"

@@ -25,8 +25,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: `${SITE.shortName} | Business-led technology consulting`,
-    description: SITE.description,
   },
 };
 
