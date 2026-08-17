@@ -3,10 +3,10 @@
 ## Authorized Destination
 
 - Owner: `edmondilbawi`
-- Repository: `itg-website`
-- Remote: `https://github.com/edmondilbawi/itg-website.git`
+- Repository: `ilbatech`
+- Remote: `https://github.com/edmondilbawi/ilbatech.git`
 - Branch: `main`
-- Production URL: `https://edmondilbawi.github.io/itg-website/`
+- Production URL: `https://edmondilbawi.github.io/ilbatech/`
 - Visibility: public
 - Custom domain: intentionally not configured
 
@@ -18,8 +18,8 @@ The Next.js App Router application is a fully static export:
 
 - `output: "export"`
 - `trailingSlash: true`
-- production `basePath: "/itg-website"`
-- production `assetPrefix: "/itg-website"`
+- production `basePath: "/ilbatech"`
+- production `assetPrefix: "/ilbatech"`
 - generated directory: `out/` (ignored by Git)
 
 `NEXT_PUBLIC_BASE_PATH` can override the default project path. The Pages workflow uses the verified `base_path` output from `actions/configure-pages`, so internal Next.js assets and source-generated links share the same repository path.
@@ -123,7 +123,7 @@ The final GitHub Pages acceptance requires exactly one new controlled submission
 
 After a successful Pages deployment:
 
-1. Open every route directly under `/itg-website/` and refresh it.
+1. Open every route directly under `/ilbatech/` and refresh it.
 2. Verify CSS, JavaScript, fonts, favicon, and static assets load from the project path.
 3. Test desktop and mobile navigation, all catalog/detail actions, contextual Contact selection, footer actions, `mailto:`, and 404 recovery.
 4. Test representative widths `375`, `430`, `768`, `1024`, `1366`, and `1536` without horizontal overflow.
@@ -145,4 +145,4 @@ When a domain is purchased and explicitly authorized:
 6. revalidate metadata, Open Graph, robots, sitemap, routes, assets, and the contact pipeline;
 7. update documentation with the final URL.
 
-Production branding is ILBATECH. The repository, GitHub Pages URL, and `/itg-website` base path remain unchanged for deployment compatibility.
+Production branding, the repository, the GitHub Pages URL, and the `/ilbatech` base path are aligned as ILBATECH.

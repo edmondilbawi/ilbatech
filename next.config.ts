@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const pagesBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/itg-website";
+const pagesBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/ilbatech";
 
 const nextConfig: NextConfig = {
   output: "export",

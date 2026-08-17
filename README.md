@@ -4,9 +4,9 @@ Official public website for ILBATECH, a business-led technology solutions and co
 
 ## Production
 
-- Repository: `https://github.com/edmondilbawi/itg-website`
-- GitHub Pages URL: `https://edmondilbawi.github.io/itg-website/`
-- Repository base path: `/itg-website`
+- Repository: `https://github.com/edmondilbawi/ilbatech`
+- GitHub Pages URL: `https://edmondilbawi.github.io/ilbatech/`
+- Repository base path: `/ilbatech`
 - Hosting architecture: Next.js static export deployed from source by GitHub Actions
 - Custom domain: intentionally not configured
 
@@ -31,10 +31,10 @@ npm ci
 npm run dev
 ```
 
-The default project-site base path is `/itg-website`, so local development is available at:
+The default project-site base path is `/ilbatech`, so local development is available at:
 
 ```text
-http://localhost:3000/itg-website/
+http://localhost:3000/ilbatech/
 ```
 
 To simulate a future apex/custom-domain architecture locally, provide an empty base path at build time. The deployment workflow always receives the verified Pages base path from `actions/configure-pages`.
@@ -62,7 +62,7 @@ Business identity and deployment defaults are centralized in `src/config/site.ts
 - repository URL
 - default project-site base path
 
-`NEXT_PUBLIC_SITE_URL` overrides the production URL when provided. It supplies `metadataBase`, Open Graph context, `robots.txt`, and `sitemap.xml`. `NEXT_PUBLIC_BASE_PATH` overrides the default `/itg-website` path and is shared by Next.js configuration and static internal-link normalization.
+`NEXT_PUBLIC_SITE_URL` overrides the production URL when provided. It supplies `metadataBase`, Open Graph context, `robots.txt`, and `sitemap.xml`. `NEXT_PUBLIC_BASE_PATH` overrides the default `/ilbatech` path and is shared by Next.js configuration and static internal-link normalization.
 
 All internal paths pass through `getSitePath`. Contextual service and solution CTAs use `getContactPath` to carry only a supported Google Forms service value to Contact.
 
@@ -87,9 +87,9 @@ The verified public form contract is centralized in `src/config/google-form.ts`.
 The project-site build uses:
 
 ```text
-basePath: /itg-website
-assetPrefix: /itg-website
-NEXT_PUBLIC_SITE_URL: https://edmondilbawi.github.io/itg-website
+basePath: /ilbatech
+assetPrefix: /ilbatech
+NEXT_PUBLIC_SITE_URL: https://edmondilbawi.github.io/ilbatech
 ```
 
 The workflow uses only official GitHub actions for checkout, Node setup, Pages configuration, artifact upload, and deployment. Repository permissions are limited to source read, Pages write, and OIDC token write.
@@ -108,4 +108,4 @@ No custom domain is configured in this phase. When a domain is purchased:
 
 ## Brand and Deployment Constraints
 
-The public brand is ILBATECH. The repository name, GitHub Pages URL, `/itg-website` base path, and internal identifiers may retain `itg` where required for deployment or compatibility.
+The public brand, repository name, GitHub Pages URL, and `/ilbatech` base path are aligned as ILBATECH. Historical internal identifiers may retain `itg` where changing them would not affect the public deployment.
