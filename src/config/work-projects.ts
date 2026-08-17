@@ -93,24 +93,24 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     title: "Business Operations Dashboard",
     category: "Business Systems & Automation",
     summary:
-      "A software-oriented workspace concept for coordinating projects, client records, tasks, workflows, reporting, and assisted actions.",
+      "An interactive operations workspace connecting sample clients, projects, tasks, analytics, demo automations, and deterministic AI-assisted insights.",
     description:
-      "A concept operations system that brings active work, responsibilities, status, and automation cues into one coherent interface.",
+      "A responsive internal-software concept where managers can inspect consistent sample records, update work locally, simulate automation rules, and request operational summaries grounded in visible state.",
     businessNeed:
-      "Growing operations can become difficult to coordinate when project information, client records, tasks, and process status are spread across tools. Teams need a dependable shared view without turning routine work into another complicated system to manage.",
+      "Some growing businesses manage important information across disconnected tools, messages, spreadsheets, and manual workflows. That fragmentation can reduce visibility, make ownership harder to understand, and leave repetitive coordination work without a dependable shared view.",
     approach:
-      "Start with the decisions and handoffs the team needs to manage, then shape dashboards and workflows around those moments. Status is visible without relying on invented performance claims, automation cues remain explainable, and AI assistance is framed as a reviewed workflow aid rather than an autonomous promise.",
+      "Model one consistent sample operating dataset, then shape a tailored workspace around the decisions and handoffs it supports. Client, project, task, and analytics views derive from the same local state; automation rules are explainable simulations; and AI-assisted responses are deterministic summaries of visible data rather than calls to a real model.",
     demonstrates: [
-      "Operational dashboard and project views",
-      "Client records and task coordination",
-      "Workflow and status indicators",
-      "Operational reporting interface",
-      "Automation cues and approval paths",
-      "Human-reviewed AI assistance concept",
+      "Responsive operations dashboard and local view navigation",
+      "Fictional client records and inspectable project tracking",
+      "Searchable task workflows with local status changes",
+      "Accessible analytics derived from consistent task and project state",
+      "Enable, disable, inspect, and simulate automation concepts",
+      "Deterministic AI-assisted operational summaries and priorities",
     ],
-    capabilities: ["Business systems", "Product design", "Workflow automation", "AI-assisted operations"],
+    capabilities: ["Business systems", "Operations UX", "Workflow management", "Automation concepts", "AI-assisted operations"],
     visualDescription:
-      "an operations dashboard with project status, task workflows, reporting views, and a reviewed AI-assistance cue",
+      "a professional operations workspace with consistent sample records, task controls, responsive analytics, automation simulations, and grounded AI insights",
   },
 ];
 

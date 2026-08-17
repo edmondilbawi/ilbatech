@@ -513,6 +513,7 @@ export const PUBLIC_PATHS = [
   "/work/private-clinic-website/demo",
   "/work/cafe-restaurant-website/demo",
   "/work/premium-ecommerce-store/demo",
+  "/work/business-operations-dashboard/demo",
   "/solutions",
   ...SOLUTION_AREAS.map((offering) => `/solutions/${offering.slug}`),
   "/about",

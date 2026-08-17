@@ -50,7 +50,12 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
               href: "/work/premium-ecommerce-store/demo",
               note: "This concept was created by ILBATECH to demonstrate an approach to modern digital commerce experiences.",
             }
-          : undefined;
+          : project.slug === "business-operations-dashboard"
+            ? {
+                href: "/work/business-operations-dashboard/demo",
+                note: "This concept was created by ILBATECH to demonstrate how tailored software, automation, and AI-assisted workflows can support business operations.",
+              }
+            : undefined;
 
   return (
     <ProjectCaseStudy
