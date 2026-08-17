@@ -9,7 +9,15 @@ import {
 import { SITE, getSitePath } from "@/config/site";
 import type { WorkProject } from "@/config/work-projects";
 
-export function ProjectCaseStudy({ project }: { project: WorkProject }) {
+export function ProjectCaseStudy({
+  project,
+  interactiveHref,
+  conceptNote,
+}: {
+  project: WorkProject;
+  interactiveHref?: string;
+  conceptNote?: string;
+}) {
   return (
     <>
       <SiteHeader />
@@ -25,9 +33,15 @@ export function ProjectCaseStudy({ project }: { project: WorkProject }) {
                 <SectionEyebrow>{project.category}</SectionEyebrow>
                 <h1>{project.title}</h1>
               </div>
-              <p className="hero-copy">{project.description}</p>
+              <div className="case-hero-intro">
+                <p className="hero-copy">{project.description}</p>
+                {interactiveHref && (
+                  <Button href={interactiveHref}>Try the Experience</Button>
+                )}
+              </div>
             </div>
             <ProjectPreview project={project} size="detail" />
+            {conceptNote && <p className="case-concept-note">{conceptNote}</p>}
           </div>
         </section>
 

@@ -510,6 +510,7 @@ export const PUBLIC_PATHS = [
   ...SERVICE_AREAS.map((offering) => `/services/${offering.slug}`),
   "/work",
   ...WORK_PROJECTS.map((project) => `/work/${project.slug}`),
+  "/work/private-clinic-website/demo",
   "/solutions",
   ...SOLUTION_AREAS.map((offering) => `/solutions/${offering.slug}`),
   "/about",

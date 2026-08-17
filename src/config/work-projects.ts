@@ -21,22 +21,22 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     title: "Private Clinic Website",
     category: "Healthcare",
     summary:
-      "A calm, trust-focused healthcare experience that makes services, physician expertise, and appointment paths easy to understand.",
+      "An interactive, trust-focused healthcare experience that makes services, specialist discovery, and appointment requests easy to understand.",
     description:
-      "A responsive clinic website concept shaped around patient confidence, clear treatment information, and a direct route to enquiry or appointment.",
+      "A responsive clinic website concept with service discovery, fictional specialist profiles, and a complete front-end appointment request demonstration.",
     businessNeed:
       "A private clinic needs to establish professional trust quickly while helping prospective patients understand available care and take the next step without confusion. The experience must balance warmth, clarity, privacy awareness, and practical contact options across every screen size.",
     approach:
-      "Begin with the questions patients need answered, then structure the experience around services, physician presentation, reassurance, and appointment intent. The interface keeps navigation simple, makes key information easy to scan, and gives the primary action consistent prominence without feeling overly promotional.",
+      "Begin with the questions patients need answered, then structure the experience around services, specialist presentation, reassurance, and appointment intent. The interactive flow validates only the sample contact details needed to demonstrate a request, never asks for health information, and does not transmit or store data.",
     demonstrates: [
-      "Premium healthcare homepage and service hierarchy",
-      "Treatment and consultation discovery",
-      "Professional physician presentation",
-      "Clear appointment and contact pathways",
-      "Trust-focused responsive experience",
-      "Accessible content and interaction structure",
+      "Responsive healthcare homepage and mobile navigation",
+      "Interactive service discovery and selection",
+      "Clearly fictional specialist browsing and profiles",
+      "Six-step appointment request demonstration",
+      "Front-end validation and confirmation state",
+      "Accessible, privacy-conscious interaction design",
     ],
-    capabilities: ["Web development", "UX and content structure", "Responsive design", "Appointment journey"],
+    capabilities: ["Web development", "Healthcare UX", "Interactive forms", "Responsive design", "Accessible front-end"],
     visualDescription:
       "a calm healthcare homepage, consultation cards, physician presentation, and mobile appointment path",
   },
