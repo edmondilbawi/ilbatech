@@ -42,6 +42,9 @@ export function SectionEyebrow({ children }: { children: ReactNode }) {
 export function SiteHeader() {
   return (
     <header className="site-header">
+      <a href="#top" className="skip-link">
+        Skip to main content
+      </a>
       <div className="container nav">
         <Wordmark />
         <nav aria-label="Main navigation" className="desktop-nav">

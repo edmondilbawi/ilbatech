@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { GOOGLE_FORM } from "@/config/google-form";
 import { SITE } from "@/config/site";
 
@@ -274,7 +275,14 @@ export function ContactForm() {
           className="button button--primary"
           disabled={status === "submitting"}
         >
-          {status === "submitting" ? "Sending…" : "Start a Conversation"}
+          {status === "submitting" ? (
+            "Sending…"
+          ) : (
+            <>
+              Start a Conversation
+              <ArrowRight aria-hidden="true" size={17} strokeWidth={1.8} />
+            </>
+          )}
         </button>
         <p
           className={`form-status form-status--${status}`}

@@ -20,13 +20,211 @@ const steps = [["01", "Understand", "Learn how the business works, what matters,
 const expectations = ["Clear communication throughout the conversation", "Practical recommendations connected to business needs", "Transparent discussions about scope and technology", "Professional implementation with attention to the details", "Long-term thinking rather than unnecessary complexity"];
 const solutionQualities = ["Appropriate", "Practical", "Scalable where necessary", "Aligned with the business", "Understandable", "Focused on the actual problem"];
 
-export default function AboutPage() { return <><SiteHeader /><main id="top">
-  <section className="about-hero"><div className="container about-hero-grid"><div><SectionEyebrow>About ITG</SectionEyebrow><h1>Technology starts with <em>understanding.</em></h1><p className="hero-copy">ITG helps businesses make better use of technology by first understanding how the business works, where challenges exist, and where technology can genuinely create value.</p><div className="hero-actions"><Button href="/contact#contact-form">Start a Conversation</Button><Button href="#about-approach" variant="secondary">Explore Our Approach</Button></div></div><div className="about-mark" aria-hidden="true"><span>ITG</span><p>Listen.<br />Think.<br /><i>Then build.</i></p></div></div></section>
-  <section className="who-itg section"><div className="container positioning-grid"><SectionEyebrow>Who is ITG?</SectionEyebrow><div><h2>Business-led technology consulting.</h2><p className="lead">International Technology Group (ITG) helps businesses improve the way they operate through technology. We do not believe in selling services simply for the sake of selling. Instead, we focus on understanding the business and recommending solutions that genuinely fit its needs.</p><a className="text-link" href="#about-approach">How we approach technology <ArrowRight size={16} /></a></div></div></section>
-  <section className="principles section"><div className="container"><div className="section-heading"><div><SectionEyebrow>Our philosophy</SectionEyebrow><h2>How we show up in every conversation.</h2></div><p>Trust is built through clarity, sound judgement, and attention to what the business actually needs.</p></div><div className="principle-grid">{principles.map(([Icon, title, copy], index) => <article key={title}><div className="catalog-top"><span className="number">{String(index + 1).padStart(2, "0")}</span><Icon aria-hidden="true" size={22} strokeWidth={1.5} /></div><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
-  <section className="thinking section"><div className="container"><SectionEyebrow>How ITG thinks</SectionEyebrow><h2>Start with the business, <em>not the technology.</em></h2><div className="thinking-grid"><article className="thinking-card thinking-card--muted"><span>Technology-first</span><blockquote>“Here is what we can build.”</blockquote><p>The conversation begins with a product, platform, or capability.</p></article><div className="thinking-divider" aria-hidden="true">→</div><article className="thinking-card thinking-card--primary"><span>Business-first</span><blockquote>“What is making your business harder to operate, and can technology help?”</blockquote><p>This is where ITG begins: with the business context and the problem worth solving.</p></article></div></div></section>
-  <section id="about-approach" className="process section"><div className="container"><div className="section-heading"><div><SectionEyebrow>Our approach</SectionEyebrow><h2>Clear steps, considered decisions.</h2></div></div><div className="process-grid process-grid--five">{steps.map(([number, title, copy]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
-  <section className="expectations section"><div className="container problems-grid"><div><SectionEyebrow>What to expect</SectionEyebrow><h2>A professional relationship built on clarity.</h2></div><div><p className="lead">Good technology work should feel understandable and considered at every stage. That is the standard we aim to bring to each engagement.</p><ul>{expectations.map(item => <li key={item}><span><Check size={15} /></span>{item}</li>)}</ul></div></div></section>
-  <section className="technology-philosophy"><div className="container technology-philosophy-grid"><div><SectionEyebrow>Technology philosophy</SectionEyebrow><h2>The right solution is not always <em>the biggest solution.</em></h2><p>Technology should simplify business operations rather than create additional complexity. A solution needs to fit the business and make practical sense before it needs to be impressive.</p></div><ul>{solutionQualities.map(item => <li key={item}>{item}</li>)}</ul></div></section>
-  <section className="final-cta"><div className="container"><SectionEyebrow>Start a conversation</SectionEyebrow><h2>Let’s build what your business actually needs.</h2><p>Have a business challenge you&apos;d like to solve? Let&apos;s start by understanding the problem.</p><div className="hero-actions"><Button href="/contact#contact-form">Start a Conversation</Button><Button href="/services" variant="secondary">Explore Services</Button></div></div></section>
-</main><SiteFooter /></>; }
+export default function AboutPage() {
+  return (
+    <>
+      <SiteHeader />
+      <main id="top">
+        <section className="about-hero">
+          <div className="container about-hero-grid">
+            <div>
+              <SectionEyebrow>About ITG</SectionEyebrow>
+              <h1>
+                Technology starts with <em>understanding.</em>
+              </h1>
+              <p className="hero-copy">
+                ITG helps businesses make better use of technology by first
+                understanding how the business works, where challenges exist,
+                and where technology can genuinely create value.
+              </p>
+              <div className="hero-actions">
+                <Button href="/contact#contact-form">Start a Conversation</Button>
+                <Button href="#about-approach" variant="secondary">
+                  Explore Our Approach
+                </Button>
+              </div>
+            </div>
+            <div className="about-mark" aria-hidden="true">
+              <span>ITG</span>
+              <p>
+                Listen.
+                <br />
+                Think.
+                <br />
+                <i>Then build.</i>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="who-itg section">
+          <div className="container positioning-grid">
+            <SectionEyebrow>Who is ITG?</SectionEyebrow>
+            <div>
+              <h2>Business-led technology consulting.</h2>
+              <p className="lead">
+                International Technology Group (ITG) helps businesses improve
+                the way they operate through technology. We do not believe in
+                selling services simply for the sake of selling. Instead, we
+                focus on understanding the business and recommending solutions
+                that genuinely fit its needs.
+              </p>
+              <a className="text-link" href="#about-approach">
+                How we approach technology{" "}
+                <ArrowRight aria-hidden="true" size={16} />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="principles section">
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <SectionEyebrow>Our philosophy</SectionEyebrow>
+                <h2>How we show up in every conversation.</h2>
+              </div>
+              <p>
+                Trust is built through clarity, sound judgement, and attention
+                to what the business actually needs.
+              </p>
+            </div>
+            <div className="principle-grid">
+              {principles.map(([Icon, title, copy], index) => (
+                <article key={title}>
+                  <div className="catalog-top">
+                    <span className="number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon aria-hidden="true" size={22} strokeWidth={1.5} />
+                  </div>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="thinking section">
+          <div className="container">
+            <SectionEyebrow>How ITG thinks</SectionEyebrow>
+            <h2>
+              Start with the business, <em>not the technology.</em>
+            </h2>
+            <div className="thinking-grid">
+              <article className="thinking-card thinking-card--muted">
+                <span>Technology-first</span>
+                <blockquote>“Here is what we can build.”</blockquote>
+                <p>
+                  The conversation begins with a product, platform, or
+                  capability.
+                </p>
+              </article>
+              <div className="thinking-divider" aria-hidden="true">
+                →
+              </div>
+              <article className="thinking-card thinking-card--primary">
+                <span>Business-first</span>
+                <blockquote>
+                  “What is making your business harder to operate, and can
+                  technology help?”
+                </blockquote>
+                <p>
+                  This is where ITG begins: with the business context and the
+                  problem worth solving.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="about-approach" className="process section">
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <SectionEyebrow>Our approach</SectionEyebrow>
+                <h2>Clear steps, considered decisions.</h2>
+              </div>
+            </div>
+            <div className="process-grid process-grid--five">
+              {steps.map(([number, title, copy]) => (
+                <article key={number}>
+                  <span>{number}</span>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="expectations section">
+          <div className="container problems-grid">
+            <div>
+              <SectionEyebrow>What to expect</SectionEyebrow>
+              <h2>A professional relationship built on clarity.</h2>
+            </div>
+            <div>
+              <p className="lead">
+                Good technology work should feel understandable and considered
+                at every stage. That is the standard we aim to bring to each
+                engagement.
+              </p>
+              <ul>
+                {expectations.map((item) => (
+                  <li key={item}>
+                    <span>
+                      <Check aria-hidden="true" size={15} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="technology-philosophy">
+          <div className="container technology-philosophy-grid">
+            <div>
+              <SectionEyebrow>Technology philosophy</SectionEyebrow>
+              <h2>
+                The right solution is not always <em>the biggest solution.</em>
+              </h2>
+              <p>
+                Technology should simplify business operations rather than
+                create additional complexity. A solution needs to fit the
+                business and make practical sense before it needs to be
+                impressive.
+              </p>
+            </div>
+            <ul>
+              {solutionQualities.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="final-cta">
+          <div className="container">
+            <SectionEyebrow>Start a conversation</SectionEyebrow>
+            <h2>Let’s build what your business actually needs.</h2>
+            <p>
+              Have a business challenge you&apos;d like to solve? Let&apos;s
+              start by understanding the problem.
+            </p>
+            <div className="hero-actions">
+              <Button href="/contact#contact-form">Start a Conversation</Button>
+              <Button href="/services" variant="secondary">
+                Explore Services
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

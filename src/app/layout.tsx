@@ -23,5 +23,21 @@ export const metadata: Metadata = {
     description: SITE.description,
     ...(siteUrl ? { url: siteUrl } : {}),
   },
+  twitter: {
+    card: "summary",
+    title: "ITG | Business-led technology consulting",
+    description: SITE.description,
+  },
 };
-export default function RootLayout({ children }: Readonly<{children: React.ReactNode}>) { return <html lang="en" className={`${manrope.variable} ${newsreader.variable}`}><body>{children}</body></html>; }
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${manrope.variable} ${newsreader.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
