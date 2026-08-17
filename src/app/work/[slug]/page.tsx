@@ -34,17 +34,24 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
   const project = getWorkProject((await params).slug);
   if (!project) notFound();
 
-  const isPrivateClinic = project.slug === "private-clinic-website";
+  const interactivePreview =
+    project.slug === "private-clinic-website"
+      ? {
+          href: "/work/private-clinic-website/demo",
+          note: "This concept was created by ILBATECH to demonstrate an approach to modern healthcare digital experiences.",
+        }
+      : project.slug === "cafe-restaurant-website"
+        ? {
+            href: "/work/cafe-restaurant-website/demo",
+            note: "This concept was created by ILBATECH to demonstrate an approach to modern hospitality digital experiences.",
+          }
+        : undefined;
 
   return (
     <ProjectCaseStudy
       project={project}
-      interactiveHref={isPrivateClinic ? "/work/private-clinic-website/demo" : undefined}
-      conceptNote={
-        isPrivateClinic
-          ? "This concept was created by ILBATECH to demonstrate an approach to modern healthcare digital experiences."
-          : undefined
-      }
+      interactiveHref={interactivePreview?.href}
+      conceptNote={interactivePreview?.note}
     />
   );
 }

@@ -45,24 +45,24 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     title: "Café & Restaurant Website",
     category: "Hospitality",
     summary:
-      "A warm, editorial hospitality website that brings the menu, atmosphere, opening details, and visit planning into one mobile-first journey.",
+      "A warm, editorial hospitality experience with interactive menu discovery, practical visit details, and a simple local-only table request demonstration.",
     description:
-      "A visually rich hospitality concept designed to help guests discover the menu, understand the experience, and find the practical details needed to visit.",
+      "A responsive café and restaurant concept where guests can search and filter the menu, explore dish details, understand the atmosphere, and demonstrate a table request without transmitting data.",
     businessNeed:
       "A café or restaurant website needs to communicate atmosphere and offering in seconds, then make practical information effortless to find. Menu discovery, opening times, location, and contact actions matter most on mobile, often when a guest is already deciding where to go.",
     approach:
-      "Use a strong visual rhythm without letting decoration compete with useful information. Menu categories and featured items lead naturally into hours, location, and contact, while a compact mobile navigation keeps the most common guest actions close at hand.",
+      "Use a warm editorial rhythm without letting decoration compete with useful information. Keyboard-friendly categories, active-menu search, dietary indicators, and expandable dish details make discovery practical, while a short table-request flow validates sample details locally and never sends or stores them.",
     demonstrates: [
-      "Editorial hospitality homepage",
-      "Menu categories and featured item presentation",
-      "Opening, location, and contact information",
-      "Mobile-first guest navigation",
-      "Responsive content hierarchy",
-      "Distinctive interface art direction",
+      "Responsive hospitality homepage and mobile navigation",
+      "Keyboard-friendly menu categories and active-menu search",
+      "Dietary filtering, featured items, and expandable dish details",
+      "Simple table-request validation, review, and confirmation states",
+      "Clearly labeled demonstration hours, location, and contact information",
+      "Warm editorial interface across desktop, tablet, and mobile",
     ],
-    capabilities: ["Web development", "Art direction", "Menu experience", "Mobile-first UX"],
+    capabilities: ["Web development", "Hospitality UX", "Interactive menu", "Accessible filtering", "Responsive front-end"],
     visualDescription:
-      "an editorial restaurant homepage, menu categories, featured dishes, and mobile visit information",
+      "a warm editorial restaurant homepage, interactive menu cards, table request interface, and mobile guest journey",
   },
   {
     slug: "premium-ecommerce-store",
