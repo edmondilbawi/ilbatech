@@ -72,3 +72,432 @@ footer{padding:54px 0 20px}.footer-grid{display:grid;gap:38px;padding-bottom:42p
 @media(prefers-reduced-motion:reduce){.work-project-preview-link:hover{transform:none}.work-project-link,.work-project-preview-link,.home-work-projects a{transition:none!important}}
 
 .case-hero-intro .hero-copy{margin-bottom:25px}.case-concept-note{max-width:760px;margin:18px 0 0;color:#aebfc6;font-size:10px;line-height:1.65}.case-hero-intro .button{width:max-content}
+
+/* Phase 9: restrained site-wide motion and premium finish */
+:root {
+  --motion-quick: 160ms;
+  --motion-standard: 280ms;
+  --motion-slow: 620ms;
+  --motion-ease: cubic-bezier(.2,.75,.25,1);
+  --surface-shadow: 0 18px 44px rgba(12,32,51,.09);
+  --surface-shadow-strong: 0 26px 62px rgba(8,25,39,.15);
+}
+
+.site-header {
+  box-shadow: 0 7px 24px rgba(12,32,51,.045);
+}
+
+.desktop-nav a {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-standard) var(--motion-ease);
+}
+
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-cta {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(20,124,122,.28);
+  border-radius: 3px;
+  background: rgba(255,255,255,.68);
+  transition: color var(--motion-quick) ease, border-color var(--motion-quick) ease, background var(--motion-quick) ease, box-shadow var(--motion-standard) ease, transform var(--motion-quick) ease;
+}
+
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  border-color: rgba(20,124,122,.62);
+  background: white;
+  box-shadow: 0 10px 25px rgba(12,32,51,.09);
+  transform: translateY(-1px);
+}
+
+.nav-cta svg,
+.button svg,
+.section-link svg,
+.catalog-link svg,
+.work-project-link svg,
+.case-back-link svg,
+.footer-bottom a svg {
+  transition: transform var(--motion-standard) var(--motion-ease);
+}
+
+.nav-cta:hover svg,
+.nav-cta:focus-visible svg,
+.button:hover svg,
+.button:focus-visible svg,
+.section-link:hover svg,
+.section-link:focus-visible svg,
+.catalog-link:hover svg,
+.catalog-link:focus-visible svg,
+.work-project-link:hover svg,
+.work-project-link:focus-visible svg,
+.footer-bottom a:hover svg,
+.footer-bottom a:focus-visible svg {
+  transform: translateX(3px);
+}
+
+.case-back-link:hover svg,
+.case-back-link:focus-visible svg {
+  transform: translateX(-3px);
+}
+
+.button {
+  position: relative;
+  overflow: hidden;
+  transition: color var(--motion-quick) ease, background var(--motion-quick) ease, border-color var(--motion-quick) ease, box-shadow var(--motion-standard) ease, transform var(--motion-quick) ease;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,transparent 20%,rgba(255,255,255,.2) 48%,transparent 76%);
+  transform: translateX(-115%);
+  transition: transform 520ms var(--motion-ease);
+  pointer-events: none;
+}
+
+.button:hover,
+.button:focus-visible {
+  box-shadow: 0 13px 28px rgba(12,32,51,.14);
+  transform: translateY(-2px);
+}
+
+.button:hover::before,
+.button:focus-visible::before {
+  transform: translateX(115%);
+}
+
+.button:active,
+.nav-cta:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.services-hero,
+.contact-hero,
+.detail-hero,
+.work-hero,
+.case-hero,
+.not-found-panel {
+  background-color: var(--navy);
+  background-image: radial-gradient(circle at 86% 18%,rgba(20,124,122,.19),transparent 28%),linear-gradient(135deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size: auto,58px 58px;
+}
+
+.about-hero {
+  background-image: radial-gradient(circle at 82% 22%,rgba(20,124,122,.12),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.48),transparent 44%);
+}
+
+.catalog-card,
+.principle-grid article,
+.contact-steps-grid article,
+.related-grid article,
+.service-card,
+.home-process-grid li,
+.contact-card,
+.email-card,
+.contact-form {
+  transition: border-color var(--motion-standard) ease, box-shadow var(--motion-standard) var(--motion-ease), transform var(--motion-standard) var(--motion-ease), background var(--motion-standard) ease;
+}
+
+.catalog-card:hover,
+.catalog-card:focus-within,
+.principle-grid article:hover,
+.contact-steps-grid article:hover,
+.related-grid article:hover,
+.related-grid article:focus-within,
+.service-card:hover,
+.service-card:focus-within,
+.home-process-grid li:hover,
+.contact-card:hover,
+.contact-card:focus-within,
+.email-card:hover,
+.email-card:focus-within {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(20,124,122,.34);
+  background: #fff;
+  box-shadow: var(--surface-shadow);
+  transform: translateY(-4px);
+}
+
+.contact-form:focus-within {
+  border-color: rgba(20,124,122,.34);
+  box-shadow: var(--surface-shadow);
+}
+
+.work-project {
+  position: relative;
+  padding-bottom: 0;
+}
+
+.work-project:not(:last-child) {
+  padding-bottom: 70px;
+}
+
+.work-project:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg,transparent,var(--line) 12%,var(--line) 88%,transparent);
+}
+
+.work-project-list {
+  gap: 50px;
+}
+
+.work-project-preview-link {
+  border-radius: 2px;
+}
+
+.work-project-preview-link .preview-browser,
+.work-project-preview-link .preview-phone {
+  transition: transform 440ms var(--motion-ease), box-shadow 440ms var(--motion-ease);
+}
+
+.work-project-preview-link:hover .preview-browser,
+.work-project-preview-link:focus-visible .preview-browser {
+  transform: translateY(-3px);
+  box-shadow: 0 34px 66px rgba(22,43,55,.24);
+}
+
+.work-project-preview-link:hover .preview-phone,
+.work-project-preview-link:focus-visible .preview-phone {
+  transform: translate(-3px,-5px);
+  box-shadow: 0 26px 46px rgba(9,25,38,.34);
+}
+
+.project-preview {
+  transition: box-shadow 440ms var(--motion-ease), filter 440ms var(--motion-ease);
+}
+
+.case-hero .project-preview--detail {
+  box-shadow: 0 32px 72px rgba(3,14,24,.28);
+}
+
+.case-demo-entry {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+}
+
+.case-demo-entry > p {
+  max-width: 330px;
+  margin: 0;
+  color: #9fb3bc;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.case-demo-entry .button {
+  box-shadow: 0 15px 34px rgba(1,13,22,.2);
+}
+
+.case-technology,
+.work-signal,
+.detail-signal,
+.home-work-projects,
+.home-hero-visual {
+  box-shadow: var(--surface-shadow-strong);
+}
+
+.home-technology-core::after {
+  animation-iteration-count: 1;
+}
+
+.home-signal--need,
+.home-signal--outcome {
+  animation: polish-settle 760ms var(--motion-ease) both;
+}
+
+.home-signal--outcome {
+  animation-delay: 140ms;
+}
+
+.mobile-menu summary {
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: color var(--motion-quick) ease, border-color var(--motion-quick) ease, background var(--motion-quick) ease;
+}
+
+.mobile-menu summary:hover,
+.mobile-menu summary:focus-visible,
+.mobile-menu[open] summary {
+  border-color: var(--line);
+  background: var(--mist);
+  color: var(--teal);
+}
+
+.mobile-menu[open] nav {
+  transform-origin: top right;
+  animation: polish-menu 180ms var(--motion-ease) both;
+}
+
+.mobile-menu nav a {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.footer-grid nav a,
+.footer-email,
+.footer-whatsapp,
+.footer-bottom a {
+  transition: color var(--motion-quick) ease, transform var(--motion-quick) ease;
+}
+
+.footer-grid nav a:hover,
+.footer-grid nav a:focus-visible,
+.footer-email:hover,
+.footer-email:focus-visible,
+.footer-whatsapp:hover,
+.footer-whatsapp:focus-visible {
+  transform: translateX(3px);
+}
+
+@keyframes polish-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes polish-settle {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes polish-menu {
+  from { opacity: 0; transform: translateY(-7px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes polish-view-reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.services-hero .container > *,
+.contact-hero .container > *,
+.work-hero-grid > *,
+.about-hero-grid > *,
+.detail-hero-grid > *,
+.not-found-grid > * {
+  animation: polish-enter var(--motion-slow) var(--motion-ease) both;
+}
+
+.services-hero .hero-copy,
+.contact-hero .hero-copy,
+.work-hero-grid > :nth-child(2),
+.about-hero-grid > :nth-child(2),
+.detail-hero-grid > :nth-child(2),
+.not-found-grid > :nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.case-back-link,
+.case-hero-copy,
+.case-hero .project-preview--detail,
+.case-concept-note {
+  animation: polish-enter var(--motion-slow) var(--motion-ease) both;
+}
+
+.case-hero-copy { animation-delay: 70ms; }
+.case-hero .project-preview--detail { animation-delay: 150ms; }
+.case-concept-note { animation-delay: 210ms; }
+
+@supports (animation-timeline: view()) {
+  .section-heading,
+  .work-project,
+  .case-story article,
+  .case-demonstrates-grid > *,
+  .case-visual-grid > *,
+  .home-capability-card,
+  .home-process-grid li,
+  .catalog-card,
+  .principle-grid article,
+  .contact-steps-grid article {
+    animation: polish-view-reveal both var(--motion-ease);
+    animation-timeline: view();
+    animation-range: entry 7% cover 25%;
+  }
+}
+
+@media (max-width: 719px) {
+  .work-project {
+    padding-bottom: 0;
+  }
+
+  .work-project:not(:last-child) {
+    padding-bottom: 44px;
+  }
+
+  .work-project-list {
+    gap: 28px;
+  }
+
+  .case-demo-entry,
+  .case-demo-entry .button {
+    width: 100%;
+  }
+
+  .case-demo-entry > p {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .nav-cta:hover,
+  .nav-cta:focus-visible,
+  .catalog-card:hover,
+  .catalog-card:focus-within,
+  .principle-grid article:hover,
+  .contact-steps-grid article:hover,
+  .related-grid article:hover,
+  .related-grid article:focus-within,
+  .service-card:hover,
+  .service-card:focus-within,
+  .home-process-grid li:hover,
+  .contact-card:hover,
+  .contact-card:focus-within,
+  .email-card:hover,
+  .email-card:focus-within,
+  .work-project-preview-link:hover .preview-browser,
+  .work-project-preview-link:focus-visible .preview-browser,
+  .work-project-preview-link:hover .preview-phone,
+  .work-project-preview-link:focus-visible .preview-phone {
+    transform: none !important;
+  }
+}

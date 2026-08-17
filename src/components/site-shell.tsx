@@ -55,7 +55,7 @@ export function SiteHeader() {
           <a href={getSitePath("/contact")}>Contact</a>
         </nav>
         <a className="nav-cta" href={getContactPath()}>
-          Start a conversation
+          Start a Conversation
           <ChevronRight aria-hidden="true" size={16} />
         </a>
         <MobileNavigation />

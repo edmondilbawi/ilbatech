@@ -36,7 +36,10 @@ export function ProjectCaseStudy({
               <div className="case-hero-intro">
                 <p className="hero-copy">{project.description}</p>
                 {interactiveHref && (
-                  <Button href={interactiveHref}>Try the Experience</Button>
+                  <div className="case-demo-entry">
+                    <Button href={interactiveHref}>Try the Experience</Button>
+                    <p>Opens the front-end concept in a dedicated demo view.</p>
+                  </div>
                 )}
               </div>
             </div>
