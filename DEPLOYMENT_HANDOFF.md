@@ -53,6 +53,7 @@ Top-level routes:
 
 - `/`
 - `/services/`
+- `/work/`
 - `/solutions/`
 - `/about/`
 - `/contact/`

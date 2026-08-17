@@ -60,8 +60,8 @@ export function MobileNavigation() {
         <a href={getSitePath("/services")} onClick={closeMenu}>
           Services
         </a>
-        <a href={getSitePath("/solutions")} onClick={closeMenu}>
-          Solutions
+        <a href={getSitePath("/work")} onClick={closeMenu}>
+          Work
         </a>
         <a href={getSitePath("/about")} onClick={closeMenu}>
           About

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Check, Mail, MessageCircleMore, SearchCheck, Send } from "lucide-react";
+import { Mail, MessageCircleMore, SearchCheck, Send } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
 import { SITE } from "@/config/site";
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 };
 
 const nextSteps = [[MessageCircleMore, "Tell us about the challenge", "Share what is making your business harder to operate—whether or not you know what technology might help."], [SearchCheck, "We understand & analyze", "ILBATECH reviews the situation and considers where technology may create genuine value."], [Send, "We recommend the right approach", "If technology can help, we recommend an appropriate direction based on the actual business need."]] as const;
-const principles = ["No unnecessary solutions", "No overpromising", "Clear communication", "Business-first recommendations", "Long-term relationships"];
 
 export default function ContactPage() {
   return (
@@ -98,36 +97,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="contact-trust">
-          <div className="container contact-trust-grid">
-            <div>
-              <SectionEyebrow>What guides the conversation</SectionEyebrow>
-              <h2>Clarity before complexity.</h2>
-            </div>
-            <ul>
-              {principles.map((item) => (
-                <li key={item}>
-                  <span>
-                    <Check aria-hidden="true" size={15} />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="final-cta">
-          <div className="container">
-            <SectionEyebrow>Not sure where to start?</SectionEyebrow>
-            <h2>That&apos;s exactly where a conversation can help.</h2>
-            <p>
-              You don&apos;t need to have the technical answer. Start by telling
-              us about the business problem.
-            </p>
-            <Button href="#contact-form">Start a Conversation</Button>
-          </div>
-        </section>
       </main>
       <SiteFooter />
     </>

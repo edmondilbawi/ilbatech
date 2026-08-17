@@ -14,13 +14,6 @@ const problems = [
   "Processes that have become harder to manage as the business evolves",
 ];
 
-const process = [
-  ["01", "Understand", "We start by listening: your objectives, constraints, teams, and the work that needs to improve."],
-  ["02", "Clarify", "Together, we identify the problem worth solving and define what a valuable outcome looks like."],
-  ["03", "Recommend", "We shape a clear, considered technology path based on fit, not fashion."],
-  ["04", "Move forward", "You leave with practical direction and the confidence to take the next step."],
-];
-
 export default function Home() {
   return (
     <>
@@ -40,7 +33,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <Button href="/contact#contact-form">Start a Conversation</Button>
-                <Button href="/solutions" variant="secondary">Explore Solutions</Button>
+                <Button href="/work" variant="secondary">View Our Work</Button>
               </div>
             </div>
             <div className="hero-art" aria-hidden="true">
@@ -67,7 +60,7 @@ export default function Home() {
                 conversation—helping leaders make considered decisions with a
                 clear purpose.
               </p>
-              <a className="text-link" href="#approach">
+              <a className="text-link" href={getSitePath("/about")}>
                 How we work <ArrowRight aria-hidden="true" size={16} />
               </a>
             </div>
@@ -125,52 +118,6 @@ export default function Home() {
               </ul>
               <a className="inverse-link" href={getSitePath("/solutions")}>
                 Explore business solutions <ArrowRight aria-hidden="true" size={16} />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section id="approach" className="process section">
-          <div className="container">
-            <div className="section-heading">
-              <div>
-                <SectionEyebrow>The ILBATECH process</SectionEyebrow>
-                <h2>A considered path from question to clarity.</h2>
-              </div>
-            </div>
-            <div className="process-grid">
-              {process.map(([number, title, copy]) => (
-                <article key={number}>
-                  <span>{number}</span>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="why-itg" className="why section">
-          <div className="container why-grid">
-            <div className="why-visual">
-              <span>ILBATECH</span>
-              <p>Business<br />before<br /><i>technology.</i></p>
-            </div>
-            <div>
-              <SectionEyebrow>Why ILBATECH</SectionEyebrow>
-              <h2>Advice that stays anchored in what matters.</h2>
-              <p className="lead">
-                The right answer is not always the newest platform or the most
-                elaborate solution. Our role is to help you see the opportunity
-                clearly and choose technology that supports the way your business
-                needs to move.
-              </p>
-              <div className="principle-summary">
-                <div><strong>Business-led</strong><p>Every recommendation begins with the business case.</p></div>
-                <div><strong>Clear-minded</strong><p>We make complex decisions easier to navigate.</p></div>
-              </div>
-              <a className="text-link" href={getSitePath("/about")}>
-                Learn about ILBATECH <ArrowRight aria-hidden="true" size={16} />
               </a>
             </div>
           </div>

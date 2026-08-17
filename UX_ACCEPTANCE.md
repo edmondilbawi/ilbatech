@@ -9,12 +9,12 @@ This inventory defines the intended destination and business purpose of the webs
 | Header wordmark | ILBATECH | Home | Return to the primary conversion page | Implemented |
 | Desktop/mobile navigation | Home | Home | Establish a predictable route to the starting point | Implemented |
 | Desktop/mobile navigation | Services | Services index | Explore delivery capabilities | Implemented |
-| Desktop/mobile navigation | Solutions | Solutions index | Explore business problems and outcomes | Implemented |
+| Desktop/mobile navigation | Work | Selected Work | Explore concept work and demonstrated capabilities | Implemented |
 | Desktop/mobile navigation | About | About | Build confidence in ILBATECH’s philosophy and approach | Implemented |
 | Desktop/mobile navigation | Contact | Contact | Reach the enquiry route | Implemented |
 | Header/mobile CTA | Start a Conversation | Contact form | Primary commercial action | Implemented |
 | Mobile menu summary | Toggle navigation menu | Opens/closes mobile navigation | Make all primary routes available on small screens | Implemented |
-| Footer Explore links | Services / Solutions / About / Contact | Corresponding top-level routes | Provide recovery and onward navigation | Implemented |
+| Footer Explore links | Services / Work / Solutions / About / Contact | Corresponding top-level routes | Provide recovery and onward navigation, including supporting Solutions content | Implemented |
 | Footer service links | Four service families | Corresponding service detail routes | Continue into a relevant capability area | Implemented |
 | Footer email | edmondilbawi@gmail.com | `mailto:` action | Provide a direct contact fallback | Implemented |
 | Footer WhatsApp | +961 81 958 984 | `https://wa.me/96181958984` | Provide a direct messaging path | Implemented |
@@ -25,13 +25,21 @@ This inventory defines the intended destination and business purpose of the webs
 | Element | Label | Final destination | Business purpose | Status |
 | --- | --- | --- | --- | --- |
 | Hero primary CTA | Start a Conversation | Contact form | Convert an interested visitor into an enquiry | Implemented |
-| Hero secondary CTA | Explore Solutions | Solutions index | Continue by business problem | Implemented |
-| Point-of-view link | How we work | Home process section | Explain ILBATECH’s method without leaving the page | Implemented |
+| Hero secondary CTA | View Our Work | Selected Work | Continue into demonstrated capabilities | Implemented |
+| Point-of-view link | How we work | About | Continue into ILBATECH’s approach | Implemented |
 | Four service-card links | Explore service | Matching service detail route | Move from overview to substantive service information | Implemented |
 | Services utility link | View all services | Services index | Review the complete service catalog | Implemented |
 | Problem-section link | Explore business solutions | Solutions index | Move from pain point to outcome-based paths | Implemented |
-| Why ILBATECH link | Learn about ILBATECH | About | Build trust through philosophy and approach | Implemented |
 | Final CTA | Start a Conversation | Contact form | Provide a clear final conversion action | Implemented |
+
+## Work
+
+| Element | Label | Final destination | Business purpose | Status |
+| --- | --- | --- | --- | --- |
+| Hero primary CTA | Explore Services | Services index | Connect demonstrated capability to the service offering | Implemented |
+| Hero secondary CTA | Start a Conversation | Contact form | Convert interest into an enquiry | Implemented |
+| Concept-work disclosure | Concept work | Current page | Distinguish independent concepts from commissioned client work | Implemented |
+| Final CTA | Start a Conversation | Contact form | Convert after reviewing the capability focus | Implemented |
 
 ## Services
 

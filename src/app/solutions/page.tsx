@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import {
-  ArrowDown,
   ArrowRight,
   BarChart3,
   Bot,
@@ -43,23 +42,6 @@ const problems = [
   [Bot, "Digital modernization", "Manual or aging ways of working can make it difficult to adapt with confidence.", "The business may struggle to improve without adding more complexity.", "We create a practical path from the current reality to more effective digital systems.", "digital-transformation"],
 ] as const;
 
-const flow = [
-  ["Problem", "Understand what is actually happening."],
-  ["Analysis", "Identify inefficiencies, limitations, and opportunities."],
-  ["Recommendation", "Determine whether technology can genuinely create value."],
-  ["Solution", "Recommend the appropriate technology."],
-  ["Implementation", "Build and implement the solution."],
-  ["Improvement", "Evaluate and improve over time."],
-];
-
-const consultingSteps = [
-  ["01", "Understand", "Learn how the business works and what needs to improve."],
-  ["02", "Analyze", "Examine the underlying problem, context, and constraints."],
-  ["03", "Recommend", "Identify the most appropriate path—not simply the most technical one."],
-  ["04", "Implement", "Put the agreed solution into practical use."],
-  ["05", "Improve", "Keep attention on what can work better over time."],
-];
-
 export default function SolutionsPage() {
   return (
     <>
@@ -82,20 +64,6 @@ export default function SolutionsPage() {
             </div>
             <div className="solution-signal" aria-hidden="true">
               <span>01</span><div /><span>Business<br />clarity</span><i />
-            </div>
-          </div>
-        </section>
-
-        <section className="solutions-intro section">
-          <div className="container positioning-grid">
-            <SectionEyebrow>What we solve</SectionEyebrow>
-            <div>
-              <h2>Technology is most valuable when it responds to a real business need.</h2>
-              <p className="lead">
-                We do not begin with a product or platform. We begin by
-                understanding what is making the business harder to operate, then
-                explore the outcome-focused path that best fits the situation.
-              </p>
             </div>
           </div>
         </section>
@@ -148,57 +116,6 @@ export default function SolutionsPage() {
                     Explore the solution <ArrowRight aria-hidden="true" size={16} />
                   </a>
                 </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="method section">
-          <div className="container">
-            <div className="section-heading">
-              <div>
-                <SectionEyebrow>From problem to progress</SectionEyebrow>
-                <h2>A method that keeps the business need in view.</h2>
-              </div>
-              <p>Technology is considered only when it can genuinely support a better way of operating.</p>
-            </div>
-            <div className="solution-flow">
-              {flow.map(([title, copy], index) => (
-                <div className="flow-step" key={title}>
-                  <div><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></div>
-                  {index < flow.length - 1 && <ArrowDown className="flow-arrow" aria-hidden="true" size={21} />}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="right-solution">
-          <div className="container right-solution-grid">
-            <p className="right-solution-mark">ILBATECH</p>
-            <div>
-              <SectionEyebrow>Our philosophy</SectionEyebrow>
-              <h2>The right solution, <em>not the most complicated one.</em></h2>
-              <p>
-                The best solution is not necessarily the biggest, newest, or most
-                expensive technology. It is the one that fits the business,
-                simplifies the operation, and has a clear reason to exist.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="process section">
-          <div className="container">
-            <div className="section-heading">
-              <div>
-                <SectionEyebrow>The ILBATECH consulting approach</SectionEyebrow>
-                <h2>Clear steps, considered decisions.</h2>
-              </div>
-            </div>
-            <div className="process-grid process-grid--five">
-              {consultingSteps.map(([number, title, copy]) => (
-                <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>
               ))}
             </div>
           </div>

@@ -22,7 +22,7 @@ The Pages workflow is defined in `.github/workflows/deploy-pages.yml`. It instal
 - Static export via `output: "export"`
 - Directory-style routes via `trailingSlash: true`
 
-The website has five top-level routes plus four service details, four solution details, and a custom static 404. Detail routes are generated at build time from the centralized offering data in `src/config/offerings.ts`.
+The website has six top-level routes plus four service details, four solution details, and a custom static 404. The primary navigation is Home, Services, Work, About, and Contact; Solutions remains available as supporting problem-led content and through existing deep links. Detail routes are generated at build time from the centralized offering data in `src/config/offerings.ts`.
 
 ## Local Development
 

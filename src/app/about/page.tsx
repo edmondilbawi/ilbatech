@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, Check, Eye, Handshake, Lightbulb, Scale, ShieldCheck } from "lucide-react";
+import { Check, Eye, Handshake, Lightbulb, Scale, ShieldCheck } from "lucide-react";
 import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
 
 export const metadata: Metadata = {
@@ -18,8 +18,6 @@ const principles = [
 
 const steps = [["01", "Understand", "Learn how the business works, what matters, and where challenges are being felt."], ["02", "Analyze", "Look beneath the surface to identify inefficiencies, limitations, and opportunities."], ["03", "Recommend", "Set out a technology path only where it has a clear reason to create value."], ["04", "Implement", "Put the agreed solution into practice with professional care and clear communication."], ["05", "Improve", "Keep the focus on what can work better as needs and circumstances evolve."]];
 const expectations = ["Clear communication throughout the conversation", "Practical recommendations connected to business needs", "Transparent discussions about scope and technology", "Professional implementation with attention to the details", "Long-term thinking rather than unnecessary complexity"];
-const solutionQualities = ["Appropriate", "Practical", "Scalable where necessary", "Aligned with the business", "Understandable", "Focused on the actual problem"];
-
 export default function AboutPage() {
   return (
     <>
@@ -53,26 +51,6 @@ export default function AboutPage() {
                 <br />
                 <i>Then build.</i>
               </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="who-itg section">
-          <div className="container positioning-grid">
-            <SectionEyebrow>Who is ILBATECH?</SectionEyebrow>
-            <div>
-              <h2>Business-led technology consulting.</h2>
-              <p className="lead">
-                ILBATECH helps businesses improve
-                the way they operate through technology. We do not believe in
-                selling services simply for the sake of selling. Instead, we
-                focus on understanding the business and recommending solutions
-                that genuinely fit its needs.
-              </p>
-              <a className="text-link" href="#about-approach">
-                How we approach technology{" "}
-                <ArrowRight aria-hidden="true" size={16} />
-              </a>
             </div>
           </div>
         </section>
@@ -182,28 +160,6 @@ export default function AboutPage() {
                 ))}
               </ul>
             </div>
-          </div>
-        </section>
-
-        <section className="technology-philosophy">
-          <div className="container technology-philosophy-grid">
-            <div>
-              <SectionEyebrow>Technology philosophy</SectionEyebrow>
-              <h2>
-                The right solution is not always <em>the biggest solution.</em>
-              </h2>
-              <p>
-                Technology should simplify business operations rather than
-                create additional complexity. A solution needs to fit the
-                business and make practical sense before it needs to be
-                impressive.
-              </p>
-            </div>
-            <ul>
-              {solutionQualities.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
           </div>
         </section>
 
