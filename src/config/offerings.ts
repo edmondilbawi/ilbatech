@@ -1,4 +1,5 @@
 import { GOOGLE_FORM } from "@/config/google-form";
+import { WORK_PROJECTS } from "@/config/work-projects";
 
 type GoogleService = (typeof GOOGLE_FORM.serviceOptions)[number];
 
@@ -79,6 +80,16 @@ export const SERVICE_AREAS: Offering[] = [
         description: "Connect the customer-facing experience to the operation behind it.",
         href: "/services/business-systems-and-consulting",
       },
+      {
+        title: "Private Clinic Website Concept",
+        description: "See a trust-focused healthcare website direction in Selected Work.",
+        href: "/work/private-clinic-website",
+      },
+      {
+        title: "Café & Restaurant Website Concept",
+        description: "See a mobile-first hospitality website direction in Selected Work.",
+        href: "/work/cafe-restaurant-website",
+      },
     ],
   },
   {
@@ -134,6 +145,11 @@ export const SERVICE_AREAS: Offering[] = [
         title: "Automation & AI",
         description: "Consider where repeatable work can be simplified alongside software.",
         href: "/services/automation-and-ai",
+      },
+      {
+        title: "Premium E-Commerce Store Concept",
+        description: "See product discovery and shopping UX applied in Selected Work.",
+        href: "/work/premium-ecommerce-store",
       },
     ],
   },
@@ -191,6 +207,11 @@ export const SERVICE_AREAS: Offering[] = [
         description: "See when a purpose-built application may support the workflow.",
         href: "/services/software-and-applications",
       },
+      {
+        title: "Operations Dashboard Concept",
+        description: "See workflow automation and assisted actions applied in Selected Work.",
+        href: "/work/business-operations-dashboard",
+      },
     ],
   },
   {
@@ -246,6 +267,11 @@ export const SERVICE_AREAS: Offering[] = [
         title: "Operational Systems",
         description: "See how connected information can improve control and coordination.",
         href: "/solutions/operational-systems",
+      },
+      {
+        title: "Operations Dashboard Concept",
+        description: "See an operational system interface applied in Selected Work.",
+        href: "/work/business-operations-dashboard",
       },
     ],
   },
@@ -483,6 +509,7 @@ export const PUBLIC_PATHS = [
   "/services",
   ...SERVICE_AREAS.map((offering) => `/services/${offering.slug}`),
   "/work",
+  ...WORK_PROJECTS.map((project) => `/work/${project.slug}`),
   "/solutions",
   ...SOLUTION_AREAS.map((offering) => `/solutions/${offering.slug}`),
   "/about",

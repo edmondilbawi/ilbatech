@@ -13,6 +13,7 @@ import {
   SiteHeader,
 } from "@/components/site-shell";
 import { getSitePath, SITE } from "@/config/site";
+import { WORK_PROJECTS } from "@/config/work-projects";
 
 const capabilities = [
   {
@@ -165,22 +166,25 @@ export default function Home() {
               </a>
             </div>
 
-            <aside className="home-work-preview" aria-label="Selected Work direction">
-              <div className="home-work-preview-top">
-                <span>Concept project space</span>
+            <nav className="home-work-projects" aria-label="Selected concept projects">
+              <div className="home-work-projects-top">
+                <span>Concept Project</span>
                 <span>ILBATECH / Work</span>
               </div>
-              <div className="home-work-preview-center">
-                <span>Business need</span>
-                <strong>Considered digital direction</strong>
+              <div>
+                {WORK_PROJECTS.map((project, index) => (
+                  <a
+                    href={getSitePath(`/work/${project.slug}`)}
+                    key={project.slug}
+                  >
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{project.title}</strong>
+                    <small>{project.category}</small>
+                    <ArrowRight aria-hidden="true" size={16} />
+                  </a>
+                ))}
               </div>
-              <div className="home-work-preview-focus">
-                <span>Web</span>
-                <span>Products</span>
-                <span>Systems</span>
-                <span>Automation</span>
-              </div>
-            </aside>
+            </nav>
           </div>
         </section>
 
