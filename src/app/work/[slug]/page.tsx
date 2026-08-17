@@ -45,7 +45,12 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
             href: "/work/cafe-restaurant-website/demo",
             note: "This concept was created by ILBATECH to demonstrate an approach to modern hospitality digital experiences.",
           }
-        : undefined;
+        : project.slug === "premium-ecommerce-store"
+          ? {
+              href: "/work/premium-ecommerce-store/demo",
+              note: "This concept was created by ILBATECH to demonstrate an approach to modern digital commerce experiences.",
+            }
+          : undefined;
 
   return (
     <ProjectCaseStudy

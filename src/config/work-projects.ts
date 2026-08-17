@@ -69,24 +69,24 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     title: "Premium E-Commerce Store",
     category: "E-Commerce",
     summary:
-      "A refined storefront concept that supports collection browsing, product discovery, product detail, and a clear cart path.",
+      "A premium interactive storefront with product discovery, configurable product details, a local cart, and a safe checkout demonstration.",
     description:
-      "A responsive commerce experience that uses restrained presentation and purposeful interaction to make products easier to discover and evaluate.",
+      "A responsive commerce concept where shoppers can search and sort a coherent collection, choose product finishes, manage a local cart, and explore checkout UX without submitting an order or payment.",
     businessNeed:
-      "A premium online store must express product quality while keeping shopping decisions straightforward. Customers need to move easily from collection discovery to product detail and cart, with useful information and clear interaction patterns on desktop and mobile.",
+      "Modern retailers need strong product presentation, easy discovery, clear product information, and a low-friction path from browsing to purchase intent. Those decisions must remain equally clear on mobile, where product comparison, variant selection, and cart management happen in limited space.",
     approach:
-      "Build the visual system around product discovery rather than decoration alone. Collections create orientation, product cards support comparison, and the detail experience gives imagery, options, information, and cart action an intentional hierarchy.",
+      "Shape an original editorial retail identity around a coherent collection, then connect keyboard-friendly categories, search, refinements, and sorting to focused product details. Variant and quantity choices flow into a session-only cart and lightweight checkout demonstration that requests no payment data and never submits or stores an order.",
     demonstrates: [
-      "Premium storefront and collection structure",
-      "Product search and discovery patterns",
-      "Product detail presentation",
-      "Cart interaction concept",
-      "Responsive shopping navigation",
-      "Commerce-focused component system",
+      "Responsive premium storefront and mobile shopping navigation",
+      "Product search, category filtering, refinements, and sorting",
+      "Product detail presentation with finish and quantity selection",
+      "Local favorites, Add to Cart, quantity, removal, and subtotal interactions",
+      "Cart review and safe checkout UX demonstration",
+      "Accessible commerce controls across desktop, tablet, and mobile",
     ],
-    capabilities: ["E-commerce UX", "Product discovery", "Interface systems", "Responsive front-end"],
+    capabilities: ["E-commerce UX", "Product discovery", "Product configuration", "Local cart interactions", "Responsive front-end"],
     visualDescription:
-      "a premium storefront, product collection, product detail area, and mobile shopping path",
+      "a minimal editorial storefront, coherent design-object catalog, product-detail interface, local cart, and mobile shopping path",
   },
   {
     slug: "business-operations-dashboard",

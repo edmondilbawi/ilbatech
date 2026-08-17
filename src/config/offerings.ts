@@ -512,6 +512,7 @@ export const PUBLIC_PATHS = [
   ...WORK_PROJECTS.map((project) => `/work/${project.slug}`),
   "/work/private-clinic-website/demo",
   "/work/cafe-restaurant-website/demo",
+  "/work/premium-ecommerce-store/demo",
   "/solutions",
   ...SOLUTION_AREAS.map((offering) => `/solutions/${offering.slug}`),
   "/about",
