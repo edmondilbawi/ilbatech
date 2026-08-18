@@ -30,7 +30,6 @@ jobs:
           cache: npm
 
       - name: Configure GitHub Pages
-        id: pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
@@ -42,8 +41,7 @@ jobs:
       - name: Build static export
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          NEXT_PUBLIC_SITE_URL: https://edmondilbawi.github.io/ilbatech
+          NEXT_PUBLIC_SITE_URL: https://ilbatech.com
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

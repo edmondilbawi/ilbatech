@@ -14,10 +14,12 @@ export const metadata: Metadata = {
   title: "Selected Work",
   description:
     "Explore four ILBATECH concept projects demonstrating practical approaches to healthcare, hospitality, e-commerce, business systems, and automation.",
+  alternates: { canonical: "/work/" },
   openGraph: {
     title: "Selected Work | ILBATECH",
     description:
       "Interface-led concept work demonstrating practical, business-focused design and technology thinking.",
+    url: "/work/",
   },
 };
 

@@ -19,9 +19,11 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "Explore ILBATECH services for websites, commerce, software, applications, automation, AI, business systems, and technology consulting.",
+  alternates: { canonical: "/services/" },
   openGraph: {
     title: "Services | ILBATECH",
     description: "Technology services built around the way your business needs to work.",
+    url: "/services/",
   },
 };
 

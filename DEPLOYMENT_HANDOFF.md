@@ -6,9 +6,9 @@
 - Repository: `ilbatech`
 - Remote: `https://github.com/edmondilbawi/ilbatech.git`
 - Branch: `main`
-- Production URL: `https://edmondilbawi.github.io/ilbatech/`
+- Production URL: `https://ilbatech.com/`
 - Visibility: public
-- Custom domain: intentionally not configured
+- Custom domain: `ilbatech.com` (configured in GitHub Pages settings)
 
 Do not create a second repository or deploy this project to another provider.
 
@@ -18,13 +18,13 @@ The Next.js App Router application is a fully static export:
 
 - `output: "export"`
 - `trailingSlash: true`
-- production `basePath: "/ilbatech"`
-- production `assetPrefix: "/ilbatech"`
+- no production `basePath`
+- no production `assetPrefix`
 - generated directory: `out/` (ignored by Git)
 
-`NEXT_PUBLIC_BASE_PATH` can override the default project path. The Pages workflow uses the verified `base_path` output from `actions/configure-pages`, so internal Next.js assets and source-generated links share the same repository path.
+The application and exported assets resolve from the custom-domain root. `NEXT_PUBLIC_SITE_URL` can override the default production URL; the workflow sets it to `https://ilbatech.com` for metadata, canonical and Open Graph context, `robots.txt`, and `sitemap.xml`.
 
-`NEXT_PUBLIC_SITE_URL` can override the default production URL. The current default is the authorized GitHub Pages project URL and is used by root metadata, Open Graph context, `robots.txt`, and `sitemap.xml`.
+The custom domain is maintained by the GitHub Pages environment. The current Actions artifact does not require a tracked `CNAME` file, and DNS remains external to this repository.
 
 ## GitHub Actions
 
@@ -123,26 +123,24 @@ The final GitHub Pages acceptance requires exactly one new controlled submission
 
 After a successful Pages deployment:
 
-1. Open every route directly under `/ilbatech/` and refresh it.
-2. Verify CSS, JavaScript, fonts, favicon, and static assets load from the project path.
+1. Open every route directly under `https://ilbatech.com/` and refresh it.
+2. Verify CSS, JavaScript, fonts, favicon, and static assets load from the domain root.
 3. Test desktop and mobile navigation, all catalog/detail actions, contextual Contact selection, footer actions, `mailto:`, and 404 recovery.
 4. Test representative widths `375`, `430`, `768`, `1024`, `1366`, and `1536` without horizontal overflow.
 5. Inspect browser console, exceptions, network failures, keyboard focus, labels, headings, and accessible control names.
-6. Verify production `robots.txt` and `sitemap.xml` reference the GitHub Pages URL.
+6. Verify production `robots.txt` and `sitemap.xml` reference `https://ilbatech.com`.
 7. Send exactly one authorized production Google Forms test and record its timestamp and identity.
 
 The full action map is maintained in `UX_ACCEPTANCE.md`.
 
-## Future Custom Domain
+## Custom-Domain Maintenance
 
-When a domain is purchased and explicitly authorized:
+The custom domain has been explicitly authorized and configured. For future maintenance:
 
-1. configure and verify DNS;
-2. set the GitHub Pages custom domain;
-3. enable HTTPS;
-4. update `NEXT_PUBLIC_SITE_URL`;
-5. set `NEXT_PUBLIC_BASE_PATH` to empty if the site moves to the domain root, which also removes the project-path asset prefix;
-6. revalidate metadata, Open Graph, robots, sitemap, routes, assets, and the contact pipeline;
-7. update documentation with the final URL.
+1. preserve `ilbatech.com` in GitHub Pages settings;
+2. keep apex and `www` DNS records managed externally;
+3. enable HTTPS after GitHub finishes certificate provisioning;
+4. keep `NEXT_PUBLIC_SITE_URL` aligned with the canonical HTTPS origin;
+5. revalidate metadata, Open Graph, robots, sitemap, routes, assets, and the contact pipeline after hosting changes.
 
-Production branding, the repository, the GitHub Pages URL, and the `/ilbatech` base path are aligned as ILBATECH.
+Production branding, the repository, and the `https://ilbatech.com/` root-domain deployment are aligned as ILBATECH.

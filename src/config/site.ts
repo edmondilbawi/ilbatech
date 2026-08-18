@@ -13,12 +13,9 @@ export const SITE = {
   phoneDisplay: "+961 81 958 984",
   whatsappDigits: WHATSAPP_DIGITS,
   whatsappUrl: `https://wa.me/${WHATSAPP_DIGITS}`,
-  productionUrl: "https://edmondilbawi.github.io/ilbatech",
+  productionUrl: "https://ilbatech.com",
   repositoryUrl: "https://github.com/edmondilbawi/ilbatech",
 } as const;
-
-export const SITE_BASE_PATH =
-  process.env.NEXT_PUBLIC_BASE_PATH ?? "/ilbatech";
 
 export function getSiteUrl() {
   const configuredUrl =
@@ -47,15 +44,7 @@ export function getSitePath(href: string) {
     pathname === "/" || pathname.endsWith("/") ? pathname : `${pathname}/`;
   const normalizedHref = `${routePath}${query}${hash ? `#${hash}` : ""}`;
 
-  if (!SITE_BASE_PATH) return normalizedHref;
-  if (
-    normalizedHref === SITE_BASE_PATH ||
-    normalizedHref.startsWith(`${SITE_BASE_PATH}/`)
-  ) {
-    return normalizedHref;
-  }
-
-  return `${SITE_BASE_PATH}${normalizedHref}`;
+  return normalizedHref;
 }
 
 export function getContactPath(service?: string) {

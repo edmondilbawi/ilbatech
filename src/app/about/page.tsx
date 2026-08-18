@@ -5,7 +5,8 @@ import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/sit
 export const metadata: Metadata = {
   title: "About",
   description: "Learn how ILBATECH approaches technology: understanding the business first, then recommending practical solutions.",
-  openGraph: { title: "About ILBATECH", description: "Technology starts with understanding." },
+  alternates: { canonical: "/about/" },
+  openGraph: { title: "About ILBATECH", description: "Technology starts with understanding.", url: "/about/" },
 };
 
 const principles = [

@@ -7,7 +7,8 @@ import { SITE } from "@/config/site";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Tell ILBATECH what is making your business harder to operate and explore whether technology can help.",
-  openGraph: { title: "Contact ILBATECH", description: "Start with the problem. Find the right technology." },
+  alternates: { canonical: "/contact/" },
+  openGraph: { title: "Contact ILBATECH", description: "Start with the problem. Find the right technology.", url: "/contact/" },
 };
 
 const nextSteps = [[MessageCircleMore, "Tell us about the challenge", "Share what is making your business harder to operate—whether or not you know what technology might help."], [SearchCheck, "We understand & analyze", "ILBATECH reviews the situation and considers where technology may create genuine value."], [Send, "We recommend the right approach", "If technology can help, we recommend an appropriate direction based on the actual business need."]] as const;

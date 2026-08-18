@@ -5,10 +5,11 @@ Official public website for ILBATECH, a business-led technology solutions and co
 ## Production
 
 - Repository: `https://github.com/edmondilbawi/ilbatech`
-- GitHub Pages URL: `https://edmondilbawi.github.io/ilbatech/`
-- Repository base path: `/ilbatech`
+- Production URL: `https://ilbatech.com/`
+- Canonical origin: `https://ilbatech.com`
+- Public base path: `/`
 - Hosting architecture: Next.js static export deployed from source by GitHub Actions
-- Custom domain: intentionally not configured
+- GitHub Pages custom domain: `ilbatech.com`
 
 The Pages workflow is defined in `.github/workflows/deploy-pages.yml`. It installs locked dependencies, runs lint, builds the static export, uploads `out/` as a Pages artifact, and deploys through the `github-pages` environment. Generated output is not committed.
 
@@ -31,13 +32,11 @@ npm ci
 npm run dev
 ```
 
-The default project-site base path is `/ilbatech`, so local development is available at:
+The application is configured for the custom-domain root, so local development is available at:
 
 ```text
-http://localhost:3000/ilbatech/
+http://localhost:3000/
 ```
-
-To simulate a future apex/custom-domain architecture locally, provide an empty base path at build time. The deployment workflow always receives the verified Pages base path from `actions/configure-pages`.
 
 ## Validation
 
@@ -58,11 +57,10 @@ Business identity and deployment defaults are centralized in `src/config/site.ts
 
 - company name and short name
 - public contact email and WhatsApp details
-- GitHub Pages production URL
+- custom-domain production URL
 - repository URL
-- default project-site base path
 
-`NEXT_PUBLIC_SITE_URL` overrides the production URL when provided. It supplies `metadataBase`, Open Graph context, `robots.txt`, and `sitemap.xml`. `NEXT_PUBLIC_BASE_PATH` overrides the default `/ilbatech` path and is shared by Next.js configuration and static internal-link normalization.
+`NEXT_PUBLIC_SITE_URL` overrides the production URL when provided. It supplies `metadataBase`, canonical and Open Graph context, `robots.txt`, and `sitemap.xml`. Internal links are normalized as root-relative directory routes for the custom domain.
 
 All internal paths pass through `getSitePath`. Contextual service and solution CTAs use `getContactPath` to carry only a supported Google Forms service value to Contact.
 
@@ -84,28 +82,26 @@ The verified public form contract is centralized in `src/config/google-form.ts`.
 
 ## GitHub Pages Notes
 
-The project-site build uses:
+The custom-domain build uses:
 
 ```text
-basePath: /ilbatech
-assetPrefix: /ilbatech
-NEXT_PUBLIC_SITE_URL: https://edmondilbawi.github.io/ilbatech
+basePath: not set
+assetPrefix: not set
+NEXT_PUBLIC_SITE_URL: https://ilbatech.com
 ```
 
 The workflow uses only official GitHub actions for checkout, Node setup, Pages configuration, artifact upload, and deployment. Repository permissions are limited to source read, Pages write, and OIDC token write.
 
-## Future Custom-Domain Migration
+## Custom-Domain Operations
 
-No custom domain is configured in this phase. When a domain is purchased:
+The GitHub Pages custom domain and DNS are managed outside the application repository. The Actions deployment publishes a root-path static export and does not require a tracked `CNAME` file for the current Pages deployment model.
 
-1. Add and verify the domain in GitHub Pages settings.
-2. Configure the required DNS records and wait for them to resolve.
-3. Enable HTTPS after GitHub issues the certificate.
-4. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin.
-5. Set `NEXT_PUBLIC_BASE_PATH` to an empty string if the website moves to the domain root; remove the project-path `assetPrefix` through the same configuration.
-6. Rebuild and verify metadata, Open Graph URLs, `robots.txt`, `sitemap.xml`, every internal route, and every static asset.
-7. Repeat the production browser and Google Forms acceptance checks.
+1. Keep `ilbatech.com` configured in GitHub Pages settings.
+2. Keep the external apex and `www` DNS records aligned with GitHub Pages.
+3. Enable HTTPS after GitHub finishes certificate provisioning.
+4. Rebuild and verify metadata, Open Graph URLs, `robots.txt`, `sitemap.xml`, internal routes, and static assets after any hosting change.
+5. Repeat the production browser and Google Forms acceptance checks after material deployment changes.
 
 ## Brand and Deployment Constraints
 
-The public brand, repository name, GitHub Pages URL, and `/ilbatech` base path are aligned as ILBATECH. Historical internal identifiers may retain `itg` where changing them would not affect the public deployment.
+The public brand, repository name, and `https://ilbatech.com/` production URL are aligned as ILBATECH. Historical internal identifiers may retain `itg` where changing them would not affect the public deployment.

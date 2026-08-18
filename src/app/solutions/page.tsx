@@ -24,9 +24,11 @@ export const metadata: Metadata = {
   title: "Solutions",
   description:
     "Explore how ILBATECH addresses customer experience, process automation, operational systems, and digital transformation challenges.",
+  alternates: { canonical: "/solutions/" },
   openGraph: {
     title: "Solutions | ILBATECH",
     description: "Start with the problem. Find the right technology.",
+    url: "/solutions/",
   },
 };
 
