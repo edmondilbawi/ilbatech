@@ -81,6 +81,7 @@ const homepageStructuredData = {
       "@id": `${siteUrl}#organization`,
       name: SITE.name,
       url: siteUrl,
+      logo: `${siteUrl}icon.svg`,
       email: SITE.email,
       telephone: SITE.phoneDisplay,
     },
