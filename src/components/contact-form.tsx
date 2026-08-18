@@ -8,10 +8,18 @@ import { SITE } from "@/config/site";
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
 const SUBMISSION_TIMEOUT_MS = 20_000;
+const INTENT_OPTIONS = [
+  { label: "Website", service: "Website Development" },
+  { label: "Operations", service: "Not sure, I need advice" },
+  { label: "Automation", service: "AI & Task Automation" },
+  { label: "Application", service: "Mobile Application" },
+  { label: "Not sure yet", service: "Not sure, I need advice" },
+] as const;
 
 export function ContactForm() {
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [contextApplied, setContextApplied] = useState(false);
+  const [intent, setIntent] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const submissionPendingRef = useRef(false);
   const timeoutRef = useRef<number | undefined>(undefined);
@@ -35,6 +43,10 @@ export function ContactForm() {
       serviceRef.current
     ) {
       serviceRef.current.value = requestedService;
+      setIntent(
+        INTENT_OPTIONS.find((option) => option.service === requestedService)
+          ?.label ?? "",
+      );
       setContextApplied(true);
     }
 
@@ -45,7 +57,14 @@ export function ContactForm() {
     submissionPendingRef.current = false;
     window.clearTimeout(timeoutRef.current);
     formRef.current?.reset();
+    setIntent("");
     setStatus("success");
+  }
+
+  function chooseIntent(label: string, service: string) {
+    setIntent(label);
+    setContextApplied(false);
+    if (serviceRef.current) serviceRef.current.value = service;
   }
 
   function handleIframeLoad(event: SyntheticEvent<HTMLIFrameElement>) {
@@ -79,6 +98,7 @@ export function ContactForm() {
     if (honeypotRef.current?.value.trim()) {
       event.preventDefault();
       form.reset();
+      setIntent("");
       setStatus("success");
       return;
     }
@@ -136,6 +156,22 @@ export function ContactForm() {
             exploring. You can change it at any time.
           </p>
         )}
+        <fieldset className="contact-intent">
+          <legend>What are you trying to improve?</legend>
+          <p>Choose the closest starting point. You can refine it below.</p>
+          <div>
+            {INTENT_OPTIONS.map((option) => (
+              <button
+                key={option.label}
+                type="button"
+                aria-pressed={intent === option.label}
+                onClick={() => chooseIntent(option.label, option.service)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </fieldset>
         <div className="form-row">
           <div className="form-field">
             <label htmlFor="full-name">
@@ -198,6 +234,14 @@ export function ContactForm() {
             defaultValue=""
             required
             aria-describedby={contextApplied ? "service-context" : undefined}
+            onChange={(event) => {
+              setIntent(
+                INTENT_OPTIONS.find(
+                  (option) => option.service === event.currentTarget.value,
+                )?.label ?? "",
+              );
+              setContextApplied(false);
+            }}
           >
             <option value="" disabled>
               Select the closest option

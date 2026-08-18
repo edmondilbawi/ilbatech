@@ -37,7 +37,7 @@ export function ProjectCaseStudy({
                 <p className="hero-copy">{project.description}</p>
                 {interactiveHref && (
                   <div className="case-demo-entry">
-                    <Button href={interactiveHref}>Try the Experience</Button>
+                    <Button href={interactiveHref}>{project.experienceLabel}</Button>
                     <p>Opens the front-end concept in a dedicated demo view.</p>
                   </div>
                 )}
@@ -51,15 +51,39 @@ export function ProjectCaseStudy({
         <section className="case-story section">
           <div className="container case-story-grid">
             <article>
-              <SectionEyebrow>The business need</SectionEyebrow>
-              <h2>Start with what the experience needs to solve.</h2>
+              <SectionEyebrow>The business challenge</SectionEyebrow>
+              <h2>{project.challengeTitle}</h2>
               <p>{project.businessNeed}</p>
             </article>
             <article>
-              <SectionEyebrow>The approach</SectionEyebrow>
-              <h2>Shape the technology around that need.</h2>
+              <SectionEyebrow>Thinking &amp; approach</SectionEyebrow>
+              <h2>{project.approachTitle}</h2>
               <p>{project.approach}</p>
             </article>
+          </div>
+        </section>
+
+        <section className={`case-decisions case-decisions--${project.slug} section`}>
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <SectionEyebrow>Key interface decisions</SectionEyebrow>
+                <h2>A direction specific to this business context.</h2>
+              </div>
+              <p>
+                The interface is shaped around the moments that matter most in
+                this experience, not a reusable visual template.
+              </p>
+            </div>
+            <div className="case-decision-grid">
+              {project.interfaceDecisions.map((decision, index) => (
+                <article key={decision.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{decision.title}</h3>
+                  <p>{decision.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -83,8 +107,8 @@ export function ProjectCaseStudy({
                 ))}
               </div>
               <p>
-                This is an interface concept, not a commissioned engagement or a
-                claim of implemented business results.
+                Independent concept work created to demonstrate ILBATECH’s
+                approach to real business needs.
               </p>
             </aside>
           </div>
@@ -94,8 +118,8 @@ export function ProjectCaseStudy({
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>Visual experience</SectionEyebrow>
-                <h2>Designed as one responsive system.</h2>
+                <SectionEyebrow>Interactive experience</SectionEyebrow>
+                <h2>One connected system across screen sizes.</h2>
               </div>
               <p>
                 Desktop and mobile views use the same hierarchy, visual language,

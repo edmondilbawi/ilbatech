@@ -34,34 +34,11 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
   const project = getWorkProject((await params).slug);
   if (!project) notFound();
 
-  const interactivePreview =
-    project.slug === "private-clinic-website"
-      ? {
-          href: "/work/private-clinic-website/demo",
-          note: "This concept was created by ILBATECH to demonstrate an approach to modern healthcare digital experiences.",
-        }
-      : project.slug === "cafe-restaurant-website"
-        ? {
-            href: "/work/cafe-restaurant-website/demo",
-            note: "This concept was created by ILBATECH to demonstrate an approach to modern hospitality digital experiences.",
-          }
-        : project.slug === "premium-ecommerce-store"
-          ? {
-              href: "/work/premium-ecommerce-store/demo",
-              note: "This concept was created by ILBATECH to demonstrate an approach to modern digital commerce experiences.",
-            }
-          : project.slug === "business-operations-dashboard"
-            ? {
-                href: "/work/business-operations-dashboard/demo",
-                note: "This concept was created by ILBATECH to demonstrate how tailored software, automation, and AI-assisted workflows can support business operations.",
-              }
-            : undefined;
-
   return (
     <ProjectCaseStudy
       project={project}
-      interactiveHref={interactivePreview?.href}
-      conceptNote={interactivePreview?.note}
+      interactiveHref={project.demoPath}
+      conceptNote={project.conceptNote}
     />
   );
 }

@@ -89,10 +89,10 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer navigation">
           <h2>Explore</h2>
+          <a href={getSitePath("/")}>Home</a>
           <a href={getSitePath("/services")}>Services</a>
           <a href={getSitePath("/work")}>Work</a>
-          <a href={getSitePath("/solutions")}>Solutions</a>
-          <a href={getSitePath("/about")}>About ILBATECH</a>
+          <a href={getSitePath("/about")}>About</a>
           <a href={getSitePath("/contact")}>Contact</a>
         </nav>
         <nav aria-label="Service areas">

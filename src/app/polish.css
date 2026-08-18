@@ -501,3 +501,483 @@ footer{padding:54px 0 20px}.footer-grid{display:grid;gap:38px;padding-bottom:42p
     transform: none !important;
   }
 }
+
+/* ILBATECH V2: project-specific art direction and focused page hierarchy */
+.project-preview--overview {
+  display: block;
+}
+
+.v2-clinic-stage,
+.v2-cafe-stage,
+.v2-store-stage,
+.v2-dashboard-stage {
+  position: relative;
+  min-height: 332px;
+  transition: transform var(--motion-standard) var(--motion-ease);
+}
+
+.project-preview--detail .v2-clinic-stage,
+.project-preview--detail .v2-cafe-stage,
+.project-preview--detail .v2-store-stage,
+.project-preview--detail .v2-dashboard-stage {
+  min-height: 488px;
+}
+
+.v2-clinic-stage {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.v2-care-route {
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  border: 1px solid rgba(23,111,109,.17);
+  background: rgba(255,255,255,.62);
+}
+
+.v2-care-route span {
+  display: grid;
+  gap: 4px;
+  color: #31575b;
+  font-size: 7px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.v2-care-route i {
+  color: #176f6d;
+  font-size: 6px;
+  font-style: normal;
+  letter-spacing: .8px;
+}
+
+.v2-clinic-screen,
+.v2-cafe-screen,
+.v2-store-screen,
+.v2-dashboard-screen {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 24px 50px rgba(17,52,60,.17);
+}
+
+.v2-clinic-screen > .mock-ui,
+.v2-cafe-screen > .mock-ui,
+.v2-store-screen > .mock-ui,
+.v2-dashboard-screen > .mock-ui {
+  height: 100%;
+}
+
+.v2-specialist-card {
+  position: absolute;
+  right: -8px;
+  bottom: 18px;
+  width: min(230px,48%);
+  padding: 15px;
+  display: grid;
+  gap: 7px;
+  border-left: 3px solid #5da69d;
+  background: #fff;
+  box-shadow: 0 17px 32px rgba(17,52,60,.2);
+}
+
+.v2-specialist-card > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #176f6d;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+
+.v2-specialist-card strong { font-size: 10px; }
+.v2-specialist-card small { color: #718488; font-size: 6px; }
+
+.project-preview--cafe-restaurant-website {
+  background: #30221d;
+}
+
+.project-preview--cafe-restaurant-website::before {
+  width: 390px;
+  height: 390px;
+  right: auto;
+  left: -210px;
+  top: auto;
+  bottom: -250px;
+  background: rgba(195,118,72,.28);
+}
+
+.v2-cafe-stage {
+  padding: 27px 25px 19px 58px;
+}
+
+.v2-cafe-masthead {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 8px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #e7b991;
+  font-size: 7px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.v2-cafe-masthead strong {
+  margin-top: 10px;
+  color: #fff4e8;
+  font-size: 8px;
+}
+
+.v2-cafe-screen {
+  height: 100%;
+  box-shadow: 0 28px 56px rgba(8,5,4,.34);
+}
+
+.v2-reservation-card {
+  position: absolute;
+  z-index: 3;
+  right: -8px;
+  bottom: 1px;
+  width: min(225px,51%);
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #c97948;
+  color: #fff8ef;
+  box-shadow: 0 16px 30px rgba(11,7,5,.3);
+}
+
+.v2-reservation-card span { display: grid; gap: 3px; font-size: 8px; font-weight: 800; }
+.v2-reservation-card small { color: #f2d4bc; font-size: 6px; font-weight: 600; }
+.v2-cafe-note { position: absolute; left: 8px; bottom: 0; color: #c99069; font-family: var(--serif); font-size: 10px; }
+
+.project-preview--premium-ecommerce-store {
+  background: #eee9e3;
+}
+
+.project-preview--premium-ecommerce-store::before {
+  right: -70px;
+  top: -220px;
+  background: rgba(151,124,105,.2);
+}
+
+.v2-store-stage {
+  display: flex;
+  align-items: stretch;
+  padding-right: 68px;
+}
+
+.v2-store-screen { width: 100%; }
+
+.v2-product-detail {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 35px;
+  width: min(185px,42%);
+  padding: 18px;
+  display: grid;
+  gap: 8px;
+  border: 1px solid #d6cec5;
+  background: #fcfaf7;
+  box-shadow: 0 22px 40px rgba(55,45,38,.2);
+}
+
+.v2-product-detail > span { color: #7a6d64; font-size: 7px; text-transform: uppercase; letter-spacing: .7px; }
+.v2-product-detail > strong { font-family: var(--serif); font-size: 16px; font-weight: 500; }
+.v2-product-detail > div { display: flex; gap: 6px; }
+.v2-product-detail i { width: 14px; height: 14px; border: 1px solid white; border-radius: 50%; background: #aa9585; box-shadow: 0 0 0 1px #aa9585; }
+.v2-product-detail i:nth-child(2) { background: #423c37; box-shadow: 0 0 0 1px #423c37; }
+.v2-product-detail i:nth-child(3) { background: #d9d1c9; box-shadow: 0 0 0 1px #d9d1c9; }
+.v2-product-detail small { color: #7c736d; font-size: 6px; }
+
+.v2-cart-cue {
+  position: absolute;
+  z-index: 4;
+  right: 10px;
+  bottom: 18px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2d2926;
+  color: #fff;
+  font-size: 8px;
+}
+
+.v2-cart-cue strong { color: #d6bba8; }
+
+.project-preview--business-operations-dashboard {
+  background: #bdd0d2;
+}
+
+.project-preview--business-operations-dashboard::before {
+  background: rgba(24,102,111,.33);
+}
+
+.v2-dashboard-stage {
+  padding: 24px 45px 15px 12px;
+}
+
+.v2-dashboard-toolbar {
+  height: 25px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #112a3d;
+  color: #a9c7ce;
+}
+
+.v2-dashboard-toolbar > span { display: flex; gap: 4px; }
+.v2-dashboard-toolbar i { width: 5px; height: 5px; border-radius: 50%; background: #4e7b84; }
+.v2-dashboard-toolbar small { font-size: 6px; letter-spacing: .5px; }
+.v2-dashboard-screen { height: calc(100% - 25px); box-shadow: 0 26px 52px rgba(7,28,40,.28); }
+
+.v2-analytics-window {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 60px;
+  width: min(145px,35%);
+  padding: 13px;
+  display: grid;
+  gap: 6px;
+  background: #fff;
+  box-shadow: 0 17px 35px rgba(7,28,40,.24);
+}
+
+.v2-analytics-window > span { color: #617780; font-size: 6px; text-transform: uppercase; letter-spacing: .6px; }
+.v2-analytics-window > strong { color: #173b4c; font-size: 18px; }
+.v2-analytics-window > div { height: 36px; display: flex; align-items: flex-end; gap: 5px; border-bottom: 1px solid #dce6e7; }
+.v2-analytics-window i { width: 13%; height: 35%; background: #8cc2bd; }
+.v2-analytics-window i:nth-child(2) { height: 60%; }
+.v2-analytics-window i:nth-child(3) { height: 48%; }
+.v2-analytics-window i:nth-child(4) { height: 83%; background: #267f7b; }
+.v2-analytics-window i:nth-child(5) { height: 70%; }
+
+.v2-ai-window {
+  position: absolute;
+  z-index: 4;
+  right: 5px;
+  bottom: 5px;
+  width: min(235px,50%);
+  padding: 12px 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #163f4d;
+  color: #d9f1ed;
+  box-shadow: 0 18px 34px rgba(7,28,40,.28);
+}
+
+.v2-ai-window > span { display: grid; flex: 1; gap: 2px; }
+.v2-ai-window b { font-size: 7px; }
+.v2-ai-window small { color: #9fc7c6; font-size: 6px; }
+
+.work-project-preview-link:hover .v2-clinic-stage,
+.work-project-preview-link:focus-visible .v2-clinic-stage,
+.work-project-preview-link:hover .v2-cafe-stage,
+.work-project-preview-link:focus-visible .v2-cafe-stage,
+.work-project-preview-link:hover .v2-store-stage,
+.work-project-preview-link:focus-visible .v2-store-stage,
+.work-project-preview-link:hover .v2-dashboard-stage,
+.work-project-preview-link:focus-visible .v2-dashboard-stage {
+  transform: translateY(-3px);
+}
+
+.service-group-card {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-group-eyebrow {
+  margin-top: 36px;
+  color: var(--teal);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.service-group-card h3 { margin-top: 10px; }
+.service-group-card > p { min-height: 0; }
+.service-group-card ul { margin: 18px 0 24px; padding: 0; list-style: none; }
+.service-group-card li { padding: 8px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 11px; }
+.service-group-card li::before { content: "→"; margin-right: 8px; color: var(--teal); }
+.service-group-card .catalog-link { margin-top: auto; }
+
+.home-interface-evidence {
+  padding: 20px;
+  background: var(--navy);
+  box-shadow: 0 28px 60px rgba(12,32,51,.18);
+}
+
+.home-interface-evidence nav {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1px;
+  margin-top: 18px;
+  background: rgba(255,255,255,.15);
+}
+
+.home-interface-evidence nav > a {
+  min-width: 0;
+  display: grid;
+  background: #102b3d;
+  color: white;
+  text-decoration: none;
+  transition: background var(--motion-quick) ease;
+}
+
+.home-interface-evidence nav > a:hover,
+.home-interface-evidence nav > a:focus-visible { background: #173a4e; }
+.home-interface-evidence nav > a:focus-visible { position: relative; z-index: 5; outline-offset: -2px; }
+
+.project-preview--fragment {
+  min-height: 145px;
+  padding: 9px;
+}
+
+.project-preview--fragment .v2-clinic-stage,
+.project-preview--fragment .v2-cafe-stage,
+.project-preview--fragment .v2-store-stage,
+.project-preview--fragment .v2-dashboard-stage { min-height: 127px; }
+
+.project-preview--fragment .v2-care-route,
+.project-preview--fragment .v2-specialist-card,
+.project-preview--fragment .v2-cafe-masthead,
+.project-preview--fragment .v2-reservation-card,
+.project-preview--fragment .v2-product-detail,
+.project-preview--fragment .v2-analytics-window { display: none; }
+.project-preview--fragment .v2-clinic-stage { display: block; }
+.project-preview--fragment .v2-clinic-screen { height: 127px; }
+.project-preview--fragment .v2-cafe-stage { padding: 5px 5px 13px; }
+.project-preview--fragment .v2-cafe-screen { height: 122px; }
+.project-preview--fragment .v2-cafe-note { left: 7px; font-size: 6px; }
+.project-preview--fragment .v2-store-stage { padding-right: 18px; }
+.project-preview--fragment .v2-cart-cue { right: 0; bottom: 7px; padding: 6px; }
+.project-preview--fragment .v2-cart-cue span { display: none; }
+.project-preview--fragment .v2-dashboard-stage { padding: 7px 12px 5px 3px; }
+.project-preview--fragment .v2-dashboard-toolbar { height: 14px; }
+.project-preview--fragment .v2-dashboard-toolbar small { display: none; }
+.project-preview--fragment .v2-dashboard-screen { height: 113px; }
+.project-preview--fragment .v2-ai-window { width: 64%; padding: 6px; }
+.project-preview--fragment .mock-ui { font-size: 6px; }
+
+.home-evidence-label {
+  min-width: 0;
+  padding: 11px;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 2px 7px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.home-evidence-label i { grid-row: 1 / 3; color: var(--aqua); font-size: 7px; font-style: normal; }
+.home-evidence-label strong { overflow: hidden; font-size: 9px; white-space: nowrap; text-overflow: ellipsis; }
+.home-evidence-label small { color: #9fb1b9; font-size: 7px; }
+
+.about-founder { background: white; }
+.about-founder-grid { display: grid; gap: 30px; }
+.about-founder h2 { max-width: 510px; }
+.about-founder-story { max-width: 650px; }
+.about-founder-story > p:not(.lead) { color: var(--ink-soft); line-height: 1.75; }
+.founder-signature { margin-top: 30px; padding-top: 22px; display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--line); }
+.founder-signature > span { width: 48px; height: 48px; display: grid; place-items: center; background: var(--teal); color: white; font-family: var(--serif); font-size: 18px; }
+.founder-signature > div { display: grid; gap: 3px; }
+.founder-signature strong { font-size: 13px; }
+.founder-signature small { color: var(--ink-soft); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+.contact-intent {
+  margin: 0 0 24px;
+  padding: 0 0 22px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-intent legend { padding: 0; color: var(--ink); font-size: 13px; font-weight: 800; }
+.contact-intent > p { margin: 6px 0 13px; color: var(--ink-soft); font-size: 11px; }
+.contact-intent > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.contact-intent button { min-height: 38px; padding: 8px 11px; border: 1px solid #bfd0d0; background: white; color: var(--ink); font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; transition: border-color var(--motion-quick) ease, background var(--motion-quick) ease, color var(--motion-quick) ease; }
+.contact-intent button:hover,
+.contact-intent button:focus-visible { border-color: var(--teal); }
+.contact-intent button[aria-pressed="true"] { border-color: var(--teal); background: var(--teal); color: white; }
+
+.case-decisions { background: white; }
+.case-decision-grid { display: grid; gap: 1px; border: 1px solid var(--line); background: var(--line); }
+.case-decision-grid article { min-height: 220px; padding: 27px; background: var(--paper); }
+.case-decision-grid article > span { color: var(--teal); font-family: var(--serif); font-size: 20px; }
+.case-decision-grid h3 { margin-top: 42px; }
+.case-decision-grid p { margin-bottom: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
+.case-decisions--cafe-restaurant-website .case-decision-grid article { background: #f5ebe3; }
+.case-decisions--premium-ecommerce-store .case-decision-grid article { background: #f2eeea; }
+.case-decisions--business-operations-dashboard .case-decision-grid article { background: #eaf1f2; }
+
+@media (min-width:720px) {
+  .services-catalog.services-catalog--primary { grid-template-columns: repeat(2,1fr); }
+  .about-founder-grid { grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+  .case-decision-grid { grid-template-columns: repeat(3,1fr); }
+
+  .work-project.work-project--private-clinic-website { grid-template-columns: .66fr 1.34fr; }
+  .work-project.work-project--private-clinic-website .work-project-copy { order: 1; }
+  .work-project.work-project--private-clinic-website .work-project-preview-link { order: 2; }
+
+  .work-project.work-project--cafe-restaurant-website { grid-template-columns: 1fr; gap: 30px; }
+  .work-project.work-project--cafe-restaurant-website .work-project-copy { order: 1; max-width: 610px; }
+  .work-project.work-project--cafe-restaurant-website .work-project-preview-link { order: 2; width: 88%; margin-left: auto; }
+
+  .work-project.work-project--premium-ecommerce-store { grid-template-columns: 1.3fr .7fr; }
+  .work-project.work-project--premium-ecommerce-store .work-project-copy { order: 2; }
+  .work-project.work-project--premium-ecommerce-store .work-project-preview-link { order: 1; }
+
+  .work-project.work-project--business-operations-dashboard { grid-template-columns: .58fr 1.42fr; }
+  .work-project.work-project--business-operations-dashboard .work-project-copy { order: 1; }
+  .work-project.work-project--business-operations-dashboard .work-project-preview-link { order: 2; }
+}
+
+@media (max-width:719px) {
+  .v2-clinic-stage,
+  .v2-cafe-stage,
+  .v2-store-stage,
+  .v2-dashboard-stage { min-height: 285px; }
+  .v2-clinic-stage { grid-template-columns: 62px 1fr; gap: 8px; }
+  .v2-care-route { padding: 10px 7px; gap: 14px; }
+  .v2-clinic-screen .mock-clinic-mark { display: none; }
+  .v2-specialist-card { right: -3px; bottom: 9px; }
+  .v2-cafe-stage { padding: 18px 8px 12px 35px; }
+  .v2-store-stage { padding-right: 35px; }
+  .v2-product-detail { right: -4px; width: 43%; padding: 11px; }
+  .v2-dashboard-stage { padding: 15px 24px 8px 5px; }
+  .home-interface-evidence { padding: 14px; }
+  .home-interface-evidence nav { grid-template-columns: 1fr; }
+  .project-preview--fragment { min-height: 175px; }
+  .project-preview--fragment .v2-clinic-stage,
+  .project-preview--fragment .v2-cafe-stage,
+  .project-preview--fragment .v2-store-stage,
+  .project-preview--fragment .v2-dashboard-stage { min-height: 142px; }
+  .project-preview--fragment .v2-clinic-screen { height: 142px; }
+  .project-preview--fragment .v2-cafe-screen { height: 137px; }
+  .project-preview--fragment .v2-dashboard-screen { height: 128px; }
+  .service-group-card { min-height: 0; }
+  .case-decision-grid article { min-height: 0; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .v2-clinic-stage,
+  .v2-cafe-stage,
+  .v2-store-stage,
+  .v2-dashboard-stage,
+  .contact-intent button,
+  .home-interface-evidence nav > a { transition: none !important; transform: none !important; }
+}

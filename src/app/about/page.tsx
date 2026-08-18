@@ -55,6 +55,33 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section className="about-founder section">
+          <div className="container about-founder-grid">
+            <div>
+              <SectionEyebrow>Founder</SectionEyebrow>
+              <h2>Founded by Edmond Ilbawi.</h2>
+            </div>
+            <div className="about-founder-story">
+              <p className="lead">
+                ILBATECH exists to make technology decisions clearer for
+                businesses that need useful progress, not more complexity.
+              </p>
+              <p>
+                Edmond founded the consultancy around a business-first approach:
+                understand how the organization works, identify what genuinely
+                needs to improve, and shape a tailored system around that reality.
+              </p>
+              <div className="founder-signature">
+                <span aria-hidden="true">EI</span>
+                <div>
+                  <strong>Edmond Ilbawi</strong>
+                  <small>Founder · ILBATECH</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="principles section">
           <div className="container">
             <div className="section-heading">

@@ -21,7 +21,7 @@ import type { WorkProject } from "@/config/work-projects";
 type ProjectPreviewProps = {
   project: WorkProject;
   view?: "overview" | "mobile";
-  size?: "card" | "detail";
+  size?: "card" | "detail" | "fragment";
 };
 
 function ClinicInterface({ mobile = false }: { mobile?: boolean }) {
@@ -171,22 +171,92 @@ export function ProjectPreview({
     );
   }
 
-  return (
-    <div
-      className={`project-preview project-preview--${project.slug} project-preview--overview project-preview--${size}`}
-      role="img"
-      aria-label={label}
-    >
-      <div className="preview-browser" aria-hidden="true">
-        <div className="preview-browser-bar">
-          <span><i /><i /><i /></span>
-          <small>concept / {project.slug}</small>
+  const className = `project-preview project-preview--${project.slug} project-preview--overview project-preview--${size}`;
+
+  if (project.slug === "private-clinic-website") {
+    return (
+      <div className={className} role="img" aria-label={label}>
+        <div className="v2-clinic-stage" aria-hidden="true">
+          <div className="v2-care-route">
+            <span><i>01</i> Choose care</span>
+            <span><i>02</i> Find a specialist</span>
+            <span><i>03</i> Request a time</span>
+          </div>
+          <div className="v2-clinic-screen">
+            <MockInterface project={project} />
+          </div>
+          <div className="v2-specialist-card">
+            <span><Stethoscope size={15} /> Specialist discovery</span>
+            <strong>Care that fits the next step</strong>
+            <small>Availability · Service · Appointment</small>
+          </div>
         </div>
-        <MockInterface project={project} />
       </div>
-      <div className="preview-phone" aria-hidden="true">
-        <div className="preview-phone-top"><i /><span>9:41</span><i /></div>
-        <MockInterface project={project} mobile />
+    );
+  }
+
+  if (project.slug === "cafe-restaurant-website") {
+    return (
+      <div className={className} role="img" aria-label={label}>
+        <div className="v2-cafe-stage" aria-hidden="true">
+          <div className="v2-cafe-masthead">
+            <span>Today’s table</span>
+            <strong>Seasonal / Local / Slow</strong>
+          </div>
+          <div className="v2-cafe-screen">
+            <MockInterface project={project} />
+          </div>
+          <div className="v2-reservation-card">
+            <CalendarDays size={16} />
+            <span>Reserve a table<small>Friday · 19:30 · 2 guests</small></span>
+          </div>
+          <span className="v2-cafe-note">Menu No. 04</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.slug === "premium-ecommerce-store") {
+    return (
+      <div className={className} role="img" aria-label={label}>
+        <div className="v2-store-stage" aria-hidden="true">
+          <div className="v2-store-screen">
+            <MockInterface project={project} />
+          </div>
+          <div className="v2-product-detail">
+            <span>Structured carryall</span>
+            <strong>Warm stone</strong>
+            <div><i /><i /><i /></div>
+            <small>Variant selected · USD 185</small>
+          </div>
+          <div className="v2-cart-cue">
+            <ShoppingBag size={15} /> <span>Cart</span> <strong>01</strong>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} role="img" aria-label={label}>
+      <div className="v2-dashboard-stage" aria-hidden="true">
+        <div className="v2-dashboard-toolbar">
+          <span><i /><i /><i /></span>
+          <small>ILBATECH / Operations workspace</small>
+        </div>
+        <div className="v2-dashboard-screen">
+          <MockInterface project={project} />
+        </div>
+        <div className="v2-analytics-window">
+          <span>Delivery confidence</span>
+          <strong>84%</strong>
+          <div><i /><i /><i /><i /><i /></div>
+        </div>
+        <div className="v2-ai-window">
+          <Bot size={15} />
+          <span><b>AI work brief</b><small>3 priorities from visible state</small></span>
+          <Sparkles size={12} />
+        </div>
       </div>
     </div>
   );

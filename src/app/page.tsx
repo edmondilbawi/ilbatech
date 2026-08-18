@@ -6,6 +6,7 @@ import {
   MessageCircle,
   Network,
 } from "lucide-react";
+import { ProjectPreview } from "@/components/project-preview";
 import {
   Button,
   SectionEyebrow,
@@ -166,25 +167,28 @@ export default function Home() {
               </a>
             </div>
 
-            <nav className="home-work-projects" aria-label="Selected concept projects">
+            <div className="home-interface-evidence">
               <div className="home-work-projects-top">
                 <span>Concept Project</span>
-                <span>ILBATECH / Work</span>
+                <span>Interface evidence</span>
               </div>
-              <div>
+              <nav aria-label="Selected concept project interfaces">
                 {WORK_PROJECTS.map((project, index) => (
                   <a
                     href={getSitePath(`/work/${project.slug}`)}
                     key={project.slug}
+                    aria-label={`Explore ${project.title}`}
                   >
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{project.title}</strong>
-                    <small>{project.category}</small>
-                    <ArrowRight aria-hidden="true" size={16} />
+                    <ProjectPreview project={project} size="fragment" />
+                    <span className="home-evidence-label">
+                      <i>{String(index + 1).padStart(2, "0")}</i>
+                      <strong>{project.title}</strong>
+                      <small>{project.category}</small>
+                    </span>
                   </a>
                 ))}
-              </div>
-            </nav>
+              </nav>
+            </div>
           </div>
         </section>
 

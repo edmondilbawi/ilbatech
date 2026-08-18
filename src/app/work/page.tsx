@@ -58,7 +58,10 @@ export default function WorkPage() {
         <section id="projects" className="work-projects section">
           <div className="container work-project-list">
             {WORK_PROJECTS.map((project, index) => (
-              <article className="work-project" key={project.slug}>
+              <article
+                className={`work-project work-project--${project.slug}`}
+                key={project.slug}
+              >
                 <div className="work-project-copy">
                   <div className="work-project-meta">
                     <span>Concept Project</span>
@@ -73,7 +76,7 @@ export default function WorkPage() {
                     className="work-project-link"
                     href={getSitePath(`/work/${project.slug}`)}
                   >
-                    View Project <ArrowRight aria-hidden="true" size={16} />
+                    {project.experienceLabel} <ArrowRight aria-hidden="true" size={16} />
                   </a>
                 </div>
                 <a
