@@ -6,7 +6,6 @@ import {
   Check,
   Heart,
   Menu,
-  MessageCircle,
   Minus,
   PackageCheck,
   Plus,
@@ -24,7 +23,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { SITE, getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 import styles from "./ecommerce-showcase.module.css";
 
 const CATEGORIES = ["All", "New Arrivals", "Essentials", "Accessories"] as const;
@@ -389,7 +388,7 @@ export function EcommerceShowcase() {
       <section className={styles.ilbatechCta}>
         <div className={`${styles.shell} ${styles.ilbatechCtaGrid}`}>
           <div><p>ILBATECH · Concept Project</p><h2>Have a similar commerce project in mind?</h2></div>
-          <div><p>This concept was created by ILBATECH to demonstrate an approach to modern digital commerce experiences.</p><div><a href={getSitePath("/contact#contact-form")}>Start a Conversation <ArrowRight size={15} /></a><a href={SITE.whatsappUrl}><MessageCircle size={16} /> Chat on WhatsApp</a></div></div>
+          <div><p>This concept was created by ILBATECH to demonstrate an approach to modern digital commerce experiences.</p><div><a href={getContactPath("E-Commerce")}>Discuss a Similar Project <ArrowRight size={15} /></a></div></div>
         </div>
       </section>
 

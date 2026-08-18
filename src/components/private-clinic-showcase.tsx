@@ -10,7 +10,6 @@ import {
   Mail,
   MapPin,
   Menu,
-  MessageCircle,
   Phone,
   ShieldCheck,
   Stethoscope,
@@ -19,7 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { useRef, useState } from "react";
-import { SITE, getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 import styles from "./private-clinic-showcase.module.css";
 
 const SERVICES = [
@@ -262,7 +261,11 @@ export function PrivateClinicShowcase() {
           <div className={styles.physicianGrid}>
             {PHYSICIANS.map((physician) => (
               <article className={styles.physicianCard} key={physician.id}>
-                <div className={styles.physicianPortrait} aria-hidden="true"><span>{physician.initials}</span></div>
+                <div className={styles.physicianPortrait} aria-hidden="true">
+                  <i />
+                  <span>{physician.initials}</span>
+                  <small>Abstract specialist identity</small>
+                </div>
                 <div className={styles.demoLabel}>Demo physician profile</div>
                 <h3>{physician.title}</h3>
                 <p className={styles.specialty}>{physician.specialty}</p>
@@ -417,7 +420,7 @@ export function PrivateClinicShowcase() {
             </div>
           </div>
           <div className={styles.mapConcept} role="img" aria-label="Generic demonstration map with no real clinic location">
-            <div aria-hidden="true"><i /><i /><i /><i /><span><MapPin size={29} /><b>Demonstration location</b><small>No real address shown</small></span></div>
+            <div aria-hidden="true"><i /><i /><i /><i /><span><MapPin size={29} /><b>Demonstration location</b><small>No real address shown</small><em>Illustrative route only</em></span></div>
           </div>
         </div>
       </section>
@@ -428,8 +431,7 @@ export function PrivateClinicShowcase() {
           <div>
             <p>This concept was created by ILBATECH to demonstrate an approach to modern healthcare digital experiences.</p>
             <div>
-              <a href={getSitePath("/contact#contact-form")}>Start a Conversation <ArrowRight size={15} /></a>
-              <a href={SITE.whatsappUrl}><MessageCircle size={16} /> Chat on WhatsApp</a>
+              <a href={getContactPath("Website Development")}>Discuss a Similar Project <ArrowRight size={15} /></a>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import {
   AppWindow,
   ArrowRight,
   Bot,
+  Check,
   Globe2,
   MessageCircle,
   Network,
@@ -89,22 +90,54 @@ export default function Home() {
             </div>
 
             <div className="home-hero-visual" aria-hidden="true">
-              <div className="home-grid-plane" />
-              <div className="home-signal home-signal--need">
-                <span>01</span>
-                <strong>Business need</strong>
+              <div className="home-system-header">
+                <span>Connected service flow</span>
+                <i><b /><b /><b /></i>
               </div>
-              <div className="home-signal home-signal--outcome">
-                <span>03</span>
-                <strong>Useful outcome</strong>
+              <div className="home-system-context">
+                <div className="home-system-stage home-system-stage--need">
+                  <span>01 · Business need</span>
+                  <strong>New customer enquiry</strong>
+                  <small>Needs a clear next step</small>
+                </div>
+                <i className="home-system-connector" />
+                <div className="home-system-stage home-system-stage--technology">
+                  <Network size={18} strokeWidth={1.4} />
+                  <span>02 · Practical technology</span>
+                </div>
               </div>
-              <div className="home-technology-core">
-                <span>02</span>
-                <Network size={32} strokeWidth={1.3} />
-                <strong>Practical technology</strong>
+              <div className="home-system-interface">
+                <div className="home-system-toolbar">
+                  <span><AppWindow size={13} /> Service workspace</span>
+                  <small>Active flow</small>
+                </div>
+                <div className="home-system-enquiry">
+                  <Globe2 size={17} />
+                  <span><small>Website enquiry</small><strong>Consultation request</strong></span>
+                  <b>Captured</b>
+                </div>
+                <div className="home-system-pipeline">
+                  <span><i>1</i>Capture</span>
+                  <b />
+                  <span><i>2</i>Qualify</span>
+                  <b />
+                  <span><i>3</i>Assign</span>
+                </div>
+                <div className="home-system-modules">
+                  <div>
+                    <Bot size={15} />
+                    <span><strong>Workflow update</strong><small>Assigned to the right owner</small></span>
+                  </div>
+                  <div>
+                    <Check size={15} />
+                    <span><strong>Next action</strong><small>Follow-up ready</small></span>
+                  </div>
+                </div>
               </div>
-              <i className="home-connection home-connection--one" />
-              <i className="home-connection home-connection--two" />
+              <div className="home-system-stage home-system-stage--outcome">
+                <span>03 · Useful outcome</span>
+                <strong>Clear ownership. Faster response.</strong>
+              </div>
             </div>
           </div>
         </section>

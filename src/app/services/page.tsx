@@ -13,7 +13,7 @@ import {
   SiteHeader,
 } from "@/components/site-shell";
 import { SERVICE_AREAS } from "@/config/offerings";
-import { getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -132,10 +132,10 @@ export default function ServicesPage() {
 
         <section className="final-cta">
           <div className="container">
-            <SectionEyebrow>Start with clarity</SectionEyebrow>
-            <h2>Let’s solve the right problem.</h2>
-            <p>Bring the business need. We’ll recommend only the technology that genuinely helps move it forward.</p>
-            <Button href="/contact#contact-form">Start a Conversation</Button>
+            <SectionEyebrow>Not sure which direction fits?</SectionEyebrow>
+            <h2>Tell us what you&apos;re trying to improve.</h2>
+            <p>Start with the business need. We&apos;ll help identify the most useful next step—including when the answer is less technology, not more.</p>
+            <Button href={getContactPath("Not sure, I need advice")}>Describe the Challenge</Button>
           </div>
         </section>
       </main>

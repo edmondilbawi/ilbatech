@@ -10,6 +10,7 @@ export type WorkProject = {
   description: string;
   experienceLabel: string;
   demoPath: string;
+  contactService: "Website Development" | "E-Commerce" | "AI & Task Automation";
   conceptNote: string;
   businessNeed: string;
   challengeTitle: string;
@@ -35,6 +36,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       "A responsive clinic website concept with service discovery, fictional specialist profiles, and a complete front-end appointment request demonstration.",
     experienceLabel: "Explore the Clinic Experience",
     demoPath: "/work/private-clinic-website/demo",
+    contactService: "Website Development",
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to clear, privacy-conscious healthcare journeys.",
     businessNeed:
@@ -70,6 +72,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       "A responsive café and restaurant concept where guests can search and filter the menu, explore dish details, understand the atmosphere, and demonstrate a table request without transmitting data.",
     experienceLabel: "Explore the Hospitality Experience",
     demoPath: "/work/cafe-restaurant-website/demo",
+    contactService: "Website Development",
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to useful, atmospheric hospitality experiences.",
     businessNeed:
@@ -105,6 +108,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       "A responsive commerce concept where shoppers can search and sort a coherent collection, choose product finishes, manage a local cart, and explore checkout UX without submitting an order or payment.",
     experienceLabel: "Explore the Store",
     demoPath: "/work/premium-ecommerce-store/demo",
+    contactService: "E-Commerce",
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to focused, trustworthy digital commerce.",
     businessNeed:
@@ -140,6 +144,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       "A responsive internal-software concept where managers can inspect consistent sample records, update work locally, simulate automation rules, and request operational summaries grounded in visible state.",
     experienceLabel: "Try the Dashboard",
     demoPath: "/work/business-operations-dashboard/demo",
+    contactService: "AI & Task Automation",
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to connected operations, automation, and grounded AI assistance.",
     businessNeed:

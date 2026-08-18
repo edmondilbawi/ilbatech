@@ -18,7 +18,6 @@ import {
   LayoutDashboard,
   ListTodo,
   Menu,
-  MessageCircle,
   Play,
   Search,
   Sparkles,
@@ -35,7 +34,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { SITE, getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 import styles from "./operations-showcase.module.css";
 
 type View = "Overview" | "Clients" | "Projects" | "Tasks" | "Analytics" | "Automations" | "AI Insights";
@@ -431,7 +430,7 @@ export function OperationsShowcase() {
               <section aria-labelledby="ai-title"><div className={styles.pageHeading}><div><p>Deterministic AI-assisted concept</p><h1 id="ai-title">Operational reasoning, grounded in visible state.</h1></div><span className={styles.aiDemoBadge}><Bot /> Simulated locally</span></div><div className={styles.aiWorkspace}><aside><div className={styles.aiIdentity}><span><Sparkles /></span><div><strong>Demo AI Assistant</strong><small>No model or API connected</small></div></div><p>Choose an operational question. The response is generated deterministically from the sample projects, tasks, statuses, and automations visible in this interface.</p><div className={styles.aiChoices}><button type="button" aria-pressed={aiChoice === "summary"} onClick={() => insightChoice("summary")}>Summarize today <ChevronRight /></button><button type="button" aria-pressed={aiChoice === "attention"} onClick={() => insightChoice("attention")}>What needs attention? <ChevronRight /></button><button type="button" aria-pressed={aiChoice === "health"} onClick={() => insightChoice("health")}>Review project health <ChevronRight /></button><button type="button" aria-pressed={aiChoice === "priorities"} onClick={() => insightChoice("priorities")}>Suggest priorities <ChevronRight /></button></div>{aiChoice === "health" && <label className={styles.aiProjectSelect}><span>Project to review</span><select value={aiProjectId} onChange={(event) => setAiProjectId(event.target.value)}>{projects.map((project) => <option value={project.id} key={project.id}>{project.name}</option>)}</select></label>}</aside><div className={styles.aiResponse} aria-live="polite">{aiInsight ? <><div className={styles.responseMeta}><span><Bot /> AI-assisted demo response</span><small>Derived locally · not model-generated</small></div><h2>{aiInsight.title}</h2><p>{aiInsight.summary}</p><div><strong>Evidence from the workspace</strong><ul>{aiInsight.bullets.map((bullet) => <li key={bullet}><Check /> {bullet}</li>)}</ul></div><p className={styles.aiDisclaimer}>This deterministic response demonstrates interface and workflow design only. A production system would require approved data sources, model behavior, review rules, security, and monitoring.</p></> : <div className={styles.aiEmpty}><Sparkles /><h2>Choose a question to begin.</h2><p>The response will reference the same sample data shown across Overview, Projects, Tasks, and Analytics.</p></div>}</div></div></section>
             )}
 
-            <section className={styles.conversion}><div><p>ILBATECH · Concept Project</p><h2>Need a system built around your business?</h2></div><div><p>This concept was created by ILBATECH to demonstrate how tailored software, automation, and AI-assisted workflows can support business operations.</p><div><a href={getSitePath("/contact#contact-form")}>Start a Conversation <ArrowRight /></a><a href={SITE.whatsappUrl}><MessageCircle /> Chat on WhatsApp</a></div></div></section>
+            <section className={styles.conversion}><div><p>ILBATECH · Concept Project</p><h2>Need a system built around your business?</h2></div><div><p>This concept was created by ILBATECH to demonstrate how tailored software, automation, and AI-assisted workflows can support business operations.</p><div><a href={getContactPath("AI & Task Automation")}>Discuss a Similar Project <ArrowRight /></a></div></div></section>
           </div>
         </div>
       </div>

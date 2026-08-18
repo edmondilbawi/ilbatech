@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, MessageCircle } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { ProjectPreview } from "@/components/project-preview";
 import {
   Button,
@@ -6,7 +6,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "@/components/site-shell";
-import { SITE, getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 import type { WorkProject } from "@/config/work-projects";
 
 export function ProjectCaseStudy({
@@ -21,7 +21,7 @@ export function ProjectCaseStudy({
   return (
     <>
       <SiteHeader />
-      <main id="top" className="case-study">
+      <main id="top" className={`case-study case-study--${project.slug}`}>
         <section className="case-hero">
           <div className="container">
             <a className="case-back-link" href={getSitePath("/work")}>
@@ -145,9 +145,8 @@ export function ProjectCaseStudy({
                 practical technology direction around it.
               </p>
               <div className="case-cta-actions">
-                <Button href="/contact#contact-form">Start a Conversation</Button>
-                <Button href={SITE.whatsappUrl} variant="secondary">
-                  <MessageCircle aria-hidden="true" size={17} /> Chat on WhatsApp
+                <Button href={getContactPath(project.contactService)}>
+                  Discuss a Similar Project
                 </Button>
               </div>
             </div>

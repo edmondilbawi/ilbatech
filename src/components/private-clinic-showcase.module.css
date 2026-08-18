@@ -563,23 +563,90 @@
 }
 
 .physicianPortrait {
+  position: relative;
   min-height: 195px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, #d3e5df, #c3d7dd);
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.38) 50%, transparent 50.5%),
+    linear-gradient(145deg, #d3e5df, #c3d7dd);
+}
+
+.physicianPortrait::before,
+.physicianPortrait::after,
+.physicianPortrait i {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.physicianPortrait::before {
+  z-index: 2;
+  width: 50px;
+  height: 58px;
+  top: 36px;
+  border: 1px solid rgba(22, 89, 86, .22);
+  border-radius: 48% 48% 44% 44%;
+  background: #eff6f3;
+}
+
+.physicianPortrait::after {
+  z-index: 1;
+  width: 126px;
+  height: 98px;
+  bottom: -25px;
+  border: 1px solid rgba(22, 89, 86, .2);
+  border-radius: 56px 56px 0 0;
+  background: #e8f2ee;
+}
+
+.physicianPortrait i {
+  z-index: 3;
+  width: 32px;
+  height: 12px;
+  top: 84px;
+  border-bottom: 1px solid rgba(22, 89, 86, .28);
+  border-radius: 50%;
+}
+
+.physicianCard:nth-child(2) .physicianPortrait {
+  background:
+    linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.34) 50%, transparent 50.5%),
+    linear-gradient(145deg, #d8e2ec, #c4d5d8);
+}
+
+.physicianCard:nth-child(3) .physicianPortrait {
+  background:
+    linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.34) 50%, transparent 50.5%),
+    linear-gradient(145deg, #dce8e0, #c7d8cf);
 }
 
 .physicianPortrait span {
-  width: 78px;
-  height: 78px;
-  border: 1px solid rgba(23, 109, 105, .35);
-  border-radius: 50%;
+  position: absolute;
+  z-index: 4;
+  right: 13px;
+  bottom: 13px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(23, 109, 105, .4);
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, .48);
+  background: rgba(255, 255, 255, .82);
   color: var(--clinic-green);
   font-family: Georgia, serif;
-  font-size: 23px;
+  font-size: 13px;
+}
+
+.physicianPortrait small {
+  position: absolute;
+  z-index: 4;
+  left: 13px;
+  bottom: 15px;
+  color: #4d706f;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
 }
 
 .demoLabel {
@@ -1124,6 +1191,18 @@
   margin-top: 3px;
   color: #b9d7d3;
   font-size: 8px;
+}
+
+.mapConcept em {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(255,255,255,.18);
+  color: #d6ebe8;
+  font-size: 7px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
 }
 
 .ilbatechCta {

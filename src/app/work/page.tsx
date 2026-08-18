@@ -37,6 +37,10 @@ export default function WorkPage() {
                 Four concept projects showing how ILBATECH approaches realistic
                 customer experiences, digital products, systems, and automation.
               </p>
+              <p className="work-hero-disclosure">
+                Independent concept work—not commissioned client work or evidence
+                of commercial results.
+              </p>
               <div className="hero-actions">
                 <Button href="#projects">Explore the Work</Button>
                 <Button href="/contact#contact-form" variant="secondary">

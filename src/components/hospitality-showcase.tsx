@@ -17,7 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { type KeyboardEvent, useRef, useState } from "react";
-import { SITE, getSitePath } from "@/config/site";
+import { getContactPath, getSitePath } from "@/config/site";
 import styles from "./hospitality-showcase.module.css";
 
 const CATEGORIES = ["Breakfast", "Main Dishes", "Desserts", "Coffee", "Drinks"] as const;
@@ -330,7 +330,7 @@ export function HospitalityShowcase() {
       <section className={styles.ilbatechCta}>
         <div className={`${styles.shell} ${styles.ilbatechCtaGrid}`}>
           <div><p>ILBATECH · Concept Project</p><h2>Have a similar hospitality project in mind?</h2></div>
-          <div><p>This concept was created by ILBATECH to demonstrate an approach to modern hospitality digital experiences.</p><div><a href={getSitePath("/contact#contact-form")}>Start a Conversation <ArrowRight size={15} /></a><a href={SITE.whatsappUrl}><MessageCircle size={16} /> Chat on WhatsApp</a></div></div>
+          <div><p>This concept was created by ILBATECH to demonstrate an approach to modern hospitality digital experiences.</p><div><a href={getContactPath("Website Development")}>Discuss a Similar Project <ArrowRight size={15} /></a></div></div>
         </div>
       </section>
 
