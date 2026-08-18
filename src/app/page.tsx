@@ -66,9 +66,36 @@ const process = [
   },
 ] as const;
 
+const siteUrl = `${SITE.productionUrl}/`;
+const homepageStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      name: SITE.name,
+      url: siteUrl,
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: SITE.name,
+      url: siteUrl,
+      email: SITE.email,
+      telephone: SITE.phoneDisplay,
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageStructuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       <SiteHeader />
       <main id="top">
         <section className="home-hero">

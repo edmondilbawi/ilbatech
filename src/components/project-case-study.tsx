@@ -108,7 +108,13 @@ export function ProjectCaseStudy({
               </div>
               <p>
                 Independent concept work created to demonstrate ILBATECH’s
-                approach to real business needs.
+                approach to real business needs. Explore the related{" "}
+                <a
+                  className="case-service-link"
+                  href={getSitePath(project.relatedService.href)}
+                >
+                  {project.relatedService.label}
+                </a>{"."}
               </p>
             </aside>
           </div>

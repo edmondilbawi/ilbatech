@@ -11,6 +11,10 @@ export type WorkProject = {
   experienceLabel: string;
   demoPath: string;
   contactService: "Website Development" | "E-Commerce" | "AI & Task Automation";
+  relatedService: {
+    href: string;
+    label: string;
+  };
   conceptNote: string;
   businessNeed: string;
   challengeTitle: string;
@@ -37,6 +41,10 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     experienceLabel: "Explore the Clinic Experience",
     demoPath: "/work/private-clinic-website/demo",
     contactService: "Website Development",
+    relatedService: {
+      href: "/services/websites-and-commerce",
+      label: "website development services",
+    },
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to clear, privacy-conscious healthcare journeys.",
     businessNeed:
@@ -69,10 +77,14 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     summary:
       "A warm, editorial hospitality experience with interactive menu discovery, practical visit details, and a simple local-only table request demonstration.",
     description:
-      "A responsive café and restaurant concept where guests can search and filter the menu, explore dish details, understand the atmosphere, and demonstrate a table request without transmitting data.",
+      "A responsive café and restaurant concept with searchable menus, practical visit details, and a local-only table request demonstration.",
     experienceLabel: "Explore the Hospitality Experience",
     demoPath: "/work/cafe-restaurant-website/demo",
     contactService: "Website Development",
+    relatedService: {
+      href: "/services/websites-and-commerce",
+      label: "web development and e-commerce services",
+    },
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to useful, atmospheric hospitality experiences.",
     businessNeed:
@@ -105,10 +117,14 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     summary:
       "A premium interactive storefront with product discovery, configurable product details, a local cart, and a safe checkout demonstration.",
     description:
-      "A responsive commerce concept where shoppers can search and sort a coherent collection, choose product finishes, manage a local cart, and explore checkout UX without submitting an order or payment.",
+      "A responsive e-commerce concept with product discovery, configurable details, a local cart, and a safe checkout demonstration with no payments.",
     experienceLabel: "Explore the Store",
     demoPath: "/work/premium-ecommerce-store/demo",
     contactService: "E-Commerce",
+    relatedService: {
+      href: "/services/websites-and-commerce",
+      label: "e-commerce development services",
+    },
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to focused, trustworthy digital commerce.",
     businessNeed:
@@ -141,10 +157,14 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     summary:
       "An interactive operations workspace connecting sample clients, projects, tasks, analytics, demo automations, and deterministic AI-assisted insights.",
     description:
-      "A responsive internal-software concept where managers can inspect consistent sample records, update work locally, simulate automation rules, and request operational summaries grounded in visible state.",
+      "A responsive business-operations concept connecting sample records, local workflow updates, automation simulations, and deterministic AI-assisted insights.",
     experienceLabel: "Try the Dashboard",
     demoPath: "/work/business-operations-dashboard/demo",
     contactService: "AI & Task Automation",
+    relatedService: {
+      href: "/services/business-systems-and-consulting",
+      label: "business systems and technology consulting services",
+    },
     conceptNote:
       "Independent concept work created to demonstrate ILBATECH’s approach to connected operations, automation, and grounded AI assistance.",
     businessNeed:

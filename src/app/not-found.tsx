@@ -9,7 +9,17 @@ import {
 export const metadata: Metadata = {
   title: "Page Not Found",
   description: "The requested ILBATECH page could not be found.",
+  alternates: { canonical: null },
   robots: { index: false, follow: true },
+  openGraph: {
+    title: "Page Not Found | ILBATECH",
+    description: "The requested ILBATECH page could not be found.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Page Not Found | ILBATECH",
+    description: "The requested ILBATECH page could not be found.",
+  },
 };
 
 export default function NotFound() {

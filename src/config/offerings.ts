@@ -12,6 +12,7 @@ export type OfferingLink = {
 export type Offering = {
   slug: string;
   title: string;
+  seoTitle?: string;
   eyebrow: string;
   summary: string;
   introduction: string;
@@ -29,6 +30,7 @@ export const SERVICE_AREAS: Offering[] = [
   {
     slug: "websites-and-commerce",
     title: "Websites & Commerce",
+    seoTitle: "Web Development & E-Commerce",
     eyebrow: "Digital customer experience",
     summary:
       "Professional websites and online commerce experiences that help customers understand, trust, and act.",
@@ -49,9 +51,9 @@ export const SERVICE_AREAS: Offering[] = [
       "Mobile visitors encounter unnecessary friction",
     ],
     capabilities: [
-      "Professional business websites",
+      "Professional website development",
       "Website redesign and content structure",
-      "E-commerce and online sales experiences",
+      "E-commerce development and online sales experiences",
       "Enquiry, booking, and conversion journeys",
       "Responsive, accessible front-end implementation",
       "Practical integrations with suitable business tools",
@@ -95,11 +97,12 @@ export const SERVICE_AREAS: Offering[] = [
   {
     slug: "software-and-applications",
     title: "Software & Applications",
+    seoTitle: "Custom Software & Web Applications",
     eyebrow: "Purpose-built technology",
     summary:
       "Web, mobile, and custom software shaped around business needs that standard tools do not address well.",
     introduction:
-      "Custom software earns its place when it supports a process, experience, or operating model that off-the-shelf tools cannot fit without costly workarounds.",
+      "Custom software development earns its place when it supports a process, experience, or operating model that off-the-shelf tools cannot fit without costly workarounds.",
     problemStatement:
       "When important work is forced into disconnected spreadsheets, generic platforms, or manual coordination, the business can lose time, consistency, and useful visibility.",
     whoFor: [
@@ -156,6 +159,7 @@ export const SERVICE_AREAS: Offering[] = [
   {
     slug: "automation-and-ai",
     title: "Automation & AI",
+    seoTitle: "Workflow Automation & AI",
     eyebrow: "More useful ways of working",
     summary:
       "Purposeful automation and AI-assisted workflows that reduce repetitive effort without adding avoidable complexity.",
@@ -217,6 +221,7 @@ export const SERVICE_AREAS: Offering[] = [
   {
     slug: "business-systems-and-consulting",
     title: "Business Systems & Consulting",
+    seoTitle: "Business Systems & Technology Consulting",
     eyebrow: "Clarity, coordination, and direction",
     summary:
       "Practical business systems and technology guidance that improve visibility, coordination, and confident decision-making.",
@@ -510,10 +515,6 @@ export const PUBLIC_PATHS = [
   ...SERVICE_AREAS.map((offering) => `/services/${offering.slug}`),
   "/work",
   ...WORK_PROJECTS.map((project) => `/work/${project.slug}`),
-  "/work/private-clinic-website/demo",
-  "/work/cafe-restaurant-website/demo",
-  "/work/premium-ecommerce-store/demo",
-  "/work/business-operations-dashboard/demo",
   "/solutions",
   ...SOLUTION_AREAS.map((offering) => `/solutions/${offering.slug}`),
   "/about",

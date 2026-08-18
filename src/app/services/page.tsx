@@ -16,7 +16,7 @@ import { SERVICE_AREAS } from "@/config/offerings";
 import { getContactPath, getSitePath } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Technology Services",
   description:
     "Explore ILBATECH services for websites, commerce, software, applications, automation, AI, business systems, and technology consulting.",
   alternates: { canonical: "/services/" },

@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!offering) return {};
 
   return {
-    title: offering.title,
+    title: offering.seoTitle ?? offering.title,
     description: offering.summary,
     alternates: { canonical: `/services/${offering.slug}/` },
     openGraph: {
