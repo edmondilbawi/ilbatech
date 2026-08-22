@@ -17,6 +17,18 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
@@ -26,9 +38,18 @@ export const metadata: Metadata = {
     title: `${SITE.shortName} | Digital Solutions for Business`,
     description: SITE.description,
     ...(siteUrl ? { url: siteUrl } : {}),
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ILBATECH — Digital solutions built around your business",
+      },
+    ],
   },
   twitter: {
     card: "summary",
+    images: ["/og-image.png"],
   },
 };
 

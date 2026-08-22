@@ -38,6 +38,8 @@ export const V4_WORK = [
       "A complete dashboard to manage operations, customers, projects, tasks and business performance from one place.",
     href: "/work/business-operations-dashboard/demo",
     type: "dashboard",
+    image: "/images/work/business-dashboard.webp",
+    imageAlt: "Business operations dashboard overview with projects, tasks and performance panels",
   },
   {
     title: "Restaurant Ordering System",
@@ -45,6 +47,8 @@ export const V4_WORK = [
       "Manage orders, customers, order history, repeat purchases, loyalty points, vouchers and restaurant analytics.",
     href: "/work/restaurant-ordering-system/demo",
     type: "restaurant",
+    image: "/images/work/restaurant-ordering.webp",
+    imageAlt: "Restaurant ordering menu with product cards, voucher field and demo cart",
   },
   {
     title: "Inventory Management System",
@@ -52,6 +56,8 @@ export const V4_WORK = [
       "Track products, stock movements, quantities, costs, prices, suppliers, low-stock alerts and inventory reports.",
     href: "/work/inventory-management-system/demo",
     type: "inventory",
+    image: "/images/work/inventory-management.webp",
+    imageAlt: "Inventory management interface with product quantities, pricing and stock controls",
   },
   {
     title: "Travel Agency Website",
@@ -59,6 +65,8 @@ export const V4_WORK = [
       "A complete travel website to showcase destinations, packages, enquiries and booking experiences.",
     href: "/work/travel-agency-website/demo",
     type: "travel",
+    image: "/images/work/travel-agency.webp",
+    imageAlt: "Travel agency website with Mediterranean destination search and package navigation",
   },
   {
     title: "E-Commerce Store",
@@ -66,5 +74,7 @@ export const V4_WORK = [
       "A complete online shopping experience with products, categories, product details, cart, checkout and order tracking.",
     href: "/work/premium-ecommerce-store/demo",
     type: "commerce",
+    image: "/images/work/ecommerce-store.webp",
+    imageAlt: "Premium e-commerce storefront with collection navigation and featured product presentation",
   },
 ] as const;

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="72" viewBox="0 0 360 72" role="img" aria-labelledby="logo-title logo-description">
+  <title id="logo-title">ILBATECH</title>
+  <desc id="logo-description">Interlocking IL monogram with the ILBATECH wordmark</desc>
+  <g transform="translate(4 4) scale(1.12)">
+    <path fill="#FFFDF7" d="M4 4h20v6h-6v36h6v6H4v-6h6V10H4z"/>
+    <path fill="#FFFDF7" d="M27 4h8v40h13v8H27z"/>
+    <path fill="#C8A15A" d="M18 26h9v5h-9z"/>
+  </g>
+  <text x="78" y="45" fill="#FFFDF7" font-family="Manrope, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="6">ILBATECH</text>
+</svg>

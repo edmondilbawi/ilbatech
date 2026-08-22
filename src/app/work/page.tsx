@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getSitePath } from "@/config/site";
@@ -31,8 +32,14 @@ export default function WorkPage() {
         <div className="container v4-work-grid">
           {V4_WORK.map((project, index) => <article className={`v4-work-card v4-work-card--${project.type}`} key={project.title}>
             <a className="v4-work-visual" href={getSitePath(project.href)} aria-label={`Explore ${project.title}`}>
+              <Image
+                src={project.image}
+                alt={project.imageAlt}
+                fill
+                unoptimized
+                sizes="(min-width: 920px) 31vw, (min-width: 680px) 47vw, 100vw"
+              />
               <span className="v4-work-number">0{index + 1}</span>
-              <div className="v4-work-window"><i /><i /><i /><b /><b /></div>
             </a>
             <div>
               <span>Interactive concept</span>

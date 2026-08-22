@@ -11,10 +11,10 @@ export function Wordmark() {
       className="wordmark"
       aria-label={`${SITE.name} home`}
     >
-      <svg className="brand-monogram" viewBox="0 0 44 52" aria-hidden="true">
-        <path className="brand-monogram-i" d="M5 5h18M14 5v42M5 47h18" />
-        <path className="brand-monogram-l" d="M28 5v33c0 6 3 9 9 9h3" />
-        <path className="brand-monogram-link" d="M14 18h14M14 34h14" />
+      <svg className="brand-monogram" viewBox="0 0 52 56" aria-hidden="true">
+        <path className="brand-monogram-i" d="M4 4h20v6h-6v36h6v6H4v-6h6V10H4z" />
+        <path className="brand-monogram-l" d="M27 4h8v40h13v8H27z" />
+        <path className="brand-monogram-link" d="M18 26h9v5h-9z" />
       </svg>
       <span className="brand-word">ILBATECH</span>
     </a>

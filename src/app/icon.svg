@@ -1,15 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#0c2033"/>
-  <path fill="#fbfcfb" d="M88 116h108v46h-27v188h27v46H88v-46h27V162H88z"/>
-  <path fill="#1ea6a2" d="M230 116h56v226h94v54H230z"/>
-  <g fill="none" stroke="#57d3d0" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M380 370h38v-54h22"/>
-    <path d="M380 370h60"/>
-    <path d="M418 370v58"/>
-  </g>
-  <g fill="#57d3d0">
-    <circle cx="458" cy="316" r="17"/>
-    <circle cx="458" cy="370" r="17"/>
-    <circle cx="418" cy="446" r="17"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ILBATECH IL monogram">
+  <rect width="512" height="512" rx="96" fill="#0F3D2E"/>
+  <g transform="translate(55 28) scale(8.05)">
+    <path fill="#FFFDF7" d="M4 4h20v6h-6v36h6v6H4v-6h6V10H4z"/>
+    <path fill="#FFFDF7" d="M27 4h8v40h13v8H27z"/>
+    <path fill="#C8A15A" d="M18 26h9v5h-9z"/>
   </g>
 </svg>
