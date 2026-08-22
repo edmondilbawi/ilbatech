@@ -365,7 +365,7 @@ export function OperationsShowcase() {
   return (
     <main className={styles.demo}>
       <p className={styles.announcement} aria-live="polite" aria-atomic="true">{announcement}</p>
-      <div className={styles.conceptBar}><div><span><b>ILBATECH Concept Preview</b> Front-end operations workspace · sample data only</span><a href={getSitePath("/work/business-operations-dashboard")}><ArrowLeft size={14} /> Return to Case Study</a></div></div>
+      <div className={styles.conceptBar}><div><span><b>ILBATECH Concept Preview</b> Front-end operations workspace · sample data only</span><a href={getSitePath("/work")}><ArrowLeft size={14} /> Return to Work</a></div></div>
 
       <div className={styles.appShell}>
         <aside className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ""}`} aria-label="Operations workspace navigation">

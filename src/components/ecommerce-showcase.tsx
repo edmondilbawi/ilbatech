@@ -263,7 +263,7 @@ export function EcommerceShowcase() {
       <div className={styles.conceptBar}>
         <div className={styles.shell}>
           <span><b>ILBATECH Concept Preview</b> Front-end commerce demonstration</span>
-          <a href={getSitePath("/work/premium-ecommerce-store")}><ArrowLeft size={14} /> Return to Case Study</a>
+          <a href={getSitePath("/work")}><ArrowLeft size={14} /> Return to Work</a>
         </div>
       </div>
 

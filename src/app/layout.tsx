@@ -3,6 +3,7 @@ import { Manrope, Newsreader } from "next/font/google";
 import { getSiteUrl, SITE } from "@/config/site";
 import "./globals.css";
 import "./polish.css";
+import "./v4.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
 const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"], style: ["normal", "italic"] });
@@ -11,7 +12,7 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: {
-    default: `${SITE.shortName} | Business-led technology consulting`,
+    default: `${SITE.shortName} | Digital Solutions for Business`,
     template: `%s | ${SITE.shortName}`,
   },
   description: SITE.description,
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.shortName} | Business-led technology consulting`,
+    title: `${SITE.shortName} | Digital Solutions for Business`,
     description: SITE.description,
     ...(siteUrl ? { url: siteUrl } : {}),
   },

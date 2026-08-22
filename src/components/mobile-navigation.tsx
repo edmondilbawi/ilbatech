@@ -64,7 +64,7 @@ export function MobileNavigation() {
           Work
         </a>
         <a href={getSitePath("/about")} onClick={closeMenu}>
-          About
+          About Us
         </a>
         <a href={getSitePath("/contact")} onClick={closeMenu}>
           Contact
@@ -74,7 +74,7 @@ export function MobileNavigation() {
           href={getContactPath()}
           onClick={closeMenu}
         >
-          Start a Conversation
+          Let&apos;s Talk
         </a>
       </nav>
     </details>

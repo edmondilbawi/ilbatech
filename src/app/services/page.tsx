@@ -1,147 +1,58 @@
 import type { Metadata } from "next";
-import {
-  ArrowRight,
-  Bot,
-  BriefcaseBusiness,
-  Code2,
-  Globe2,
-} from "lucide-react";
-import {
-  Button,
-  SectionEyebrow,
-  SiteFooter,
-  SiteHeader,
-} from "@/components/site-shell";
-import { SERVICE_AREAS } from "@/config/offerings";
-import { getContactPath, getSitePath } from "@/config/site";
+import { ArrowRight, Bot, Headphones, PanelsTopLeft, Smartphone, Workflow } from "lucide-react";
+import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
+import { getSitePath } from "@/config/site";
+import { BUSINESS_SERVICES } from "@/config/v4-content";
 
 export const metadata: Metadata = {
-  title: "Technology Services",
-  description:
-    "Explore ILBATECH services for websites, commerce, software, applications, automation, AI, business systems, and technology consulting.",
+  title: "Business Technology Services",
+  description: "Websites, business systems, mobile apps, AI automation, support and maintenance built around your business.",
   alternates: { canonical: "/services/" },
   openGraph: {
-    title: "Services | ILBATECH",
-    description: "Technology services built around the way your business needs to work.",
+    title: "Business Technology Services | ILBATECH",
+    description: "Practical digital solutions built around the way your business works.",
     url: "/services/",
   },
 };
 
-const serviceIcons = [Globe2, Code2, Bot, BriefcaseBusiness] as const;
-
-const problems = [
-  "Manual, repetitive work",
-  "Inefficient processes",
-  "Poor customer management",
-  "Outdated systems",
-  "Difficult booking processes",
-  "Weak online presence",
-  "Operational bottlenecks",
-  "A lack of useful digital tools",
-];
+const icons = [PanelsTopLeft, Workflow, Smartphone, Bot, Headphones] as const;
+const capabilityLists = [
+  ["Professional websites", "Responsive web apps", "E-commerce experiences", "Customer-facing digital experiences"],
+  ["Customer and order management", "Inventory systems", "Project and operations systems", "Business dashboards"],
+  ["iOS and Android experiences", "Customer apps", "Internal employee apps", "Mobile ordering and services"],
+  ["Repetitive task automation", "Workflow automation", "Reporting and notifications", "AI-assisted processes"],
+  ["Post-launch support", "Technical maintenance", "Bug fixes and updates", "Ongoing improvement"],
+] as const;
 
 export default function ServicesPage() {
-  return (
-    <>
-      <SiteHeader />
-      <main id="top">
-        <section className="services-hero">
-          <div className="container">
-            <SectionEyebrow>Services</SectionEyebrow>
-            <h1>Technology solutions <em>built around your business.</em></h1>
-            <p className="hero-copy">
-              ILBATECH starts with the way your business works today, the challenge in
-              front of you, and the outcome you need. Then we recommend technology
-              that earns its place.
-            </p>
-            <div className="hero-actions">
-              <Button href="/contact#contact-form">Start a Conversation</Button>
-              <Button href="#service-catalog" variant="secondary">Explore Services</Button>
-            </div>
-          </div>
-        </section>
-
-        <section id="service-catalog" className="section services-list">
-          <div className="container">
-            <div className="section-heading">
+  return <>
+    <SiteHeader />
+    <main id="top">
+      <section className="v4-page-hero">
+        <div className="container">
+          <SectionEyebrow>Services</SectionEyebrow>
+          <h1>Solutions for your business</h1>
+          <p>From the experience your customers see to the systems your team uses every day, ILBATECH builds practical technology that has a clear job to do.</p>
+          <Button href="/contact#contact-form">Tell Us What You Need</Button>
+        </div>
+      </section>
+      <section className="v4-services-page section">
+        <div className="container v4-services-list">
+          {BUSINESS_SERVICES.map((service, index) => {
+            const Icon = icons[index];
+            return <article key={service.title}>
+              <div className="v4-service-index"><span>0{index + 1}</span><Icon aria-hidden="true" size={27} strokeWidth={1.4} /></div>
               <div>
-                <SectionEyebrow>What we can help with</SectionEyebrow>
-                <h2>Practical technology for meaningful business needs.</h2>
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <ul>{capabilityLists[index].map((item) => <li key={item}>{item}</li>)}</ul>
+                <a href={getSitePath(service.href)}>Learn more <ArrowRight aria-hidden="true" size={16} /></a>
               </div>
-              <p>Every engagement begins by understanding the problem, not selecting a solution from a list.</p>
-            </div>
-            <div className="services-catalog services-catalog--primary">
-              {SERVICE_AREAS.map((service, index) => {
-                const Icon = serviceIcons[index] ?? BriefcaseBusiness;
-
-                return (
-                  <article
-                    className="catalog-card service-group-card"
-                    key={service.slug}
-                  >
-                    <div className="catalog-top">
-                      <span className="number">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <Icon aria-hidden="true" size={22} strokeWidth={1.5} />
-                    </div>
-                    <span className="service-group-eyebrow">
-                      {service.eyebrow}
-                    </span>
-                    <h3>{service.title}</h3>
-                    <p>{service.summary}</p>
-                    <ul aria-label={`${service.title} capabilities`}>
-                      {service.capabilities.slice(0, 3).map((capability) => (
-                        <li key={capability}>{capability}</li>
-                      ))}
-                    </ul>
-                    <a
-                      className="catalog-link"
-                      href={getSitePath(`/services/${service.slug}`)}
-                    >
-                      Explore {service.title}{" "}
-                      <ArrowRight aria-hidden="true" size={16} />
-                    </a>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="business-needs" className="business-needs section">
-          <div className="container problems-grid">
-            <div>
-              <SectionEyebrow>Start with the problem</SectionEyebrow>
-              <h2>Not every business challenge needs more technology.</h2>
-            </div>
-            <div>
-              <p className="lead">
-                Businesses often know something is getting in the way, but not
-                necessarily what will solve it. ILBATECH evaluates the problem first,
-                then determines whether technology is the right answer—and, if so,
-                what kind.
-              </p>
-              <ul>
-                {problems.map((problem) => <li key={problem}><span>→</span>{problem}</li>)}
-              </ul>
-              <a className="inverse-link" href={getSitePath("/solutions")}>
-                Explore solutions by business problem <ArrowRight aria-hidden="true" size={16} />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section className="final-cta">
-          <div className="container">
-            <SectionEyebrow>Not sure which direction fits?</SectionEyebrow>
-            <h2>Tell us what you&apos;re trying to improve.</h2>
-            <p>Start with the business need. We&apos;ll help identify the most useful next step—including when the answer is less technology, not more.</p>
-            <Button href={getContactPath("Not sure, I need advice")}>Describe the Challenge</Button>
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </>
-  );
+            </article>;
+          })}
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </>;
 }

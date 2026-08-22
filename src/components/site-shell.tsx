@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronRight, Mail, MessageCircleMore } from "lucide-react";
 import type { ReactNode } from "react";
 import { MobileNavigation } from "@/components/mobile-navigation";
-import { SERVICE_AREAS } from "@/config/offerings";
+import { BUSINESS_SERVICES } from "@/config/v4-content";
 import { getContactPath, getSitePath, SITE } from "@/config/site";
 
 export function Wordmark() {
@@ -11,7 +11,12 @@ export function Wordmark() {
       className="wordmark"
       aria-label={`${SITE.name} home`}
     >
-      {SITE.wordmark.lead}<span>{SITE.wordmark.accent}</span>
+      <svg className="brand-monogram" viewBox="0 0 44 52" aria-hidden="true">
+        <path className="brand-monogram-i" d="M5 5h18M14 5v42M5 47h18" />
+        <path className="brand-monogram-l" d="M28 5v33c0 6 3 9 9 9h3" />
+        <path className="brand-monogram-link" d="M14 18h14M14 34h14" />
+      </svg>
+      <span className="brand-word">ILBATECH</span>
     </a>
   );
 }
@@ -51,11 +56,11 @@ export function SiteHeader() {
           <a href={getSitePath("/")}>Home</a>
           <a href={getSitePath("/services")}>Services</a>
           <a href={getSitePath("/work")}>Work</a>
-          <a href={getSitePath("/about")}>About</a>
+          <a href={getSitePath("/about")}>About Us</a>
           <a href={getSitePath("/contact")}>Contact</a>
         </nav>
         <a className="nav-cta" href={getContactPath()}>
-          Start a Conversation
+          Let&apos;s Talk
           <ChevronRight aria-hidden="true" size={16} />
         </a>
         <MobileNavigation />
@@ -70,8 +75,27 @@ export function SiteFooter() {
       <div className="container footer-grid">
         <div className="footer-brand">
           <Wordmark />
-          <p>{SITE.name}</p>
-          <strong>Business-led technology consulting.</strong>
+          <strong>Technology built around your business.</strong>
+        </div>
+        <nav aria-label="Company">
+          <h2>Company</h2>
+          <a href={getSitePath("/about")}>About Us</a>
+          <a href={getSitePath("/contact")}>Contact</a>
+        </nav>
+        <nav aria-label="Services">
+          <h2>Services</h2>
+          {BUSINESS_SERVICES.map((service) => (
+            <a key={service.title} href={getSitePath(service.href)}>
+              {service.title}
+            </a>
+          ))}
+        </nav>
+        <nav aria-label="Work">
+          <h2>Work</h2>
+          <a href={getSitePath("/work")}>Explore Our Work</a>
+        </nav>
+        <nav aria-label="Contact">
+          <h2>Contact</h2>
           <a className="footer-email" href={`mailto:${SITE.email}`}>
             <Mail aria-hidden="true" size={15} />
             {SITE.email}
@@ -84,32 +108,12 @@ export function SiteFooter() {
             rel="noreferrer"
           >
             <MessageCircleMore aria-hidden="true" size={15} />
-            {SITE.phoneDisplay}
+            WhatsApp
           </a>
-        </div>
-        <nav aria-label="Footer navigation">
-          <h2>Explore</h2>
-          <a href={getSitePath("/")}>Home</a>
-          <a href={getSitePath("/services")}>Services</a>
-          <a href={getSitePath("/work")}>Work</a>
-          <a href={getSitePath("/about")}>About</a>
-          <a href={getSitePath("/contact")}>Contact</a>
-        </nav>
-        <nav aria-label="Service areas">
-          <h2>Service areas</h2>
-          {SERVICE_AREAS.map((service) => (
-            <a
-              key={service.slug}
-              href={getSitePath(`/services/${service.slug}`)}
-            >
-              {service.title}
-            </a>
-          ))}
         </nav>
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} {SITE.shortName}. All rights reserved.</span>
-        <span>Technology with purpose.</span>
         <a href="#top">
           Back to top <ArrowRight aria-hidden="true" size={15} />
         </a>

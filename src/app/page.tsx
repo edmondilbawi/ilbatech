@@ -1,81 +1,50 @@
+import type { Metadata } from "next";
 import {
-  AppWindow,
   ArrowRight,
   Bot,
-  Check,
-  Globe2,
-  MessageCircle,
-  Network,
+  CheckCircle2,
+  Cloud,
+  Code2,
+  Headphones,
+  Mail,
+  MessageCircleMore,
+  PanelsTopLeft,
+  Phone,
+  Smartphone,
+  Store,
+  Workflow,
 } from "lucide-react";
-import { ProjectPreview } from "@/components/project-preview";
-import {
-  Button,
-  SectionEyebrow,
-  SiteFooter,
-  SiteHeader,
-} from "@/components/site-shell";
+import { ContactForm } from "@/components/contact-form";
+import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getSitePath, SITE } from "@/config/site";
-import { WORK_PROJECTS } from "@/config/work-projects";
+import { BUSINESS_SERVICES, V4_WORK } from "@/config/v4-content";
 
-const capabilities = [
-  {
-    title: "Web Development",
+export const metadata: Metadata = {
+  title: "Digital Solutions That Help Businesses Grow",
+  description:
+    "ILBATECH builds websites, business systems, mobile apps and AI automation tailored to how your business works.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Digital Solutions That Help Businesses Grow | ILBATECH",
     description:
-      "Clear, credible websites and commerce experiences built around audience needs and business goals.",
-    href: "/services/websites-and-commerce",
-    Icon: Globe2,
+      "Websites, business systems, mobile apps and AI automation built around your business.",
+    url: "/",
   },
-  {
-    title: "Business Systems",
-    description:
-      "Practical systems that bring workflows, information, and everyday decisions into better order.",
-    href: "/services/business-systems-and-consulting",
-    Icon: Network,
-  },
-  {
-    title: "AI & Automation",
-    description:
-      "Purposeful automation that reduces repeatable work while keeping people in control.",
-    href: "/services/automation-and-ai",
-    Icon: Bot,
-  },
-  {
-    title: "Digital Products",
-    description:
-      "Focused web and software products shaped around a useful task, service, or operational need.",
-    href: "/services/software-and-applications",
-    Icon: AppWindow,
-  },
-] as const;
+};
 
-const process = [
-  {
-    number: "01",
-    title: "Understand",
-    description: "Learn the business problem, the people involved, and what the solution needs to achieve.",
-  },
-  {
-    number: "02",
-    title: "Build",
-    description: "Design and implement the technology that fits the need without avoidable complexity.",
-  },
-  {
-    number: "03",
-    title: "Improve",
-    description: "Test, refine, and prepare the solution to work reliably in practical use.",
-  },
+const serviceIcons = [PanelsTopLeft, Workflow, Smartphone, Bot, Headphones] as const;
+const explanationPoints = [
+  "Understand your needs",
+  "Build the right solution",
+  "Launch with confidence",
+  "Support your growth",
 ] as const;
 
 const siteUrl = `${SITE.productionUrl}/`;
 const homepageStructuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": `${siteUrl}#website`,
-      name: SITE.name,
-      url: siteUrl,
-    },
+    { "@type": "WebSite", "@id": `${siteUrl}#website`, name: SITE.name, url: siteUrl },
     {
       "@type": "Organization",
       "@id": `${siteUrl}#organization`,
@@ -91,212 +60,115 @@ const homepageStructuredData = {
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(homepageStructuredData).replace(/</g, "\\u003c"),
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData).replace(/</g, "\\u003c") }} />
       <SiteHeader />
       <main id="top">
-        <section className="home-hero">
-          <div className="container home-hero-grid">
-            <div className="home-hero-content">
-              <SectionEyebrow>Practical technology for business</SectionEyebrow>
-              <h1>
-                Technology should solve business problems, <em>not create more complexity.</em>
-              </h1>
-              <p className="hero-copy home-hero-copy">
-                ILBATECH builds practical digital products and technology solutions
-                that help businesses operate, serve customers, and move forward
-                with clarity.
-              </p>
-              <div className="hero-actions home-hero-actions">
-                <Button href="/contact#contact-form">Start a Conversation</Button>
-                <Button href="/work" variant="secondary">View Our Work</Button>
+        <section className="v4-hero">
+          <div className="container v4-hero-grid">
+            <div className="v4-hero-copy">
+              <SectionEyebrow>Technology made useful</SectionEyebrow>
+              <h1>Digital solutions that help businesses grow.</h1>
+              <p>We build websites, business systems, mobile apps and AI automation tailored to how your business works.</p>
+              <div className="hero-actions">
+                <Button href="/work">Explore Our Work</Button>
+                <Button href="#contact" variant="secondary">Tell Us What You Need</Button>
               </div>
             </div>
 
-            <div className="home-hero-visual" aria-hidden="true">
-              <div className="home-system-header">
-                <span>Connected service flow</span>
-                <i><b /><b /><b /></i>
+            <div className="digital-ecosystem" aria-label="A connected website, business system and mobile app illustration" role="img">
+              <div className="ecosystem-orbit" aria-hidden="true" />
+              <div className="ecosystem-laptop">
+                <div className="ecosystem-bar"><i /><i /><i /></div>
+                <div className="ecosystem-screen">
+                  <span><PanelsTopLeft size={17} /> Business website</span>
+                  <div><b /><b /><b /></div>
+                </div>
+                <span className="ecosystem-base" />
               </div>
-              <div className="home-system-context">
-                <div className="home-system-stage home-system-stage--need">
-                  <span>01 · Business need</span>
-                  <strong>New customer enquiry</strong>
-                  <small>Needs a clear next step</small>
-                </div>
-                <i className="home-system-connector" />
-                <div className="home-system-stage home-system-stage--technology">
-                  <Network size={18} strokeWidth={1.4} />
-                  <span>02 · Practical technology</span>
-                </div>
-              </div>
-              <div className="home-system-interface">
-                <div className="home-system-toolbar">
-                  <span><AppWindow size={13} /> Service workspace</span>
-                  <small>Active flow</small>
-                </div>
-                <div className="home-system-enquiry">
-                  <Globe2 size={17} />
-                  <span><small>Website enquiry</small><strong>Consultation request</strong></span>
-                  <b>Captured</b>
-                </div>
-                <div className="home-system-pipeline">
-                  <span><i>1</i>Capture</span>
-                  <b />
-                  <span><i>2</i>Qualify</span>
-                  <b />
-                  <span><i>3</i>Assign</span>
-                </div>
-                <div className="home-system-modules">
-                  <div>
-                    <Bot size={15} />
-                    <span><strong>Workflow update</strong><small>Assigned to the right owner</small></span>
-                  </div>
-                  <div>
-                    <Check size={15} />
-                    <span><strong>Next action</strong><small>Follow-up ready</small></span>
-                  </div>
-                </div>
-              </div>
-              <div className="home-system-stage home-system-stage--outcome">
-                <span>03 · Useful outcome</span>
-                <strong>Clear ownership. Faster response.</strong>
-              </div>
+              <div className="ecosystem-phone"><Smartphone aria-hidden="true" size={26} /><span>Mobile</span></div>
+              <span className="ecosystem-node ecosystem-node--cloud"><Cloud size={20} /><i>Connected</i></span>
+              <span className="ecosystem-node ecosystem-node--store"><Store size={20} /><i>Commerce</i></span>
+              <span className="ecosystem-node ecosystem-node--flow"><Workflow size={20} /><i>Systems</i></span>
+              <span className="ecosystem-node ecosystem-node--code"><Code2 size={20} /><i>Web apps</i></span>
             </div>
           </div>
         </section>
 
-        <section className="home-capabilities section">
+        <section className="v4-explanation section">
           <div className="container">
-            <div className="section-heading home-section-heading">
-              <div>
-                <SectionEyebrow>What we build</SectionEyebrow>
-                <h2>Connected capabilities for practical business needs.</h2>
-              </div>
-              <p>
-                From the customer-facing experience to the systems and automation
-                behind it, every capability has a clear role.
-              </p>
+            <div className="v4-explanation-copy">
+              <SectionEyebrow>Business first</SectionEyebrow>
+              <h2>Technology built around your business.</h2>
+              <p>ILBATECH helps businesses turn everyday challenges into practical digital solutions. Whether you need a professional website, a system to manage your operations, a mobile application, or automation that saves your team time, we design the solution around the way your business actually works.</p>
             </div>
+            <ul className="v4-explanation-points">
+              {explanationPoints.map((point) => <li key={point}><CheckCircle2 aria-hidden="true" size={21} />{point}</li>)}
+            </ul>
+          </div>
+        </section>
 
-            <div className="home-capability-grid">
-              {capabilities.map(({ title, description, href, Icon }, index) => (
-                <a
-                  className="home-capability-card"
-                  href={getSitePath(href)}
-                  key={title}
-                  aria-label={`Explore ${title}`}
-                >
-                  <div className="home-capability-top">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <Icon aria-hidden="true" size={23} strokeWidth={1.5} />
-                  </div>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                  <span className="home-card-link">
-                    Explore capability <ArrowRight aria-hidden="true" size={16} />
-                  </span>
+        <section id="services" className="v4-services section">
+          <div className="container">
+            <div className="v4-section-heading">
+              <SectionEyebrow>Services</SectionEyebrow>
+              <h2>Solutions for your business</h2>
+              <p>Clear, useful technology for the customer experience and the work behind it.</p>
+            </div>
+            <div className="v4-service-grid">
+              {BUSINESS_SERVICES.map((service, index) => {
+                const Icon = serviceIcons[index];
+                return <article className="v4-service-card" key={service.title}>
+                  <Icon aria-hidden="true" size={25} strokeWidth={1.5} />
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <a href={getSitePath(service.href)}>Learn more <ArrowRight aria-hidden="true" size={16} /></a>
+                </article>;
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section id="work" className="v4-work section">
+          <div className="container">
+            <div className="v4-section-heading">
+              <SectionEyebrow>Interactive concepts</SectionEyebrow>
+              <h2>Explore Our Work</h2>
+              <p>Step directly into five working demos designed around real business needs.</p>
+            </div>
+            <div className="v4-work-grid">
+              {V4_WORK.map((project, index) => <article className={`v4-work-card v4-work-card--${project.type}`} key={project.title}>
+                <a className="v4-work-visual" href={getSitePath(project.href)} aria-label={`Explore ${project.title}`}>
+                  <span className="v4-work-number">0{index + 1}</span>
+                  <div className="v4-work-window"><i /><i /><i /><b /><b /></div>
                 </a>
-              ))}
-            </div>
-
-            <a className="section-link" href={getSitePath("/services")}>
-              View All Services <ArrowRight aria-hidden="true" size={16} />
-            </a>
-          </div>
-        </section>
-
-        <section className="home-work section">
-          <div className="container home-work-grid">
-            <div className="home-work-copy">
-              <SectionEyebrow>Selected Work</SectionEyebrow>
-              <h2>See the thinking behind the technology.</h2>
-              <p className="lead">
-                Explore how ILBATECH approaches realistic business needs across
-                web experiences, digital products, systems, and automation.
-              </p>
-              <p className="home-work-disclosure">
-                The collection is independent concept work—not commissioned client
-                work or evidence of commercial results.
-              </p>
-              <a className="section-link" href={getSitePath("/work")}>
-                Explore Selected Work <ArrowRight aria-hidden="true" size={16} />
-              </a>
-            </div>
-
-            <div className="home-interface-evidence">
-              <div className="home-work-projects-top">
-                <span>Concept Project</span>
-                <span>Interface evidence</span>
-              </div>
-              <nav aria-label="Selected concept project interfaces">
-                {WORK_PROJECTS.map((project, index) => (
-                  <a
-                    href={getSitePath(`/work/${project.slug}`)}
-                    key={project.slug}
-                    aria-label={`Explore ${project.title}`}
-                  >
-                    <ProjectPreview project={project} size="fragment" />
-                    <span className="home-evidence-label">
-                      <i>{String(index + 1).padStart(2, "0")}</i>
-                      <strong>{project.title}</strong>
-                      <small>{project.category}</small>
-                    </span>
-                  </a>
-                ))}
-              </nav>
+                <div>
+                  <span>Interactive concept</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <a href={getSitePath(project.href)}>Explore Project <ArrowRight aria-hidden="true" size={16} /></a>
+                </div>
+              </article>)}
             </div>
           </div>
         </section>
 
-        <section className="home-process section">
-          <div className="container">
-            <div className="section-heading home-process-heading">
-              <div>
-                <SectionEyebrow>How we work</SectionEyebrow>
-                <h2>Clarity first. Technology second.</h2>
-              </div>
-              <p>
-                A focused path from understanding the real need to delivering
-                something useful in practice.
-              </p>
-            </div>
-
-            <ol className="home-process-grid">
-              {process.map((step) => (
-                <li key={step.number}>
-                  <span>{step.number}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </li>
-              ))}
-            </ol>
+        <section id="contact" className="v4-contact section">
+          <div className="container v4-contact-heading">
+            <SectionEyebrow>Let&apos;s talk</SectionEyebrow>
+            <h2>Tell us what you need</h2>
+            <p>Have a project idea or need help improving your business? Fill out the form and we&apos;ll get back to you as soon as possible.</p>
           </div>
-        </section>
-
-        <section id="consultation" className="home-conversion">
-          <div className="container home-conversion-grid">
-            <div>
-              <SectionEyebrow>Start a conversation</SectionEyebrow>
-              <h2>Bring us the business challenge.</h2>
-            </div>
-            <div>
-              <p>
-                We&apos;ll help make sense of the technology around it and identify a
-                practical way forward.
-              </p>
-              <div className="home-conversion-actions">
-                <Button href="/contact#contact-form">Start a Conversation</Button>
-                <Button href={SITE.whatsappUrl} variant="secondary">
-                  <MessageCircle aria-hidden="true" size={17} />
-                  WhatsApp {SITE.phoneDisplay}
-                </Button>
+          <div className="container v4-contact-grid">
+            <div className="v4-contact-copy">
+              <h3>We&apos;re here to help your business grow.</h3>
+              <p>Whether you need a website, a system to manage your operations, a mobile app, or automation that saves time, we&apos;re ready to build the right solution for you.</p>
+              <div className="v4-contact-links">
+                <a href={`mailto:${SITE.email}`}><Mail aria-hidden="true" size={19} /><span><small>Email</small>{SITE.email}</span></a>
+                <a href={`tel:+${SITE.whatsappDigits}`}><Phone aria-hidden="true" size={19} /><span><small>Phone</small>{SITE.phoneDisplay}</span></a>
+                <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircleMore aria-hidden="true" size={19} /><span><small>WhatsApp</small>{SITE.phoneDisplay}</span></a>
               </div>
             </div>
+            <ContactForm />
           </div>
         </section>
       </main>
