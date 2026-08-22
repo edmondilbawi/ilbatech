@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ILBATECH IL monogram">
-  <rect width="512" height="512" rx="96" fill="#0F3D2E"/>
-  <g transform="translate(55 28) scale(8.05)">
-    <path fill="#FFFDF7" d="M4 4h20v6h-6v36h6v6H4v-6h6V10H4z"/>
-    <path fill="#FFFDF7" d="M27 4h8v40h13v8H27z"/>
-    <path fill="#C8A15A" d="M18 26h9v5h-9z"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ILBATECH square IL monogram">
+  <rect width="512" height="512" fill="#073A2E"/>
+  <rect x="20" y="20" width="472" height="472" fill="none" stroke="#C8A15A" stroke-width="11"/>
+  <path fill="#FFFDF7" d="M132 107h129l-29 28h-28v198l25 21H135l27-21V135z"/>
+  <path fill="#FFFDF7" d="M236 177h51l-10 11v187h70l46-52-18 86H200l36-34z"/>
+  <path fill="#C8A15A" d="M219 163l49-48 50 48z"/>
 </svg>

@@ -1,4 +1,5 @@
 import { ArrowRight, ChevronRight, Mail, MessageCircleMore } from "lucide-react";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { BUSINESS_SERVICES } from "@/config/v4-content";
@@ -11,11 +12,15 @@ export function Wordmark() {
       className="wordmark"
       aria-label={`${SITE.name} home`}
     >
-      <svg className="brand-monogram" viewBox="0 0 52 56" aria-hidden="true">
-        <path className="brand-monogram-i" d="M4 4h20v6h-6v36h6v6H4v-6h6V10H4z" />
-        <path className="brand-monogram-l" d="M27 4h8v40h13v8H27z" />
-        <path className="brand-monogram-link" d="M18 26h9v5h-9z" />
-      </svg>
+      <Image
+        className="brand-mark"
+        src="/brand-mark.webp"
+        alt=""
+        width={36}
+        height={36}
+        unoptimized
+        aria-hidden="true"
+      />
       <span className="brand-word">ILBATECH</span>
     </a>
   );

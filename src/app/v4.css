@@ -33,10 +33,7 @@ p { text-wrap: pretty; }
 
 .nav { height: 80px; }
 .wordmark { display: inline-flex; align-items: center; gap: 10px; letter-spacing: 0; }
-.wordmark .brand-monogram { width: 29px; height: 36px; overflow: visible; }
-.brand-monogram path { stroke: none; }
-.brand-monogram-i, .brand-monogram-l { fill: #0F3D2E; }
-.brand-monogram-link { fill: #C8A15A; }
+.wordmark .brand-mark { display: block; width: 36px; height: 36px; object-fit: contain; }
 .wordmark .brand-word { color: #0F3D2E; font-size: 19px; font-weight: 800; letter-spacing: .18em; }
 .desktop-nav a, .nav-cta { color: var(--text-dark); }
 .nav-cta { border-color: transparent; border-radius: 999px; background: var(--green-deep); color: #fff; padding: 0 18px; }
@@ -153,8 +150,6 @@ p { text-wrap: pretty; }
 .contact-card { background: var(--white); }
 
 footer { background: #113328; color: #cbd9d1; }
-footer .wordmark .brand-monogram-i, footer .wordmark .brand-monogram-l { fill: #fff; }
-footer .wordmark .brand-monogram-link { fill: #C8A15A; }
 footer .wordmark .brand-word { color: #fff; }
 .footer-grid { grid-template-columns: 1.4fr 1fr; }
 .footer-brand strong { max-width: 280px; margin-top: 18px; color: #fff; font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.25; }
@@ -188,7 +183,7 @@ footer .wordmark .brand-word { color: #fff; }
   .container { width: min(100% - 32px, 1120px); }
   .nav { height: 70px; }
   .wordmark { gap: 7px; }
-  .wordmark .brand-monogram { width: 24px; height: 31px; }
+  .wordmark .brand-mark { width: 31px; height: 31px; }
   .wordmark .brand-word { font-size: 16px; letter-spacing: .13em; }
   .v4-hero { padding: 62px 0 72px; }
   .v4-hero-copy h1 { font-size: clamp(44px, 13vw, 58px); }
