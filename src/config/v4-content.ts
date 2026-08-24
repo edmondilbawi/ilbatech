@@ -51,13 +51,13 @@ export const V4_WORK = [
     imageAlt: "Restaurant ordering menu with product cards, voucher field and demo cart",
   },
   {
-    title: "Inventory Management System",
+    title: "Restaurant Inventory Management System",
     description:
-      "Track products, stock movements, quantities, costs, prices, suppliers, low-stock alerts and inventory reports.",
+      "Track restaurant stock, deliveries, usage, costs and movement history from one simple system.",
     href: "/work/inventory-management-system/demo",
     type: "inventory",
     image: "/images/work/inventory-management.webp",
-    imageAlt: "Inventory management interface with product quantities, pricing and stock controls",
+    imageAlt: "Restaurant inventory dashboard showing food products, quantities, low-stock alerts and recent movements",
   },
   {
     title: "Travel Agency Website",
