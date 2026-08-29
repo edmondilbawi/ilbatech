@@ -53,7 +53,7 @@ export const V4_WORK = [
   {
     title: "Restaurant Inventory Management System",
     description:
-      "Track restaurant stock, deliveries, usage, costs and movement history from one simple system.",
+      "Track restaurant stock, factory production, purchase requests, branch deliveries and traceable activity in one clear system.",
     href: "/work/inventory-management-system/demo",
     type: "inventory",
     image: "/images/work/inventory-management.webp",
