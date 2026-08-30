@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint",
-    "test": "node --no-warnings=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test src/components/inventory-demo-model.test.ts src/components/ordering-demo-model.test.ts"
+    "test": "node --no-warnings=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test src/components/inventory-demo-model.test.ts src/components/ordering-demo-model.test.ts src/components/ecommerce-demo-model.test.ts"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

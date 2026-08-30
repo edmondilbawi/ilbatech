@@ -71,10 +71,11 @@ export const V4_WORK = [
   {
     title: "E-Commerce Store",
     description:
-      "A complete online shopping experience with products, categories, product details, cart, checkout and order tracking.",
+      "A complete interactive shopping journey with search, product discovery, wishlist, cart, simulated checkout, tracking, orders and returns.",
     href: "/work/premium-ecommerce-store/demo",
     type: "commerce",
     image: "/images/work/ecommerce-store.webp",
-    imageAlt: "Premium e-commerce storefront with collection navigation and featured product presentation",
+    imageAlt:
+      "Nestra Market commerce storefront with original products, search and shopping navigation",
   },
 ] as const;
