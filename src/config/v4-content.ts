@@ -78,4 +78,14 @@ export const V4_WORK = [
     imageAlt:
       "Nestra Market commerce storefront with original products, search and shopping navigation",
   },
+  {
+    title: "Event Ticketing Platform",
+    description:
+      "Explore event discovery, reserved seating, simulated checkout, unique QR tickets, transfers, organizer analytics and door check-in.",
+    href: "/work/event-ticketing-platform/demo",
+    type: "ticketing",
+    image: "/images/work/event-ticketing.webp",
+    imageAlt:
+      "Virello event ticketing discovery experience with original event imagery, search and featured booking cards",
+  },
 ] as const;

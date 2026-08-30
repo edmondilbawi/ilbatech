@@ -7,7 +7,7 @@ import { V4_WORK } from "@/config/v4-content";
 
 export const metadata: Metadata = {
   title: "Interactive Work",
-  description: "Explore five interactive ILBATECH concept projects for dashboards, restaurant ordering, inventory, travel and e-commerce.",
+  description: "Explore six interactive ILBATECH concept projects for dashboards, restaurant systems, travel, e-commerce and event ticketing.",
   alternates: { canonical: "/work/" },
   openGraph: {
     title: "Interactive Work | ILBATECH",
@@ -24,7 +24,7 @@ export default function WorkPage() {
         <div className="container">
           <SectionEyebrow>Interactive work</SectionEyebrow>
           <h1>See what the right technology can do.</h1>
-          <p>Explore five working concepts. Each project opens directly into an interactive demo so you can experience it for yourself.</p>
+          <p>Explore six working concepts. Each project opens directly into an interactive demo so you can experience it for yourself.</p>
           <Button href="#projects">Explore Our Work</Button>
         </div>
       </section>

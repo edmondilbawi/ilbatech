@@ -142,7 +142,7 @@ export default function Home() {
             <div className="v4-section-heading">
               <SectionEyebrow>Interactive concepts</SectionEyebrow>
               <h2>Explore Our Work</h2>
-              <p>Step directly into five working demos designed around real business needs.</p>
+              <p>Step directly into six working demos designed around real business needs.</p>
             </div>
             <div className="v4-work-grid">
               {V4_WORK.map((project, index) => <article className={`v4-work-card v4-work-card--${project.type}`} key={project.title}>

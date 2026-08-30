@@ -113,6 +113,7 @@ p { text-wrap: pretty; }
 .v4-work-card--inventory .v4-work-visual { background: #3e7053; }
 .v4-work-card--travel .v4-work-visual { background: #6a9baa; }
 .v4-work-card--commerce .v4-work-visual { background: #a28a76; }
+.v4-work-card--ticketing .v4-work-visual { background: #6c3cf0; }
 
 .v4-contact { background: var(--cream); }
 .v4-contact-heading { max-width: 720px; margin-bottom: 42px; }
@@ -173,7 +174,7 @@ footer .wordmark .brand-word { color: #fff; }
   .v4-service-card:nth-child(4), .v4-service-card:nth-child(5) { min-height: 250px; }
   .v4-work-grid { grid-template-columns: repeat(6, 1fr); }
   .v4-work-card { grid-column: span 2; }
-  .v4-work-card:nth-child(4) { grid-column: 2 / span 2; }
+  .v4-work-card:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; }
   .v4-contact-grid { grid-template-columns: .82fr 1.18fr; gap: 44px; }
   .v4-contact-copy { position: sticky; top: 110px; }
   .footer-grid { grid-template-columns: 1.45fr repeat(4, 1fr); }
