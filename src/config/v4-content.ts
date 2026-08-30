@@ -44,11 +44,11 @@ export const V4_WORK = [
   {
     title: "Restaurant Ordering System",
     description:
-      "Manage orders, customers, order history, repeat purchases, loyalty points, vouchers and restaurant analytics.",
+      "Explore a complete customer journey from menu customization and offers to simulated checkout, live tracking and digital receipts.",
     href: "/work/restaurant-ordering-system/demo",
     type: "restaurant",
     image: "/images/work/restaurant-ordering.webp",
-    imageAlt: "Restaurant ordering menu with product cards, voucher field and demo cart",
+    imageAlt: "Ember Bite ordering menu with food photography, categories and a customer cart",
   },
   {
     title: "Restaurant Inventory Management System",
