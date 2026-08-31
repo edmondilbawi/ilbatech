@@ -83,11 +83,23 @@ import {
 import styles from "./ticketing-showcase.module.css";
 
 const STORAGE_KEY = "ilbatech-virello-ticketing-demo-v1";
+const NAVIGATION_KEY = "ilbatech-virello-ticketing-navigation-v1";
 const EMPTY_ATTENDEE: Attendee = { firstName: "", lastName: "", email: "" };
 type Mode = "customer" | "organizer";
 type CustomerView = "discover" | "event" | "checkout" | "confirmation" | "tickets" | "orders" | "saved" | "notifications";
 type OrganizerView = "dashboard" | "events" | "manage" | "attendees" | "checkin" | "analytics" | "create";
 type CheckoutStep = "attendees" | "payment";
+
+const CUSTOMER_VIEW_VALUES: readonly CustomerView[] = ["discover", "event", "checkout", "confirmation", "tickets", "orders", "saved", "notifications"];
+const ORGANIZER_VIEW_VALUES: readonly OrganizerView[] = ["dashboard", "events", "manage", "attendees", "checkin", "analytics", "create"];
+
+function isCustomerView(value: unknown): value is CustomerView {
+  return typeof value === "string" && CUSTOMER_VIEW_VALUES.includes(value as CustomerView);
+}
+
+function isOrganizerView(value: unknown): value is OrganizerView {
+  return typeof value === "string" && ORGANIZER_VIEW_VALUES.includes(value as OrganizerView);
+}
 
 const CUSTOMER_NAV: readonly { id: CustomerView; label: string; icon: LucideIcon }[] = [
   { id: "discover", label: "Discover", icon: Search },
@@ -108,6 +120,62 @@ const ORGANIZER_NAV: readonly { id: OrganizerView; label: string; icon: LucideIc
 const money = (value: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 const attendeeName = (attendee: Attendee) => `${attendee.firstName} ${attendee.lastName}`.trim();
 
+const DIALOG_FOCUS_SELECTOR =
+  'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function useAccessibleDialog<T extends HTMLElement = HTMLElement>(
+  onClose: () => void,
+  open = true,
+) {
+  const dialogRef = useRef<T>(null);
+  const closeRef = useRef(onClose);
+
+  useEffect(() => {
+    closeRef.current = onClose;
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!open || !dialogRef.current) return;
+
+    const dialog = dialogRef.current;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const focusable = () =>
+      Array.from(dialog.querySelectorAll<HTMLElement>(DIALOG_FOCUS_SELECTOR));
+    const frame = window.requestAnimationFrame(() => focusable()[0]?.focus());
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeRef.current();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const controls = focusable();
+      if (!controls.length) return;
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+
+      if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      document.removeEventListener("keydown", handleKeyDown);
+      if (previousFocus?.isConnected) previousFocus.focus();
+    };
+  }, [open]);
+
+  return dialogRef;
+}
+
 export function TicketingShowcase() {
   const [state, setState] = useState<TicketingState>(() => createInitialTicketingState());
   const [hydrated, setHydrated] = useState(false);
@@ -122,7 +190,21 @@ export function TicketingShowcase() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      setState(loadTicketingState(window.localStorage.getItem(STORAGE_KEY)));
+      const restoredState = loadTicketingState(window.localStorage.getItem(STORAGE_KEY));
+      setState(restoredState);
+
+      try {
+        const navigation = JSON.parse(window.sessionStorage.getItem(NAVIGATION_KEY) ?? "null") as Record<string, unknown> | null;
+        if (navigation?.mode === "customer" || navigation?.mode === "organizer") setMode(navigation.mode);
+        if (isCustomerView(navigation?.customerView)) setCustomerView(navigation.customerView);
+        if (isOrganizerView(navigation?.organizerView)) setOrganizerView(navigation.organizerView);
+        if (typeof navigation?.selectedEventId === "string" && restoredState.events.some((event) => event.id === navigation.selectedEventId)) setSelectedEventId(navigation.selectedEventId);
+        if (typeof navigation?.activeOrganizerEventId === "string" && restoredState.events.some((event) => event.id === navigation.activeOrganizerEventId)) setActiveOrganizerEventId(navigation.activeOrganizerEventId);
+        if (typeof navigation?.lastOrderId === "string" && restoredState.orders.some((order) => order.id === navigation.lastOrderId)) setLastOrderId(navigation.lastOrderId);
+      } catch {
+        window.sessionStorage.removeItem(NAVIGATION_KEY);
+      }
+
       setHydrated(true);
     });
     return () => window.cancelAnimationFrame(frame);
@@ -131,6 +213,11 @@ export function TicketingShowcase() {
   useEffect(() => {
     if (hydrated) window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [hydrated, state]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    window.sessionStorage.setItem(NAVIGATION_KEY, JSON.stringify({ mode, customerView, organizerView, selectedEventId, activeOrganizerEventId, lastOrderId }));
+  }, [activeOrganizerEventId, customerView, hydrated, lastOrderId, mode, organizerView, selectedEventId]);
 
   function openEvent(eventId: string) {
     setSelectedEventId(eventId);
@@ -274,7 +361,7 @@ function Discover({ state, setState, openEvent }: { state: TicketingState; setSt
         <div className={styles.quickSearch}><span>Popular:</span>{["music", "This Weekend", "family"].map((item) => <button type="button" key={item} onClick={() => item === "This Weekend" ? setFilters({ ...filters, date: "This Weekend" }) : commitSearch(item)}>{item}</button>)}</div>
       </div>
       <article className={styles.heroEvent}>
-        <Image src="/images/events/music.webp" width={1440} height={960} unoptimized priority alt="Original fictional live concert inside a contemporary hall" />
+        <Image src="/images/events/music.webp" width={1440} height={960} unoptimized priority loading="eager" alt="Original fictional live concert inside a contemporary hall" />
         <div><span>Editor&apos;s pick · This weekend</span><h2>Harbor Lights Live</h2><p><CalendarDays /> Saturday, September 5 · 8:00 PM</p><p><MapPin /> The Lantern Hall · Beirut</p><button type="button" onClick={() => openEvent("harbor-lights-live")}>Get Tickets <ArrowRight /></button></div>
       </article>
     </section>
@@ -334,27 +421,47 @@ function EventDetail({ state, setState, eventId, back, checkout }: { state: Tick
   const soldOut = eventAvailability(event) === "Sold Out" || event.status === "Sold Out";
   const cancelled = event.status === "Cancelled";
 
+  function persistSelection(nextSessionId: string, nextLines: DraftLine[]) {
+    const draft: PurchaseDraft = {
+      eventId: event.id,
+      sessionId: nextSessionId,
+      lines: nextLines,
+      promoCode: existing?.promoCode ?? "",
+      customerMode: existing?.customerMode ?? "Guest",
+      purchaser: existing?.purchaser ?? { firstName: "", lastName: "", email: "", phone: "" },
+    };
+    setState({ ...state, draft });
+  }
+
+  function chooseSession(nextSessionId: string) {
+    setSessionId(nextSessionId);
+    persistSelection(nextSessionId, lines);
+  }
+
   function updateQuantity(typeId: string, delta: number) {
     const type = event.ticketTypes.find((item) => item.id === typeId)!;
     const current = lines.find((line) => line.ticketTypeId === typeId)?.quantity ?? 0;
     const nextQuantity = Math.max(0, Math.min(type.maxPerOrder, type.capacity - type.sold, current + delta));
     if (current + delta > nextQuantity) setMessage(`Only ${Math.min(type.maxPerOrder, type.capacity - type.sold)} ${type.name} tickets can be selected.`);
     else setMessage("");
-    setLines((items) => nextQuantity ? [...items.filter((line) => line.ticketTypeId !== typeId), { key: typeId, ticketTypeId: typeId, quantity: nextQuantity }] : items.filter((line) => line.ticketTypeId !== typeId));
+    const nextLines = nextQuantity ? [...lines.filter((line) => line.ticketTypeId !== typeId), { key: typeId, ticketTypeId: typeId, quantity: nextQuantity }] : lines.filter((line) => line.ticketTypeId !== typeId);
+    setLines(nextLines);
+    persistSelection(sessionId, nextLines);
   }
 
   function toggleSeat(seatId: string) {
     const seat = event.seats.find((item) => item.id === seatId)!;
     if (seat.sold) { setMessage(`${seat.id} is already reserved.`); return; }
     setMessage("");
-    setLines((items) => items.some((line) => line.seatId === seatId) ? items.filter((line) => line.seatId !== seatId) : [...items, { key: seat.id, ticketTypeId: seatTicketTypeId(seat), quantity: 1, seatId: seat.id }]);
+    const nextLines = lines.some((line) => line.seatId === seatId) ? lines.filter((line) => line.seatId !== seatId) : [...lines, { key: seat.id, ticketTypeId: seatTicketTypeId(seat), quantity: 1, seatId: seat.id }];
+    setLines(nextLines);
+    persistSelection(sessionId, nextLines);
   }
 
   function continueToCheckout() {
     if (!sessionId) { setMessage("Choose a date and session to continue."); return; }
     if (!lines.length) { setMessage(event.reservedSeating ? "Select at least one available seat." : "Select at least one ticket."); return; }
-    const draft: PurchaseDraft = { eventId: event.id, sessionId, lines, promoCode: "", customerMode: "Guest", purchaser: { firstName: "", lastName: "", email: "", phone: "" } };
-    setState({ ...state, draft });
+    persistSelection(sessionId, lines);
     checkout();
   }
 
@@ -368,7 +475,7 @@ function EventDetail({ state, setState, eventId, back, checkout }: { state: Tick
 
     <div className={styles.detailLayout}>
       <div className={styles.ticketBuilder}>
-        <section className={styles.builderSection}><div className={styles.stepTitle}><span>1</span><div><small>Choose your session</small><h2>Select a date and time</h2></div></div><div className={styles.sessionGrid}>{event.sessions.map((item) => <button type="button" key={item.id} aria-pressed={sessionId === item.id} onClick={() => setSessionId(item.id)}><CalendarDays /><span><b>{item.label.split(" — ")[0]}</b><small>{item.date} · {item.time}</small></span>{sessionId === item.id && <Check />}</button>)}</div></section>
+        <section className={styles.builderSection}><div className={styles.stepTitle}><span>1</span><div><small>Choose your session</small><h2>Select a date and time</h2></div></div><div className={styles.sessionGrid}>{event.sessions.map((item) => <button type="button" key={item.id} aria-pressed={sessionId === item.id} onClick={() => chooseSession(item.id)}><CalendarDays /><span><b>{item.label.split(" — ")[0]}</b><small>{item.date} · {item.time}</small></span>{sessionId === item.id && <Check />}</button>)}</div></section>
         <section className={styles.builderSection}><div className={styles.stepTitle}><span>2</span><div><small>{event.reservedSeating ? "Reserved seating" : "General admission"}</small><h2>{event.reservedSeating ? "Choose your seats" : "Choose ticket types"}</h2></div></div>
           {event.reservedSeating ? <SeatMap event={event} lines={lines} toggle={toggleSeat} /> : <div className={styles.ticketTypes}>{event.ticketTypes.map((type) => { const quantity = lines.find((line) => line.ticketTypeId === type.id)?.quantity ?? 0; const remaining = type.capacity - type.sold; return <article key={type.id}><div><span><b>{type.name}</b><small>{type.description}</small></span><strong>{money(type.price)}</strong></div><div><small>{remaining <= 10 ? `Only ${remaining} remaining` : `${remaining} available`} · Max {type.maxPerOrder}</small><Quantity value={quantity} decrement={() => updateQuantity(type.id, -1)} increment={() => updateQuantity(type.id, 1)} disableIncrement={quantity >= Math.min(type.maxPerOrder, remaining)} /></div></article>; })}</div>}
         </section>
@@ -390,7 +497,62 @@ function EventDetail({ state, setState, eventId, back, checkout }: { state: Tick
 }
 
 function SeatMap({ event, lines, toggle }: { event: TicketingEvent; lines: DraftLine[]; toggle: (seatId: string) => void }) {
-  return <div className={styles.seatMapWrap}><div className={styles.seatLegend}><span><i data-seat="available" /> Available</span><span><i data-seat="selected" /> Selected</span><span><i data-seat="sold" /> Reserved</span><span><i data-seat="accessible" /> Accessible</span></div><div className={styles.seatMap}><div className={styles.stage}><span>STAGE</span></div>{["A", "B", "C", "D", "E"].map((row) => <div className={styles.seatRow} key={row}><b>{row}</b><div>{event.seats.filter((seat) => seat.row === row).map((seat) => { const selected = lines.some((line) => line.seatId === seat.id); return <button type="button" key={seat.id} data-seat={seat.sold ? "sold" : selected ? "selected" : seat.accessible ? "accessible" : "available"} aria-label={`Seat ${seat.id}, ${seat.section}, ${money(seat.price)}${seat.sold ? ", reserved" : seat.accessible ? ", accessible" : ""}`} aria-pressed={selected} disabled={seat.sold} onClick={() => toggle(seat.id)}>{seat.number}{seat.accessible && <span>♿</span>}</button>; })}</div><b>{row}</b></div>)}<div className={styles.sectionPrices}><span><i /> Front · {money(120)}</span><span><i /> Middle · {money(80)}</span><span><i /> Rear · {money(50)}</span></div></div></div>;
+  return (
+    <div className={styles.seatMapWrap}>
+      <div className={styles.seatLegend}>
+        <span>
+          <i data-seat="available" /> Available
+        </span>
+        <span>
+          <i data-seat="selected" /> Selected
+        </span>
+        <span>
+          <i data-seat="sold" /> Reserved
+        </span>
+        <span>
+          <i data-seat="accessible" /> Accessible
+        </span>
+      </div>
+      <p className={styles.seatScrollHint}>Swipe horizontally to view every seat.</p>
+      <div className={styles.seatMapScroll}>
+        <div className={styles.seatMap}>
+          <div className={styles.stage}>
+            <span>STAGE</span>
+          </div>
+          {["A", "B", "C", "D", "E"].map((row) => (
+            <div className={styles.seatRow} key={row}>
+              <b>{row}</b>
+              <div>
+                {event.seats
+                  .filter((seat) => seat.row === row)
+                  .map((seat) => {
+                    const selected = lines.some((line) => line.seatId === seat.id);
+                    return (
+                      <button type="button" key={seat.id} data-seat={seat.sold ? "sold" : selected ? "selected" : seat.accessible ? "accessible" : "available"} aria-label={`Seat ${seat.id}, ${seat.section}, ${money(seat.price)}${seat.sold ? ", reserved" : seat.accessible ? ", accessible" : ""}`} aria-pressed={selected} disabled={seat.sold} onClick={() => toggle(seat.id)}>
+                        {seat.number}
+                        {seat.accessible && <span>♿</span>}
+                      </button>
+                    );
+                  })}
+              </div>
+              <b>{row}</b>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={styles.sectionPrices}>
+        <span>
+          <i /> Front · {money(120)}
+        </span>
+        <span>
+          <i /> Middle · {money(80)}
+        </span>
+        <span>
+          <i /> Rear · {money(50)}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 function Checkout({ state, setState, back, confirmed }: { state: TicketingState; setState: (state: TicketingState) => void; back: () => void; confirmed: (orderId: string) => void }) {
@@ -514,25 +676,126 @@ function TicketDialog({ state, setState, ticket, close }: { state: TicketingStat
   const [transferOpen, setTransferOpen] = useState(false);
   const [recipient, setRecipient] = useState({ name: "", email: "" });
   const [message, setMessage] = useState("");
+  const dialogRef = useAccessibleDialog(close);
 
   async function share() {
     const text = `${event.title} · ${session.date} · Ticket ${ticket.id}`;
     try {
       if (navigator.share) await navigator.share({ title: "Virello demo ticket", text });
-      else { await navigator.clipboard.writeText(text); setMessage("Safe ticket summary copied to clipboard."); }
-    } catch { setMessage("Sharing was cancelled."); }
+      else {
+        await navigator.clipboard.writeText(text);
+        setMessage("Safe ticket summary copied to clipboard.");
+      }
+    } catch {
+      setMessage("Sharing was cancelled.");
+    }
   }
 
   function submitTransfer(e: FormEvent) {
     e.preventDefault();
     const result = transferTicket(state, ticket.id, recipient.name, recipient.email);
-    if (!result.ok) { setMessage(result.message); return; }
+    if (!result.ok) {
+      setMessage(result.message);
+      return;
+    }
     setState(result.state);
     setMessage(`Transferred to ${recipient.name}.`);
     setTransferOpen(false);
   }
 
-  return <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && close()}><section className={styles.ticketDialog} role="dialog" aria-modal="true" aria-labelledby="digital-ticket-title"><button className={styles.dialogClose} type="button" aria-label="Close ticket" onClick={close}><X /></button><div className={styles.digitalTicket}><div className={styles.ticketBrand}><span>V</span><b>virello</b><em data-ticket={ticket.status}>{ticket.status}</em></div><small>{event.category}</small><h2 id="digital-ticket-title">{event.title}</h2><p>{session.date} · {session.time}</p><p>{event.venue} · {event.city}</p><div className={styles.qrFrame}><QrVisual payload={ticket.qrPayload} /><span>Present this QR code at entry.</span></div><dl><div><dt>Attendee</dt><dd>{attendeeName(ticket.attendee)}</dd></div><div><dt>Ticket</dt><dd>{event.ticketTypes.find((type) => type.id === ticket.ticketTypeId)?.name}</dd></div><div><dt>Seat</dt><dd>{ticket.seatId ?? "General admission"}</dd></div><div><dt>Ticket ID</dt><dd>{ticket.id}</dd></div></dl>{ticket.status === "Used" && <p className={styles.usedNotice}><CheckCircle2 /> Checked in {ticket.checkedInAt}</p>}{ticket.status === "Transferred" && <p className={styles.transferNotice}><Send /> Transferred to {ticket.ownerName}</p>}{ticket.status === "Cancelled" && <p className={styles.cancelNotice}><X /> This ticket is cancelled and cannot be used.</p>}</div><div className={styles.ticketActions}><button type="button" onClick={() => downloadTicket(state, ticket)}><Download /> Download</button><button type="button" onClick={share}><Share2 /> Share</button><button type="button" disabled={ticket.status !== "Valid" || state.transfers.some((item) => item.ticketId === ticket.id)} onClick={() => setTransferOpen((value) => !value)}><Send /> Transfer</button></div>{transferOpen && <form className={styles.transferForm} onSubmit={submitTransfer}><h3>Transfer this ticket</h3><p>The recipient becomes the ticket owner in this local demo. A transferred ticket cannot be transferred again.</p><Field label="Recipient name"><input required value={recipient.name} onChange={(e) => setRecipient({ ...recipient, name: e.target.value })} placeholder="Lina Saad" /></Field><Field label="Recipient email"><input required type="email" value={recipient.email} onChange={(e) => setRecipient({ ...recipient, email: e.target.value })} placeholder="lina@example.test" /></Field><button className={styles.primary} type="submit">Confirm Transfer</button></form>}{message && <p className={styles.dialogMessage} role="status">{message}</p>}<p className={styles.qrSecurity}>Demo QR validation is local and illustrative. Production entry validation would require secure server-side signing, authorization, and audit controls.</p></section></div>;
+  return (
+    <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && close()}>
+      <section ref={dialogRef} className={styles.ticketDialog} role="dialog" aria-modal="true" aria-labelledby="digital-ticket-title">
+        <button className={styles.dialogClose} type="button" aria-label="Close ticket" onClick={close}>
+          <X />
+        </button>
+        <div className={styles.digitalTicket}>
+          <div className={styles.ticketBrand}>
+            <span>V</span>
+            <b>virello</b>
+            <em data-ticket={ticket.status}>{ticket.status}</em>
+          </div>
+          <small>{event.category}</small>
+          <h2 id="digital-ticket-title">{event.title}</h2>
+          <p>
+            {session.date} · {session.time}
+          </p>
+          <p>
+            {event.venue} · {event.city}
+          </p>
+          <div className={styles.qrFrame}>
+            <QrVisual payload={ticket.qrPayload} />
+            <span>Present this QR code at entry.</span>
+          </div>
+          <dl>
+            <div>
+              <dt>Attendee</dt>
+              <dd>{attendeeName(ticket.attendee)}</dd>
+            </div>
+            <div>
+              <dt>Ticket</dt>
+              <dd>{event.ticketTypes.find((type) => type.id === ticket.ticketTypeId)?.name}</dd>
+            </div>
+            <div>
+              <dt>Seat</dt>
+              <dd>{ticket.seatId ?? "General admission"}</dd>
+            </div>
+            <div>
+              <dt>Ticket ID</dt>
+              <dd>{ticket.id}</dd>
+            </div>
+          </dl>
+          {ticket.status === "Used" && (
+            <p className={styles.usedNotice}>
+              <CheckCircle2 /> Checked in {ticket.checkedInAt}
+            </p>
+          )}
+          {ticket.status === "Transferred" && (
+            <p className={styles.transferNotice}>
+              <Send /> Transferred to {ticket.ownerName}
+            </p>
+          )}
+          {ticket.status === "Cancelled" && (
+            <p className={styles.cancelNotice}>
+              <X /> This ticket is cancelled and cannot be used.
+            </p>
+          )}
+        </div>
+        <div className={styles.ticketActions}>
+          <button type="button" onClick={() => downloadTicket(state, ticket)}>
+            <Download /> Download
+          </button>
+          <button type="button" onClick={share}>
+            <Share2 /> Share
+          </button>
+          <button type="button" disabled={ticket.status !== "Valid" || state.transfers.some((item) => item.ticketId === ticket.id)} onClick={() => setTransferOpen((value) => !value)}>
+            <Send /> Transfer
+          </button>
+        </div>
+        {transferOpen && (
+          <form className={styles.transferForm} onSubmit={submitTransfer}>
+            <h3>Transfer this ticket</h3>
+            <p>The recipient becomes the ticket owner in this local demo. A transferred ticket cannot be transferred again.</p>
+            <Field label="Recipient name">
+              <input required value={recipient.name} onChange={(e) => setRecipient({ ...recipient, name: e.target.value })} placeholder="Lina Saad" />
+            </Field>
+            <Field label="Recipient email">
+              <input required type="email" value={recipient.email} onChange={(e) => setRecipient({ ...recipient, email: e.target.value })} placeholder="lina@example.test" />
+            </Field>
+            <button className={styles.primary} type="submit">
+              Confirm Transfer
+            </button>
+          </form>
+        )}
+        {message && (
+          <p className={styles.dialogMessage} role="status">
+            {message}
+          </p>
+        )}
+        <p className={styles.qrSecurity}>Demo QR validation is local and illustrative. Production entry validation would require secure server-side signing, authorization, and audit controls.</p>
+      </section>
+    </div>
+  );
 }
 
 function Orders({ state, viewTickets }: { state: TicketingState; viewTickets: () => void }) {
@@ -551,7 +814,7 @@ function Notifications({ state, setState }: { state: TicketingState; setState: (
 function OrganizerExperience({ state, setState, view, setView, activeEventId, setActiveEventId }: { state: TicketingState; setState: (state: TicketingState) => void; view: OrganizerView; setView: (view: OrganizerView) => void; activeEventId: string; setActiveEventId: (id: string) => void }) {
   const selectEvent = (id: string, nextView: OrganizerView) => { setActiveEventId(id); setView(nextView); };
   if (view === "events") return <OrganizerEvents state={state} selectEvent={selectEvent} create={() => setView("create")} />;
-  if (view === "manage") return <ManageEvent state={state} setState={setState} eventId={activeEventId} attendees={() => setView("attendees")} checkin={() => setView("checkin")} />;
+  if (view === "manage") return <ManageEvent state={state} setState={setState} eventId={activeEventId} back={() => setView("events")} attendees={() => setView("attendees")} checkin={() => setView("checkin")} />;
   if (view === "attendees") return <Attendees state={state} setState={setState} eventId={activeEventId} setEventId={setActiveEventId} checkin={() => setView("checkin")} />;
   if (view === "checkin") return <CheckInDesk state={state} setState={setState} eventId={activeEventId} setEventId={setActiveEventId} />;
   if (view === "analytics") return <OrganizerAnalytics state={state} eventId={activeEventId} setEventId={setActiveEventId} />;
@@ -574,21 +837,202 @@ function OrganizerEvents({ state, selectEvent, create }: { state: TicketingState
   return <section><div className={styles.pageActionHeading}><PageHeading eyebrow="Event management" title="Events" text="Create, edit, configure, and monitor every event from one workspace." /><button className={styles.primary} type="button" onClick={create}><Plus /> Create Event</button></div><div className={styles.tabs}>{(["Upcoming", "Draft", "Completed"] as const).map((item) => <button type="button" key={item} aria-pressed={tab === item} onClick={() => setTab(item)}>{item}<span>{state.events.filter((event) => item === "Upcoming" ? ["On Sale", "Sold Out", "Cancelled"].includes(event.status) : item === "Draft" ? event.status === "Draft" : event.status === "Completed").length}</span></button>)}</div><div className={styles.organizerEvents}>{events.map((event) => { const metrics = eventMetrics(state, event.id); return <article key={event.id}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><div><span><em data-event={event.status}>{event.status}</em>{event.reservedSeating && <em>Reserved seating</em>}</span><h2>{event.title}</h2><p><CalendarDays /> {event.sessions[0].date} · {event.sessions[0].time}</p><p><MapPin /> {event.venue} · {event.city}</p><dl><div><dt>Sold</dt><dd>{metrics.sold}</dd></div><div><dt>Available</dt><dd>{metrics.available}</dd></div><div><dt>Capacity</dt><dd>{metrics.capacity}</dd></div></dl><div><button type="button" onClick={() => selectEvent(event.id, "manage")}>View Event</button><button type="button" onClick={() => selectEvent(event.id, "manage")}>Manage Tickets <ArrowRight /></button></div></div></article>; })}</div></section>;
 }
 
-function ManageEvent({ state, setState, eventId, attendees, checkin }: { state: TicketingState; setState: (state: TicketingState) => void; eventId: string; attendees: () => void; checkin: () => void }) {
+function ManageEvent({ state, setState, eventId, back, attendees, checkin }: { state: TicketingState; setState: (state: TicketingState) => void; eventId: string; back: () => void; attendees: () => void; checkin: () => void }) {
   const event = eventById(state, eventId) ?? state.events[0];
   const metrics = eventMetrics(state, event.id);
   const [cancelOpen, setCancelOpen] = useState(false);
   const [configOpen, setConfigOpen] = useState(false);
-  const [type, setType] = useState({ name: "", price: "", capacity: "", max: "6", salesStart: "2026-09-01", salesEnd: "2026-10-30" });
+  const configDialogRef = useAccessibleDialog<HTMLFormElement>(() => setConfigOpen(false), configOpen);
+  const [type, setType] = useState({
+    name: "",
+    price: "",
+    capacity: "",
+    max: "6",
+    salesStart: "2026-09-01",
+    salesEnd: "2026-10-30",
+  });
 
   function addType(e: FormEvent) {
     e.preventDefault();
     const id = `${type.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${event.ticketTypes.length + 1}`;
-    setState(configureTicketType(state, event.id, { id, name: type.name, description: "Configured in Organizer View", price: Number(type.price), capacity: Number(type.capacity), maxPerOrder: Number(type.max), salesStart: type.salesStart, salesEnd: type.salesEnd }));
+    setState(
+      configureTicketType(state, event.id, {
+        id,
+        name: type.name,
+        description: "Configured in Organizer View",
+        price: Number(type.price),
+        capacity: Number(type.capacity),
+        maxPerOrder: Number(type.max),
+        salesStart: type.salesStart,
+        salesEnd: type.salesEnd,
+      }),
+    );
     setConfigOpen(false);
   }
 
-  return <section><button className={styles.backButton} type="button" onClick={() => window.history.back()}><ArrowLeft /> Event overview</button><div className={styles.manageHero}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><div><span><em data-event={event.status}>{event.status}</em>{event.reservedSeating && <em>Reserved seating</em>}</span><h1>{event.title}</h1><p>{event.sessions[0].date} · {event.venue}, {event.city}</p><div><button type="button" onClick={attendees}><Users /> Attendee List</button><button type="button" onClick={checkin}><QrCode /> Check-in</button>{event.status !== "Cancelled" && <button type="button" onClick={() => setCancelOpen(true)}><X /> Cancel Event</button>}</div></div></div><div className={styles.metricGrid}><Metric icon={CircleDollarSign} label="Gross sales" value={money(metrics.revenue)} note="Demo customer orders" /><Metric icon={Tickets} label="Tickets sold" value={String(metrics.sold)} note={`of ${metrics.capacity}`} /><Metric icon={Activity} label="Available" value={String(metrics.available)} note="Remaining capacity" /><Metric icon={CheckCircle2} label="Check-in rate" value={`${metrics.checkInRate}%`} note={`${metrics.checkedIn} checked in`} /></div><div className={styles.manageGrid}><section className={styles.panel}><PanelTitle eyebrow="Ticket configuration" title="Inventory by ticket type" action="Add ticket type" onAction={() => setConfigOpen(true)} /><div className={styles.ticketBreakdown}>{event.ticketTypes.map((item) => <div key={item.id}><span><b>{item.name}</b><small>{money(item.price)} · max {item.maxPerOrder}/order</small></span><i><em style={{ width: `${Math.round((item.sold / item.capacity) * 100)}%` }} /></i><strong>{item.sold} / {item.capacity}</strong></div>)}</div><p className={styles.chartText}>Total capacity {metrics.capacity}; sold {metrics.sold}; available {metrics.available}. All values reconcile from the same event inventory.</p></section><section className={styles.panel}><PanelTitle eyebrow="Admission model" title={event.reservedSeating ? "Reserved seating" : "General admission"} /><div className={styles.admissionConcept}>{event.reservedSeating ? <><QrCode /><h3>Assigned seats enabled</h3><p>Front, middle, and rear pricing zones are configured. Accessible seats are identified on the customer map.</p><div><span>Front · {money(120)}</span><span>Middle · {money(80)}</span><span>Rear · {money(50)}</span></div></> : <><Tickets /><h3>Capacity by ticket type</h3><p>Customers select quantities without a seat map. Inventory is protected per ticket type and maximum order size.</p></>}</div></section><section className={styles.panel}><PanelTitle eyebrow="Session performance" title="Sales by date" /><div className={styles.sessionSales}>{event.sessions.map((item, index) => <div key={item.id}><span><b>{item.label}</b><small>{item.date}</small></span><strong>{Math.max(0, Math.round(metrics.sold / event.sessions.length) + (index === 1 ? 4 : 0))} sold</strong></div>)}</div></section><section className={`${styles.panel} ${styles.salesChart}`}><PanelTitle eyebrow="Sales momentum" title="Tickets over time" /><div aria-label="Accessible summary: steady ticket sales across seven demo periods">{[22, 31, 28, 48, 42, 61, 73].map((value, index) => <span key={index}><i style={{ height: `${value * 1.5}px` }} /><small>P{index + 1}</small></span>)}</div></section></div>{configOpen && <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && setConfigOpen(false)}><form className={styles.formDialog} onSubmit={addType}><button className={styles.dialogClose} type="button" onClick={() => setConfigOpen(false)}><X /></button><span>Ticket configuration</span><h2>Add ticket type</h2><div className={styles.formGrid}><Field label="Ticket name" wide><input required value={type.name} onChange={(e) => setType({ ...type, name: e.target.value })} placeholder="VIP" /></Field><Field label="Price"><input required type="number" min="0" value={type.price} onChange={(e) => setType({ ...type, price: e.target.value })} /></Field><Field label="Capacity"><input required type="number" min="1" value={type.capacity} onChange={(e) => setType({ ...type, capacity: e.target.value })} /></Field><Field label="Maximum per order"><input required type="number" min="1" value={type.max} onChange={(e) => setType({ ...type, max: e.target.value })} /></Field><Field label="Sales start"><input required type="date" value={type.salesStart} onChange={(e) => setType({ ...type, salesStart: e.target.value })} /></Field><Field label="Sales end"><input required type="date" value={type.salesEnd} onChange={(e) => setType({ ...type, salesEnd: e.target.value })} /></Field></div><button className={styles.primary} type="submit">Save Ticket Type</button></form></div>}{cancelOpen && <ConfirmDialog title={`Cancel ${event.title}?`} text="Customer tickets will change to Cancelled immediately. This demo does not issue real refunds." confirm="Cancel event" onClose={() => setCancelOpen(false)} onConfirm={() => { setState(cancelEvent(state, event.id)); setCancelOpen(false); }} />}</section>;
+  return (
+    <section>
+      <button className={styles.backButton} type="button" onClick={back}>
+        <ArrowLeft /> Event overview
+      </button>
+      <div className={styles.manageHero}>
+        <Image src={event.image} width={1440} height={960} unoptimized alt="" />
+        <div>
+          <span>
+            <em data-event={event.status}>{event.status}</em>
+            {event.reservedSeating && <em>Reserved seating</em>}
+          </span>
+          <h1>{event.title}</h1>
+          <p>
+            {event.sessions[0].date} · {event.venue}, {event.city}
+          </p>
+          <div>
+            <button type="button" onClick={attendees}>
+              <Users /> Attendee List
+            </button>
+            <button type="button" onClick={checkin}>
+              <QrCode /> Check-in
+            </button>
+            {event.status !== "Cancelled" && (
+              <button type="button" onClick={() => setCancelOpen(true)}>
+                <X /> Cancel Event
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className={styles.metricGrid}>
+        <Metric icon={CircleDollarSign} label="Gross sales" value={money(metrics.revenue)} note="Demo customer orders" />
+        <Metric icon={Tickets} label="Tickets sold" value={String(metrics.sold)} note={`of ${metrics.capacity}`} />
+        <Metric icon={Activity} label="Available" value={String(metrics.available)} note="Remaining capacity" />
+        <Metric icon={CheckCircle2} label="Check-in rate" value={`${metrics.checkInRate}%`} note={`${metrics.checkedIn} checked in`} />
+      </div>
+      <div className={styles.manageGrid}>
+        <section className={styles.panel}>
+          <PanelTitle eyebrow="Ticket configuration" title="Inventory by ticket type" action="Add ticket type" onAction={() => setConfigOpen(true)} />
+          <div className={styles.ticketBreakdown}>
+            {event.ticketTypes.map((item) => (
+              <div key={item.id}>
+                <span>
+                  <b>{item.name}</b>
+                  <small>
+                    {money(item.price)} · max {item.maxPerOrder}/order
+                  </small>
+                </span>
+                <i>
+                  <em
+                    style={{
+                      width: `${Math.round((item.sold / item.capacity) * 100)}%`,
+                    }}
+                  />
+                </i>
+                <strong>
+                  {item.sold} / {item.capacity}
+                </strong>
+              </div>
+            ))}
+          </div>
+          <p className={styles.chartText}>
+            Total capacity {metrics.capacity}; sold {metrics.sold}; available {metrics.available}. All values reconcile from the same event inventory.
+          </p>
+        </section>
+        <section className={styles.panel}>
+          <PanelTitle eyebrow="Admission model" title={event.reservedSeating ? "Reserved seating" : "General admission"} />
+          <div className={styles.admissionConcept}>
+            {event.reservedSeating ? (
+              <>
+                <QrCode />
+                <h3>Assigned seats enabled</h3>
+                <p>Front, middle, and rear pricing zones are configured. Accessible seats are identified on the customer map.</p>
+                <div>
+                  <span>Front · {money(120)}</span>
+                  <span>Middle · {money(80)}</span>
+                  <span>Rear · {money(50)}</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <Tickets />
+                <h3>Capacity by ticket type</h3>
+                <p>Customers select quantities without a seat map. Inventory is protected per ticket type and maximum order size.</p>
+              </>
+            )}
+          </div>
+        </section>
+        <section className={styles.panel}>
+          <PanelTitle eyebrow="Session performance" title="Sales by date" />
+          <div className={styles.sessionSales}>
+            {event.sessions.map((item, index) => (
+              <div key={item.id}>
+                <span>
+                  <b>{item.label}</b>
+                  <small>{item.date}</small>
+                </span>
+                <strong>{Math.max(0, Math.round(metrics.sold / event.sessions.length) + (index === 1 ? 4 : 0))} sold</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className={`${styles.panel} ${styles.salesChart}`}>
+          <PanelTitle eyebrow="Sales momentum" title="Tickets over time" />
+          <div aria-label="Accessible summary: steady ticket sales across seven demo periods">
+            {[22, 31, 28, 48, 42, 61, 73].map((value, index) => (
+              <span key={index}>
+                <i style={{ height: `${value * 1.5}px` }} />
+                <small>P{index + 1}</small>
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+      {configOpen && (
+        <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && setConfigOpen(false)}>
+          <form ref={configDialogRef} className={styles.formDialog} role="dialog" aria-modal="true" aria-labelledby="ticket-configuration-title" onSubmit={addType}>
+            <button className={styles.dialogClose} type="button" aria-label="Close ticket configuration" onClick={() => setConfigOpen(false)}>
+              <X />
+            </button>
+            <span>Ticket configuration</span>
+            <h2 id="ticket-configuration-title">Add ticket type</h2>
+            <div className={styles.formGrid}>
+              <Field label="Ticket name" wide>
+                <input required value={type.name} onChange={(e) => setType({ ...type, name: e.target.value })} placeholder="VIP" />
+              </Field>
+              <Field label="Price">
+                <input required type="number" min="0" value={type.price} onChange={(e) => setType({ ...type, price: e.target.value })} />
+              </Field>
+              <Field label="Capacity">
+                <input required type="number" min="1" value={type.capacity} onChange={(e) => setType({ ...type, capacity: e.target.value })} />
+              </Field>
+              <Field label="Maximum per order">
+                <input required type="number" min="1" value={type.max} onChange={(e) => setType({ ...type, max: e.target.value })} />
+              </Field>
+              <Field label="Sales start">
+                <input required type="date" value={type.salesStart} onChange={(e) => setType({ ...type, salesStart: e.target.value })} />
+              </Field>
+              <Field label="Sales end">
+                <input required type="date" value={type.salesEnd} onChange={(e) => setType({ ...type, salesEnd: e.target.value })} />
+              </Field>
+            </div>
+            <button className={styles.primary} type="submit">
+              Save Ticket Type
+            </button>
+          </form>
+        </div>
+      )}
+      {cancelOpen && (
+        <ConfirmDialog
+          title={`Cancel ${event.title}?`}
+          text="Customer tickets will change to Cancelled immediately. This demo does not issue real refunds."
+          confirm="Cancel event"
+          onClose={() => setCancelOpen(false)}
+          onConfirm={() => {
+            setState(cancelEvent(state, event.id));
+            setCancelOpen(false);
+          }}
+        />
+      )}
+    </section>
+  );
 }
 
 function Attendees({ state, setState, eventId, setEventId, checkin }: { state: TicketingState; setState: (state: TicketingState) => void; eventId: string; setEventId: (id: string) => void; checkin: () => void }) {
@@ -639,12 +1083,77 @@ function CreateEvent({ state, setState, created, cancel }: { state: TicketingSta
 function WaitlistDialog({ event, state, setState, close }: { event: TicketingEvent; state: TicketingState; setState: (state: TicketingState) => void; close: () => void }) {
   const [details, setDetails] = useState({ name: "", email: "" });
   const [joined, setJoined] = useState(false);
-  function submit(e: FormEvent) { e.preventDefault(); const result = joinWaitlist(state, event.id, details.name, details.email); if (result.ok) { setState(result.state); setJoined(true); } }
-  return <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && close()}><section className={styles.formDialog} role="dialog" aria-modal="true" aria-labelledby="waitlist-title"><button className={styles.dialogClose} type="button" onClick={close}><X /></button>{joined ? <div className={styles.dialogSuccess}><Check /><span>Waitlist confirmed</span><h2 id="waitlist-title">You’re on the demo list.</h2><p>No real email will be sent. This entry remains in local demo state until reset.</p><button className={styles.primary} type="button" onClick={close}>Done</button></div> : <form onSubmit={submit}><span>Sold out · local simulation</span><h2 id="waitlist-title">Join the waitlist</h2><p>{event.title}</p><Field label="Name"><input required value={details.name} onChange={(e) => setDetails({ ...details, name: e.target.value })} /></Field><Field label="Email"><input required type="email" value={details.email} onChange={(e) => setDetails({ ...details, email: e.target.value })} /></Field><button className={styles.primary} type="submit">Join Waitlist</button></form>}</section></div>;
+  const dialogRef = useAccessibleDialog(close);
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    const result = joinWaitlist(state, event.id, details.name, details.email);
+    if (result.ok) {
+      setState(result.state);
+      setJoined(true);
+    }
+  }
+  return (
+    <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && close()}>
+      <section ref={dialogRef} className={styles.formDialog} role="dialog" aria-modal="true" aria-labelledby="waitlist-title">
+        <button className={styles.dialogClose} type="button" aria-label="Close waitlist" onClick={close}>
+          <X />
+        </button>
+        {joined ? (
+          <div className={styles.dialogSuccess}>
+            <Check />
+            <span>Waitlist confirmed</span>
+            <h2 id="waitlist-title">You’re on the demo list.</h2>
+            <p>No real email will be sent. This entry remains in local demo state until reset.</p>
+            <button className={styles.primary} type="button" onClick={close}>
+              Done
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={submit}>
+            <span>Sold out · local simulation</span>
+            <h2 id="waitlist-title">Join the waitlist</h2>
+            <p>{event.title}</p>
+            <Field label="Name">
+              <input required value={details.name} onChange={(e) => setDetails({ ...details, name: e.target.value })} />
+            </Field>
+            <Field label="Email">
+              <input required type="email" value={details.email} onChange={(e) => setDetails({ ...details, email: e.target.value })} />
+            </Field>
+            <button className={styles.primary} type="submit">
+              Join Waitlist
+            </button>
+          </form>
+        )}
+      </section>
+    </div>
+  );
 }
 
 function ConfirmDialog({ title, text, confirm, onClose, onConfirm }: { title: string; text: string; confirm: string; onClose: () => void; onConfirm: () => void }) {
-  return <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && onClose()}><section className={styles.confirmDialog} role="dialog" aria-modal="true" aria-labelledby="confirm-title"><button className={styles.dialogClose} type="button" onClick={onClose}><X /></button><span><RefreshCcw /></span><h2 id="confirm-title">{title}</h2><p>{text}</p><div><button type="button" onClick={onClose}>Keep demo data</button><button type="button" onClick={onConfirm}>{confirm}</button></div></section></div>;
+  const dialogRef = useAccessibleDialog(onClose);
+
+  return (
+    <div className={styles.dialogBackdrop} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <section ref={dialogRef} className={styles.confirmDialog} role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+        <button className={styles.dialogClose} type="button" aria-label="Close confirmation" onClick={onClose}>
+          <X />
+        </button>
+        <span>
+          <RefreshCcw />
+        </span>
+        <h2 id="confirm-title">{title}</h2>
+        <p>{text}</p>
+        <div>
+          <button type="button" onClick={onClose}>
+            Keep demo data
+          </button>
+          <button type="button" onClick={onConfirm}>
+            {confirm}
+          </button>
+        </div>
+      </section>
+    </div>
+  );
 }
 
 function EventSelect({ state, value, setValue }: { state: TicketingState; value: string; setValue: (id: string) => void }) {
