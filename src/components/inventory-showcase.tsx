@@ -119,7 +119,7 @@ const DEFAULT_VIEW: Record<Role, View> = { Admin: "Dashboard", Supervisor: "Over
 const VIEW_DESCRIPTIONS: Partial<Record<View, string>> = {
   Dashboard: "See inventory, factory, purchasing, and delivery activity in one place.",
   Overview: "Monitor both inventories and review what needs attention.",
-  Users: "Manage demo employees, roles, access, and status.",
+  Users: "Manage employees, roles, access, and status.",
   Products: "Manage products and their inventory rules.",
   Suppliers: "Manage approved inbound suppliers.",
   "Destinations / Branches": "Manage outbound branches and kitchen destinations.",
@@ -236,19 +236,19 @@ export function InventoryShowcase() {
     setRole("Admin");
     setView("Dashboard");
     setResetOpen(false);
-    setFeedback({ tone: "success", text: "Demo data restored to its original operational state." });
+    setFeedback({ tone: "success", text: "Data restored to its original operational state." });
   }
 
   return <main className={styles.demo}>
     <div className={styles.conceptBar}>
-      <div><span><b>Interactive Concept Demo</b><small>This preview demonstrates possible functionality. Final systems are customized according to each business&apos;s operational requirements.</small></span><a href={getSitePath("/work")}><ArrowLeft /> Return to Work</a></div>
+      <div><span><b>ILBATECH</b><small>Restaurant Inventory Management System</small></span><a href={getSitePath("/work")}><ArrowLeft /> Return to Work</a></div>
     </div>
     <header className={styles.header}>
-      <a className={styles.brand} href="#operations-main"><span><Factory /></span><span><strong>Restaurant Operations</strong><small>Inventory &amp; factory demo</small></span></a>
+      <a className={styles.brand} href="#operations-main"><span><Factory /></span><span><strong>ILBATECH</strong><small>Inventory &amp; production</small></span></a>
       <div className={styles.headerTools}>
         <label className={styles.roleSwitcher}><span>Viewing as</span><select aria-label="Viewing as role" value={role} onChange={(event) => switchRole(event.target.value as Role)}>{ROLES.map((item) => <option value={item} key={item}>{item}</option>)}</select></label>
         <div className={styles.activeUser}><span>{actor.name.slice(0, 1)}</span><div><strong>{actor.name}</strong><small>{role === "Branch" ? demoState.destinations.find((destination) => destination.id === actor.branchId)?.name : areaRoleLabel(role)}</small></div></div>
-        <button className={styles.resetButton} type="button" aria-label="Reset demo data" title="Reset Demo" onClick={() => setResetOpen(true)}><RefreshCcw /><span>Reset Demo</span></button>
+        <button className={styles.resetButton} type="button" aria-label="Reset data" title="Reset Data" onClick={() => setResetOpen(true)}><RefreshCcw /><span>Reset Data</span></button>
       </div>
     </header>
     <button className={styles.mobileMenuButton} type="button" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen((open) => !open)}><Menu /> {view}</button>
@@ -279,7 +279,7 @@ export function InventoryShowcase() {
       {view === "Incoming Deliveries" && <IncomingDeliveries state={demoState} actor={actor} commit={commit} />}
       {view === "Receiving History" && <ReceivingHistory state={demoState} actor={actor} />}
     </div>
-    {resetOpen && <ConfirmDialog title="Reset demo data to its original state?" confirmLabel="Reset" close={() => setResetOpen(false)} confirm={resetDemo}><p>This restores users, stock, batches, requests, notifications, shipments, and production history.</p></ConfirmDialog>}
+    {resetOpen && <ConfirmDialog title="Reset data to its original state?" confirmLabel="Reset" close={() => setResetOpen(false)} confirm={resetDemo}><p>This restores users, stock, batches, requests, notifications, shipments, and production history.</p></ConfirmDialog>}
   </main>;
 }
 
@@ -313,7 +313,7 @@ function OverviewView({ state, today, role, navigate }: { state: DemoState; toda
 
 function UsersView({ state, actor, commit }: { state: DemoState; actor: User; commit: Commit }) {
   const [editing, setEditing] = useState<User | null | undefined>(undefined);
-  return <section className={styles.panel}><PanelHeader eyebrow="Admin access" title={`${state.users.length} demo employees`} action={<button className={styles.primaryButton} type="button" onClick={() => setEditing(null)}><Plus /> Create User</button>} /><div className={styles.dataWrap}><table className={styles.dataTable}><thead><tr><th>Employee</th><th>Role</th><th>Location</th><th>Status</th><th>Access</th><th>Actions</th></tr></thead><tbody>{state.users.map((user) => <tr key={user.id}><td data-label="Employee"><strong>{user.name}</strong></td><td data-label="Role">{areaRoleLabel(user.role)}</td><td data-label="Location">{user.branchId ? state.destinations.find((destination) => destination.id === user.branchId)?.name : "Operations"}</td><td data-label="Status"><StatusBadge status={user.status} /></td><td data-label="Access"><StatusBadge status={user.active ? "Active" : "Inactive"} /></td><td data-label="Actions"><div className={styles.rowActions}><button type="button" onClick={() => setEditing(user)}><Pencil /> Edit</button><button type="button" data-action={user.active ? "deactivate" : "activate"} onClick={() => commit(toggleUserActive(state, user.id, actor), `${user.name} access updated. Historical activity remains unchanged.`)}>{user.active ? "Deactivate" : "Activate"}</button></div></td></tr>)}</tbody></table></div>{editing !== undefined && <UserDialog state={state} user={editing ?? undefined} close={() => setEditing(undefined)} save={(input) => { const result = saveUser(state, input, actor, editing?.id); if (commit(result, `${input.name} saved.`)) setEditing(undefined); }} />}</section>;
+  return <section className={styles.panel}><PanelHeader eyebrow="Admin access" title={`${state.users.length} employees`} action={<button className={styles.primaryButton} type="button" onClick={() => setEditing(null)}><Plus /> Create User</button>} /><div className={styles.dataWrap}><table className={styles.dataTable}><thead><tr><th>Employee</th><th>Role</th><th>Location</th><th>Status</th><th>Access</th><th>Actions</th></tr></thead><tbody>{state.users.map((user) => <tr key={user.id}><td data-label="Employee"><strong>{user.name}</strong></td><td data-label="Role">{areaRoleLabel(user.role)}</td><td data-label="Location">{user.branchId ? state.destinations.find((destination) => destination.id === user.branchId)?.name : "Operations"}</td><td data-label="Status"><StatusBadge status={user.status} /></td><td data-label="Access"><StatusBadge status={user.active ? "Active" : "Inactive"} /></td><td data-label="Actions"><div className={styles.rowActions}><button type="button" onClick={() => setEditing(user)}><Pencil /> Edit</button><button type="button" data-action={user.active ? "deactivate" : "activate"} onClick={() => commit(toggleUserActive(state, user.id, actor), `${user.name} access updated. Historical activity remains unchanged.`)}>{user.active ? "Deactivate" : "Activate"}</button></div></td></tr>)}</tbody></table></div>{editing !== undefined && <UserDialog state={state} user={editing ?? undefined} close={() => setEditing(undefined)} save={(input) => { const result = saveUser(state, input, actor, editing?.id); if (commit(result, `${input.name} saved.`)) setEditing(undefined); }} />}</section>;
 }
 
 function UserDialog({ state, user, close, save }: { state: DemoState; user?: User; close: () => void; save: (input: Omit<User, "id">) => void }) {

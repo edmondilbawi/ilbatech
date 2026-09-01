@@ -1,5 +1,6 @@
-export const COMMERCE_STORAGE_KEY = "ilbatech-nestra-commerce-demo-v1";
-export const COMMERCE_STATE_VERSION = 1;
+export const COMMERCE_STORAGE_KEY = "ilbatech-ecommerce-store-v2";
+export const LEGACY_COMMERCE_STORAGE_KEY = "ilbatech-nestra-commerce-demo-v1";
+export const COMMERCE_STATE_VERSION = 2;
 export const DEMO_DATE = "August 30, 2026";
 
 export const CATEGORIES = [
@@ -90,7 +91,7 @@ const standardReviews: ProductReview[] = [
     name: "Maya R.",
     rating: 5,
     title: "Exactly what I expected",
-    text: "The product feels considered, arrived well packed, and has been easy to use every day.",
+    text: "The product feels solid, arrived well packed, and has been easy to use every day.",
     date: "August 24, 2026",
     verified: true,
   },
@@ -98,7 +99,7 @@ const standardReviews: ProductReview[] = [
     name: "Omar K.",
     rating: 4,
     title: "Strong everyday value",
-    text: "Clear setup, good materials, and the practical details are thoughtfully handled.",
+    text: "Clear setup, good materials, and useful everyday details.",
     date: "August 18, 2026",
     verified: true,
   },
@@ -219,7 +220,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Are extra ear tips included?",
-        "Yes, three silicone tip sizes are included in the demo specification.",
+        "Yes, three silicone tip sizes are included.",
       ],
     ],
   },
@@ -266,7 +267,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Does it support 5G?",
-        "Yes, the fictional specification includes broad 5G support.",
+        "Yes, it supports the main 5G bands listed in the specifications.",
       ],
     ],
   },
@@ -333,7 +334,7 @@ export const PRODUCTS: Product[] = [
     release: 34,
     description: "Compact 24MP camera with fast autofocus and crisp 4K video.",
     details:
-      "Frame C2 is a fictional lightweight camera concept with tactile controls and a flexible everyday prime lens.",
+      "Frame C2 is a lightweight camera with tactile controls and a flexible everyday prime lens.",
     variants: [color("Black", "Silver")],
     specs: [
       ["Sensor", "24MP APS-C"],
@@ -349,7 +350,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is a lens included?",
-        "Yes, the demo bundle includes the pictured compact prime lens.",
+        "Yes, the pictured compact prime lens is included.",
       ],
     ],
   },
@@ -409,7 +410,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Can the memory be upgraded?",
-        "The demo specification uses fixed 16GB memory.",
+        "This configuration has fixed 16GB memory.",
       ],
       [
         "Does it charge over USB-C?",
@@ -442,7 +443,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A larger performance laptop for demanding creative and analytical work.",
     details:
-      "A fictional 16-inch creator system with expanded cooling, a high-resolution display, and strong multicore performance.",
+      "A 16-inch creator laptop with expanded cooling, a high-resolution display, and strong multicore performance.",
     variants: [
       { name: "Storage", options: [option("512GB"), option("1TB", 220)] },
       color("Graphite", "Silver"),
@@ -463,7 +464,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is the display color calibrated?",
-        "The fictional display is factory calibrated to a wide color gamut.",
+        "The display is factory calibrated to a wide color gamut.",
       ],
     ],
   },
@@ -608,7 +609,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is the lining soft?",
-        "Yes, the demo specification uses a brushed protective lining.",
+        "Yes, it has a brushed protective lining.",
       ],
     ],
   },
@@ -659,7 +660,7 @@ export const PRODUCTS: Product[] = [
         "Can it steam milk?",
         "Yes, the adjustable wand is designed for milk texturing.",
       ],
-      ["Does it use capsules?", "No, this demo model uses ground coffee."],
+      ["Does it use capsules?", "No, this model uses ground coffee."],
     ],
   },
   {
@@ -700,7 +701,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Does it remember the last temperature?",
-        "Yes, the fictional control remembers the previous setting.",
+        "Yes, the control remembers the previous setting.",
       ],
     ],
   },
@@ -743,7 +744,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is the filter washable?",
-        "Yes, the fictional filter is washable and reusable.",
+        "Yes, the filter is washable and reusable.",
       ],
     ],
   },
@@ -785,7 +786,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Can it be used outdoors?",
-        "It is suitable for covered outdoor use in the fictional specification.",
+        "It is suitable for covered outdoor use.",
       ],
     ],
   },
@@ -845,7 +846,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Do these run true to size?",
-        "Most demo reviews describe the fit as true to size.",
+        "Most reviews describe the fit as true to size.",
       ],
     ],
   },
@@ -887,7 +888,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Does it fit under an airline seat?",
-        "Its fictional dimensions suit most standard under-seat limits.",
+        "Its dimensions suit most standard under-seat limits.",
       ],
     ],
   },
@@ -916,7 +917,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A zip-top work tote with a wide opening and organized interior.",
     details:
-      "This out-of-stock demo product illustrates customer-facing availability handling.",
+      "This color is currently out of stock.",
     variants: [color("Olive", "Black")],
     specs: [
       ["Capacity", "18 L"],
@@ -932,7 +933,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "When will this return?",
-        "Restock timing is not available in this public demo.",
+        "A restock date is not available yet.",
       ],
     ],
   },
@@ -961,7 +962,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A relaxed midweight hoodie with soft loopback texture and clean detailing.",
     details:
-      "A fictional apparel listing used to demonstrate size and color variants across categories.",
+      "A relaxed everyday layer available in several sizes and colors.",
     variants: [
       {
         name: "Size",
@@ -983,7 +984,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is the fit oversized?",
-        "The fictional cut is relaxed but not heavily oversized.",
+        "The cut is relaxed but not heavily oversized.",
       ],
     ],
   },
@@ -1008,9 +1009,9 @@ export const PRODUCTS: Product[] = [
     newArrival: false,
     release: 23,
     description:
-      "A lightweight fictional hydration serum with barrier-supporting ingredients.",
+      "A lightweight hydration serum with barrier-supporting ingredients.",
     details:
-      "A fragrance-free demo formulation concept presented in unbranded amber glass for a calm routine.",
+      "A fragrance-free formula in amber glass for morning or evening use.",
     variants: [
       { name: "Size", options: [option("30 ml"), option("50 ml", 12)] },
     ],
@@ -1028,7 +1029,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is this fragrance free?",
-        "Yes, the fictional formulation is fragrance free.",
+        "Yes, the formula is fragrance free.",
       ],
     ],
   },
@@ -1052,9 +1053,9 @@ export const PRODUCTS: Product[] = [
     newArrival: false,
     release: 20,
     description:
-      "A comfortable daily cream concept with a soft, non-greasy finish.",
+      "A comfortable daily cream with a soft, non-greasy finish.",
     details:
-      "Designed as a simple final layer for morning or evening routines, with fictional ceramide and oat ingredients.",
+      "Use it as the final layer in a morning or evening routine. The formula includes ceramides and oat extract.",
     variants: [
       { name: "Size", options: [option("50 ml"), option("80 ml", 9)] },
     ],
@@ -1072,7 +1073,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Can this be used under makeup?",
-        "Yes, the fictional texture is designed to layer cleanly.",
+        "Yes, the texture layers cleanly under sunscreen or makeup.",
       ],
     ],
   },
@@ -1100,9 +1101,9 @@ export const PRODUCTS: Product[] = [
     newArrival: true,
     release: 38,
     description:
-      "A complete fictional three-step routine in minimal amber glass.",
+      "A three-step cleanser, serum, and moisturizer routine in amber glass.",
     details:
-      "The set combines a cleanser, hydrating serum, and daily moisturizer at a bundled demo price.",
+      "The set combines a cleanser, hydrating serum, and daily moisturizer at a bundled price.",
     variants: [
       {
         name: "Set",
@@ -1113,7 +1114,7 @@ export const PRODUCTS: Product[] = [
       ["Includes", "Cleanser / serum / cream"],
       ["Skin type", "All skin types"],
       ["Fragrance", "None"],
-      ["Packaging", "Unbranded demo vessels"],
+      ["Packaging", "Amber glass bottles"],
     ],
     seller: "Kindred Skin",
     sellerRating: 4.9,
@@ -1147,9 +1148,9 @@ export const PRODUCTS: Product[] = [
     newArrival: false,
     release: 15,
     description:
-      "A gentle cream-cleanser concept that rinses clean without a tight finish.",
+      "A gentle cream cleanser that rinses clean without a tight finish.",
     details:
-      "A simple fictional cleanser for morning or evening use with a soft cream texture.",
+      "A simple morning or evening cleanser with a soft cream texture.",
     variants: [
       { name: "Size", options: [option("150 ml"), option("250 ml", 8)] },
     ],
@@ -1165,7 +1166,7 @@ export const PRODUCTS: Product[] = [
     bundleIds: [],
     reviews: standardReviews,
     questions: [
-      ["Does it foam?", "The fictional cream formula produces minimal foam."],
+      ["Does it foam?", "The cream formula produces minimal foam."],
     ],
   },
 
@@ -1195,7 +1196,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A coordinated mat, dumbbell pair, and bottle for practical home sessions.",
     details:
-      "A fictional starter bundle with textured grip surfaces and a restrained, coordinated finish.",
+      "A starter bundle with textured grip surfaces and a coordinated finish.",
     variants: [color("Terracotta", "Forest", "Graphite")],
     specs: [
       ["Mat", "6 mm textured foam"],
@@ -1237,7 +1238,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A supportive 6 mm mat with dry grip and a comfortable textured surface.",
     details:
-      "Flow is a versatile fictional mat for mobility, yoga, or floor exercise with a carry strap included.",
+      "Flow is a versatile mat for mobility, yoga, or floor exercise, with a carry strap included.",
     variants: [color("Terracotta", "Forest", "Graphite")],
     specs: [
       ["Thickness", "6 mm"],
@@ -1330,7 +1331,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A one-hand hydration bottle with a locking lid and clear volume marks.",
     details:
-      "A lightweight fictional everyday bottle designed for training, commuting, or short hikes.",
+      "A lightweight everyday bottle for training, commuting, or short hikes.",
     variants: [
       { name: "Size", options: [option("750 ml"), option("1 L", 6)] },
       color("Clay", "Smoke"),
@@ -1349,7 +1350,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Is it leak resistant?",
-        "The fictional locking lid is designed to resist leaks.",
+        "The locking lid helps prevent leaks.",
       ],
     ],
   },
@@ -1397,7 +1398,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Does it require assembly?",
-        "Light assembly is required in the fictional delivery experience.",
+        "Light assembly is required after delivery.",
       ],
     ],
   },
@@ -1423,7 +1424,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A compact dimmable work light with a warm, glare-controlled diffuser.",
     details:
-      "A fictional desk-lighting product with simple touch controls and a USB-C charging port.",
+      "A compact desk lamp with touch controls and a USB-C charging port.",
     variants: [color("Terracotta", "Graphite", "Cream")],
     specs: [
       ["Light", "Adjustable warm to cool"],
@@ -1439,7 +1440,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Does it remember brightness?",
-        "Yes, the fictional lamp recalls the previous brightness level.",
+        "Yes, the lamp recalls the previous brightness level.",
       ],
     ],
   },
@@ -1468,7 +1469,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A coordinated tray, pen cup, and cable keeper for a calmer workspace.",
     details:
-      "A simple fictional accessory set that groups small desk objects without visual clutter.",
+      "A simple accessory set that keeps small desk objects organized.",
     variants: [color("Warm Gray", "Forest", "Black")],
     specs: [
       ["Pieces", "3"],
@@ -1484,7 +1485,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "What is included?",
-        "The demo set includes a tray, pen cup, and cable keeper.",
+        "The set includes a tray, pen cup, and cable keeper.",
       ],
     ],
   },
@@ -1513,7 +1514,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A stable, softly padded place to keep over-ear headphones within reach.",
     details:
-      "A compact fictional desk stand with a weighted base and cable channel.",
+      "A compact desk stand with a weighted base and cable channel.",
     variants: [color("Graphite", "Warm Gray")],
     specs: [
       ["Height", "260 mm"],
@@ -1529,7 +1530,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Will it fit wide headbands?",
-        "The fictional cradle supports headbands up to 55 mm wide.",
+        "The cradle supports headbands up to 55 mm wide.",
       ],
     ],
   },
@@ -1559,7 +1560,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A compact USB-C hub with display, card, data, and pass-through charging ports.",
     details:
-      "A fictional travel-ready accessory supporting one display, SD cards, USB devices, and USB-C charging.",
+      "A travel-ready hub supporting one display, SD cards, USB devices, and USB-C charging.",
     variants: [color("Graphite", "Silver")],
     specs: [
       ["Ports", "7"],
@@ -1601,7 +1602,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A compact padded sling for a small camera, lens, and daily essentials.",
     details:
-      "Movable dividers and a weather-resistant shell protect a compact fictional camera kit.",
+      "Movable dividers and a weather-resistant shell protect a compact camera kit.",
     variants: [color("Olive", "Black")],
     specs: [
       ["Capacity", "6 L"],
@@ -1617,7 +1618,7 @@ export const PRODUCTS: Product[] = [
     questions: [
       [
         "Can the strap switch sides?",
-        "Yes, the fictional attachment works on either side.",
+        "Yes, the attachment works on either side.",
       ],
     ],
   },
@@ -1643,7 +1644,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A breathable quick-release woven strap for the Metro watch and standard 20 mm cases.",
     details:
-      "A comfortable fictional replacement band with a soft weave and secure metal hardware.",
+      "A comfortable replacement band with a soft weave and secure metal hardware.",
     variants: [color("Forest", "Clay", "Black")],
     specs: [
       ["Width", "20 mm"],
@@ -1688,7 +1689,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A slim protective shell with a small clip and clear access to charging.",
     details:
-      "A fictional accessory designed around the Pulse charging case, with a matte protective finish.",
+      "A matte protective cover made for the Pulse charging case.",
     variants: [color("Stone", "Forest", "Clay")],
     specs: [
       ["Material", "Soft-touch polymer"],
@@ -2047,7 +2048,7 @@ const seededOrders = (): Order[] => [
       total: 122.84,
     },
     arrival: "Delivered August 24",
-    trackingRef: "NEST-410476",
+    trackingRef: "SHIP-410476",
   },
   {
     id: "#EC-10612",
@@ -2074,7 +2075,7 @@ const seededOrders = (): Order[] => [
       total: 951.94,
     },
     arrival: "Expected August 31",
-    trackingRef: "NEST-410612",
+    trackingRef: "SHIP-410612",
   },
   {
     id: "#EC-10731",
@@ -2096,7 +2097,7 @@ const seededOrders = (): Order[] => [
       total: 271.95,
     },
     arrival: "Expected September 2",
-    trackingRef: "NEST-410731",
+    trackingRef: "SHIP-410731",
   },
   {
     id: "#EC-10128",
@@ -2110,7 +2111,7 @@ const seededOrders = (): Order[] => [
     promo: "",
     totals: { subtotal: 76, discount: 0, shipping: 0, tax: 3.8, total: 79.8 },
     arrival: "Returned August 15",
-    trackingRef: "NEST-410128",
+    trackingRef: "SHIP-410128",
     returnRequest: {
       id: "#RET-6812",
       itemKey: "10128-beauty",
@@ -2137,7 +2138,7 @@ const seededOrders = (): Order[] => [
       total: 164.44,
     },
     arrival: "Cancelled July 29",
-    trackingRef: "NEST-410042",
+    trackingRef: "SHIP-410042",
   },
 ];
 
@@ -2157,7 +2158,7 @@ export function createInitialCommerceState(): CommerceState {
       {
         id: "notice-shipped",
         title: "Order shipped",
-        text: "#EC-10612 is moving with Nestra Parcel.",
+        text: "#EC-10612 is on the way with the delivery carrier.",
         time: "2 hours ago",
         read: false,
         tone: "order",
@@ -2189,14 +2190,25 @@ export function loadCommerceState(raw: string | null): CommerceState {
   try {
     const parsed = JSON.parse(raw) as CommerceState;
     if (
-      parsed.version !== COMMERCE_STATE_VERSION ||
+      ![1, COMMERCE_STATE_VERSION].includes(parsed.version) ||
       !Array.isArray(parsed.cart) ||
       !Array.isArray(parsed.orders) ||
       !Array.isArray(parsed.addresses) ||
       !Array.isArray(parsed.recentSearches)
     )
       return createInitialCommerceState();
-    return parsed;
+    return {
+      ...parsed,
+      version: COMMERCE_STATE_VERSION,
+      orders: parsed.orders.map((order) => ({
+        ...order,
+        trackingRef: order.trackingRef.replace(/^NEST-/, "SHIP-"),
+      })),
+      notifications: parsed.notifications.map((notification) => ({
+        ...notification,
+        text: notification.text.replace("Nestra Parcel", "the delivery carrier"),
+      })),
+    };
   } catch {
     return createInitialCommerceState();
   }
@@ -2229,7 +2241,7 @@ export function createPlacedOrder(
         : delivery.id === "express"
           ? "Tomorrow by 8 PM"
           : "September 3–5, 2026",
-    trackingRef: "NEST-410842",
+    trackingRef: "SHIP-410842",
   };
 }
 

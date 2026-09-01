@@ -28,7 +28,7 @@ const {
   variantIsAvailable,
 } = model;
 
-test("catalog contains a complete 30–50 item fictional range across all eight requested categories", () => {
+test("catalog contains a complete 30–50 item range across all eight requested categories", () => {
   assert.ok(PRODUCTS.length >= 30 && PRODUCTS.length <= 50);
   assert.deepEqual(
     new Set(PRODUCTS.map((product) => product.category)),
@@ -256,4 +256,16 @@ test("reset data is complete and malformed persistence safely falls back", () =>
     loadCommerceState(JSON.stringify({ ...state, version: 99 })),
     createInitialCommerceState(),
   );
+});
+
+test("version 1 commerce data migrates old carrier branding and keeps account state", () => {
+  const state = createInitialCommerceState();
+  state.wishlist.push("arc-daypack");
+  state.orders[0].trackingRef = "NEST-410476";
+  state.notifications[0].text = "Your order was handed to Nestra Parcel.";
+  const loaded = loadCommerceState(JSON.stringify({ ...state, version: 1 }));
+  assert.equal(loaded.version, 2);
+  assert.equal(loaded.orders[0].trackingRef, "SHIP-410476");
+  assert.equal(loaded.notifications[0].text, "Your order was handed to the delivery carrier.");
+  assert.deepEqual(loaded.wishlist, ["arc-daypack"]);
 });

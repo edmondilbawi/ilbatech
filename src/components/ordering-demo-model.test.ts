@@ -4,7 +4,7 @@ import test from "node:test";
 const model = await import(new URL("./ordering-demo-model.ts", import.meta.url).href) as typeof import("./ordering-demo-model");
 const { BRANCHES, DEFAULT_CUSTOMIZATION, PRODUCTS, calculateTotals, createInitialOrderingState, createPlacedOrder, itemUnitPrice, loadOrderingState, makeCartItem, trackingStages } = model;
 
-test("menu contains a complete fictional quick-service range with original local imagery", () => {
+test("menu contains a complete quick-service range with original local imagery", () => {
   assert.equal(PRODUCTS.length, 20);
   assert.deepEqual(new Set(PRODUCTS.map((product) => product.category)), new Set(["Meals", "Burgers", "Chicken", "Wraps", "Sides", "Drinks", "Desserts", "Breakfast"]));
   assert.ok(PRODUCTS.every((product) => product.image.startsWith("/images/ordering/") && product.image.endsWith(".webp")));
@@ -59,5 +59,17 @@ test("persistence restores valid state and safely resets malformed data", () => 
   state.favorites.push("ember-double");
   assert.deepEqual(loadOrderingState(JSON.stringify(state)), state);
   assert.deepEqual(loadOrderingState("not-json"), createInitialOrderingState());
-  assert.deepEqual(loadOrderingState(JSON.stringify({ ...state, version: 2 })), createInitialOrderingState());
+  assert.deepEqual(loadOrderingState(JSON.stringify({ ...state, version: 99 })), createInitialOrderingState());
+});
+
+test("version 1 ordering data migrates without losing customer state", () => {
+  const state = createInitialOrderingState();
+  state.orderType = "Pickup";
+  state.branchId = "downtown";
+  state.favorites.push("ember-double");
+  const loaded = loadOrderingState(JSON.stringify({ ...state, version: 1 }));
+  assert.equal(loaded.version, 2);
+  assert.equal(loaded.orderType, "Pickup");
+  assert.equal(loaded.branchId, "downtown");
+  assert.deepEqual(loaded.favorites, ["crispy-club", "ember-double"]);
 });

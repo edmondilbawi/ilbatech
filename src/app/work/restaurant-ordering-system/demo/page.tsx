@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { RestaurantOrderingShowcase } from "@/components/restaurant-ordering-showcase";
 
 export const metadata: Metadata = {
-  title: "Interactive Restaurant Ordering System Concept",
-  description: "Explore a complete interactive quick-service restaurant journey with menu customization, checkout, order tracking and digital receipts.",
+  title: "Restaurant Ordering System",
+  description: "Browse a restaurant menu, customize an order, complete a simulated checkout, track its status and open a digital receipt.",
   alternates: { canonical: null },
   robots: { index: false, follow: true },
-  openGraph: { title: "Interactive Restaurant Ordering System Concept | ILBATECH", description: "A responsive consumer ordering demonstration using fictional sample data and simulated payment only.", url: "/work/restaurant-ordering-system/demo/" },
+  openGraph: { title: "Restaurant Ordering System | ILBATECH", description: "A responsive restaurant ordering system with menu customization, simulated payment, tracking and digital receipts.", url: "/work/restaurant-ordering-system/demo/" },
 };
 
 export default function RestaurantOrderingDemoPage() { return <RestaurantOrderingShowcase />; }

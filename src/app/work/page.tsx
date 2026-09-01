@@ -6,12 +6,12 @@ import { getSitePath } from "@/config/site";
 import { V4_WORK } from "@/config/v4-content";
 
 export const metadata: Metadata = {
-  title: "Interactive Work",
-  description: "Explore six interactive ILBATECH concept projects for dashboards, restaurant systems, travel, e-commerce and event ticketing.",
+  title: "Work",
+  description: "Explore ILBATECH projects for dashboards, restaurant systems, travel, e-commerce and event ticketing.",
   alternates: { canonical: "/work/" },
   openGraph: {
-    title: "Interactive Work | ILBATECH",
-    description: "Step into practical digital products built around real business needs.",
+    title: "Work | ILBATECH",
+    description: "Open practical digital products built around real business needs.",
     url: "/work/",
   },
 };
@@ -22,9 +22,9 @@ export default function WorkPage() {
     <main id="top">
       <section className="v4-page-hero">
         <div className="container">
-          <SectionEyebrow>Interactive work</SectionEyebrow>
+          <SectionEyebrow>ILBATECH work</SectionEyebrow>
           <h1>See what the right technology can do.</h1>
-          <p>Explore six working concepts. Each project opens directly into an interactive demo so you can experience it for yourself.</p>
+          <p>Open each project to see the customer and operational workflows in action.</p>
           <Button href="#projects">Explore Our Work</Button>
         </div>
       </section>
@@ -42,7 +42,7 @@ export default function WorkPage() {
               <span className="v4-work-number">0{index + 1}</span>
             </a>
             <div>
-              <span>Interactive concept</span>
+              <span>ILBATECH project</span>
               <h2>{project.title}</h2>
               <p>{project.description}</p>
               <a href={getSitePath(project.href)}>Explore Project <ArrowRight aria-hidden="true" size={16} /></a>

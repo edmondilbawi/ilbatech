@@ -158,7 +158,7 @@ export type WaitlistEntry = {
 };
 
 export type TicketingState = {
-  version: 1;
+  version: number;
   events: TicketingEvent[];
   favorites: string[];
   recentSearches: string[];
@@ -256,7 +256,7 @@ export function createReservedSeats(): Seat[] {
 const sharedPolicies = [
   "Tickets are valid for the selected session only.",
   "Entry may close 20 minutes after the advertised start time.",
-  "This fictional demo does not issue real tickets or process payments.",
+  "Demo tickets are not valid for admission, and no payments are processed.",
 ];
 
 export const INITIAL_EVENTS: readonly TicketingEvent[] = [
@@ -265,7 +265,7 @@ export const INITIAL_EVENTS: readonly TicketingEvent[] = [
     title: "Harbor Lights Live",
     category: "Concerts",
     description: "An immersive night of original indie-pop, layered percussion, and cinematic light in a landmark waterfront hall.",
-    image: image("music"), imageAlt: "Original concert scene with a fictional band and audience under coral stage lights",
+    image: image("music"), imageAlt: "Live band and audience under coral stage lights",
     venue: "The Lantern Hall", city: "Beirut", organizer: "Northline Productions", ageRestriction: "16+",
     policies: sharedPolicies, status: "On Sale", badge: "Selling Fast", featured: true, newEvent: false, popular: true,
     dateBuckets: ["This Weekend", "This Week", "This Month"],
@@ -288,7 +288,7 @@ export const INITIAL_EVENTS: readonly TicketingEvent[] = [
     id: "courtyard-stories", title: "Courtyard Stories Festival", category: "Festivals", description: "A sunset gathering of food, installation art, and live craft in a restored garden courtyard.", image: image("festival"), imageAlt: "Original sunset arts festival in a garden courtyard", venue: "Cedar Court", city: "Byblos", organizer: "Gather House", ageRestriction: "All ages", policies: sharedPolicies, status: "On Sale", badge: "New", featured: true, newEvent: true, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sat-1600", "Saturday — 4:00 PM", "Saturday, September 12", "4:00 PM")], ticketTypes: [ticketType("day", "Festival Pass", 28, 500, 218, "Full-day access"), ticketType("family", "Family Pass", 74, 100, 48, "Entry for two adults and two children", 2)], reservedSeating: false, seats: [],
   },
   {
-    id: "coastal-futsal-final", title: "Coastal Futsal Final", category: "Sports", description: "Two fictional city squads meet for a fast-paced indoor championship night.", image: image("sports"), imageAlt: "Original fictional indoor futsal match in an unbranded arena", venue: "Pulse Arena", city: "Jounieh", organizer: "Coastal Sports Collective", ageRestriction: "All ages", policies: sharedPolicies, status: "On Sale", badge: "Almost Sold Out", featured: true, newEvent: false, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sun-1900", "Sunday — 7:00 PM", "Sunday, September 13", "7:00 PM")], ticketTypes: [ticketType("upper", "Upper Stand", 22, 400, 351, "Unreserved upper seating"), ticketType("courtside", "Courtside", 55, 80, 71, "Closest unreserved viewing area", 4)], reservedSeating: false, seats: [],
+    id: "coastal-futsal-final", title: "Coastal Futsal Final", category: "Sports", description: "Two city squads meet for a fast-paced indoor championship night.", image: image("sports"), imageAlt: "Indoor futsal match in a contemporary arena", venue: "Pulse Arena", city: "Jounieh", organizer: "Coastal Sports Collective", ageRestriction: "All ages", policies: sharedPolicies, status: "On Sale", badge: "Almost Sold Out", featured: true, newEvent: false, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sun-1900", "Sunday — 7:00 PM", "Sunday, September 13", "7:00 PM")], ticketTypes: [ticketType("upper", "Upper Stand", 22, 400, 351, "Unreserved upper seating"), ticketType("courtside", "Courtside", 55, 80, 71, "Closest unreserved viewing area", 4)], reservedSeating: false, seats: [],
   },
   {
     id: "little-orbits", title: "Little Orbits Discovery Day", category: "Family", description: "Hands-on astronomy, light experiments, and guided discovery sessions for curious families.", image: image("family"), imageAlt: "Original family science experience with suspended planet models", venue: "Brightworks Hall", city: "Beirut", organizer: "Curious Days", ageRestriction: "Recommended 5–14", policies: sharedPolicies, status: "On Sale", badge: "New", featured: false, newEvent: true, popular: true, dateBuckets: ["Today", "This Week", "This Month"], sessions: [session("today-1000", "Today — 10:00 AM", "Today", "10:00 AM"), session("today-1400", "Today — 2:00 PM", "Today", "2:00 PM")], ticketTypes: [ticketType("child", "Child", 12, 120, 44, "Ages 5–14"), ticketType("adult", "Adult", 8, 120, 39, "Adult companion")], reservedSeating: false, seats: [],
@@ -300,7 +300,7 @@ export const INITIAL_EVENTS: readonly TicketingEvent[] = [
     id: "forward-together", title: "Forward Together Forum", category: "Conferences", description: "A practical one-day forum about resilient teams, thoughtful technology, and better service design.", image: image("conference"), imageAlt: "Original modern business conference with abstract unbranded stage graphics", venue: "Foundry Forum", city: "Beirut", organizer: "Fieldwork Collective", ageRestriction: "18+", policies: sharedPolicies, status: "On Sale", badge: "New", featured: true, newEvent: true, popular: false, dateBuckets: ["This Month"], sessions: [session("mon-0900", "Monday — 9:00 AM", "Monday, September 21", "9:00 AM")], ticketTypes: [ticketType("standard", "Forum Pass", 95, 240, 88, "Sessions, lunch, and networking"), ticketType("team", "Team Pass", 320, 60, 22, "Entry for four colleagues", 3)], reservedSeating: false, seats: [],
   },
   {
-    id: "afterglow-rooftop", title: "Afterglow Rooftop", category: "Nightlife", description: "A sunset-to-midnight electronic set above a fictional coastal skyline.", image: image("nightlife"), imageAlt: "Original unbranded rooftop nightlife event above a coastal city", venue: "Tide Roof", city: "Jounieh", organizer: "Night Current", ageRestriction: "21+", policies: sharedPolicies, status: "Sold Out", featured: true, newEvent: false, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sat-1800", "Saturday — 6:00 PM", "Saturday, September 5", "6:00 PM")], ticketTypes: [ticketType("entry", "Entry", 40, 220, 220, "Rooftop access")], reservedSeating: false, seats: [],
+    id: "afterglow-rooftop", title: "Afterglow Rooftop", category: "Nightlife", description: "A sunset-to-midnight electronic set above the coastal skyline.", image: image("nightlife"), imageAlt: "Rooftop nightlife event above a coastal city", venue: "Tide Roof", city: "Jounieh", organizer: "Night Current", ageRestriction: "21+", policies: sharedPolicies, status: "Sold Out", featured: true, newEvent: false, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sat-1800", "Saturday — 6:00 PM", "Saturday, September 5", "6:00 PM")], ticketTypes: [ticketType("entry", "Entry", 40, 220, 220, "Rooftop access")], reservedSeating: false, seats: [],
   },
   {
     id: "sunrise-reset", title: "Sunrise Reset", category: "Experiences", description: "A guided coastal movement and breakfast experience designed for an unhurried start.", image: image("wellness"), imageAlt: "Original sunrise wellness session on a coastal terrace", venue: "Sea Glass Terrace", city: "Batroun", organizer: "Open Air Studio", ageRestriction: "16+", policies: sharedPolicies, status: "On Sale", badge: "Limited Availability", featured: false, newEvent: true, popular: true, dateBuckets: ["This Weekend", "This Month"], sessions: [session("sun-0630", "Sunday — 6:30 AM", "Sunday, September 6", "6:30 AM")], ticketTypes: [ticketType("mat", "Mat Space", 32, 42, 36, "Session and breakfast bowl", 2)], reservedSeating: false, seats: [],
@@ -324,7 +324,7 @@ export const INITIAL_EVENTS: readonly TicketingEvent[] = [
     id: "midnight-monologues", title: "Midnight Monologues", category: "Theatre", description: "An original late-night collection of short dramatic works performed in the round.", image: image("theatre"), imageAlt: "Original stage performance under dramatic architectural lighting", venue: "Studio Nine", city: "Beirut", organizer: "Open Scene", ageRestriction: "16+", policies: sharedPolicies, status: "Completed", featured: false, newEvent: false, popular: false, dateBuckets: ["This Month"], sessions: [session("past-2100", "Friday — 9:00 PM", "Friday, August 14", "9:00 PM")], ticketTypes: [ticketType("standard", "Standard", 26, 90, 74, "In-the-round seating")], reservedSeating: false, seats: [],
   },
   {
-    id: "river-lantern-night", title: "River Lantern Night", category: "Family", description: "A fictional lantern walk and family performance that has been cancelled in this demo state.", image: image("family"), imageAlt: "Original family discovery experience in a bright exhibition hall", venue: "River Garden", city: "Zahle", organizer: "Kindred Events", ageRestriction: "All ages", policies: sharedPolicies, status: "Cancelled", featured: false, newEvent: false, popular: false, dateBuckets: ["This Month"], sessions: [session("sat-1730", "Saturday — 5:30 PM", "Saturday, September 19", "5:30 PM")], ticketTypes: [ticketType("family", "Family Entry", 25, 200, 61, "Family admission")], reservedSeating: false, seats: [],
+    id: "river-lantern-night", title: "River Lantern Night", category: "Family", description: "A lantern walk and family performance that has been cancelled.", image: image("family"), imageAlt: "Family discovery event in a bright exhibition hall", venue: "River Garden", city: "Zahle", organizer: "Kindred Events", ageRestriction: "All ages", policies: sharedPolicies, status: "Cancelled", featured: false, newEvent: false, popular: false, dateBuckets: ["This Month"], sessions: [session("sat-1730", "Saturday — 5:30 PM", "Saturday, September 19", "5:30 PM")], ticketTypes: [ticketType("family", "Family Entry", 25, 200, 61, "Family admission")], reservedSeating: false, seats: [],
   },
 ];
 
@@ -341,20 +341,20 @@ const round = (value: number) => Math.round(value * 100) / 100;
 
 export function createInitialTicketingState(): TicketingState {
   return {
-    version: 1,
+    version: 2,
     events: cloneEvents(),
     favorites: [],
     recentSearches: [],
     draft: null,
     orders: [],
     tickets: [
-      { id: "TKT-DEMO-CANCELLED", orderId: "#EV-10710", eventId: "river-lantern-night", sessionId: "sat-1730", ticketTypeId: "family", attendee: { firstName: "Maya", lastName: "Farah", email: "maya@example.test" }, qrPayload: "VIRELLO|TKT-DEMO-CANCELLED|river-lantern-night|sat-1730", status: "Cancelled", gift: false },
-      { id: "TKT-DEMO-WRONG", orderId: "#EV-10711", eventId: "lumen-movement", sessionId: "thu-1930", ticketTypeId: "middle", attendee: { firstName: "Rami", lastName: "Nader", email: "rami@example.test" }, seatId: "C5", qrPayload: "VIRELLO|TKT-DEMO-WRONG|lumen-movement|thu-1930", status: "Valid", gift: false },
+      { id: "TKT-EV10710-01", orderId: "#EV-10710", eventId: "river-lantern-night", sessionId: "sat-1730", ticketTypeId: "family", attendee: { firstName: "Maya", lastName: "Farah", email: "maya@example.test" }, qrPayload: "ILBATECH|TKT-EV10710-01|river-lantern-night|sat-1730", status: "Cancelled", gift: false },
+      { id: "TKT-EV10711-01", orderId: "#EV-10711", eventId: "lumen-movement", sessionId: "thu-1930", ticketTypeId: "middle", attendee: { firstName: "Rami", lastName: "Nader", email: "rami@example.test" }, seatId: "C5", qrPayload: "ILBATECH|TKT-EV10711-01|lumen-movement|thu-1930", status: "Valid", gift: false },
     ],
     transfers: [],
     checkIns: [],
     notifications: [
-      { id: "note-welcome", title: "Welcome to Virello", message: "Explore events, complete a safe demo checkout, and switch to Organizer View to validate the same ticket.", createdAt: "Today", read: false },
+      { id: "note-welcome", title: "Welcome to ILBATECH", message: "Browse events, book a test ticket, and switch to Organizer to check it in.", createdAt: "Today", read: false },
       { id: "note-reminder", title: "Event reminder", message: "Harbor Lights Live has a Saturday session at 8:00 PM.", createdAt: "Today", read: false },
     ],
     waitlist: [],
@@ -455,7 +455,7 @@ export function validateDraftAvailability(state: TicketingState, draft: Purchase
 }
 
 export function qrPayload(ticketId: string, eventId: string, sessionId: string) {
-  return `VIRELLO|${ticketId}|${eventId}|${sessionId}`;
+  return `ILBATECH|${ticketId}|${eventId}|${sessionId}`;
 }
 
 export function completePurchase(state: TicketingState, input: PurchaseInput): PurchaseResult {
@@ -561,7 +561,7 @@ export function cancelEvent(state: TicketingState, eventId: string) {
   if (!event) return state;
   event.status = "Cancelled";
   next.tickets.filter((ticket) => ticket.eventId === eventId && ticket.status !== "Used").forEach((ticket) => { ticket.status = "Cancelled"; });
-  next.notifications.unshift({ id: `note-cancel-${eventId}`, title: "Event cancelled", message: `${event.title} has been cancelled in the demo. No real refund is issued.`, createdAt: "Just now", read: false });
+  next.notifications.unshift({ id: `note-cancel-${eventId}`, title: "Event cancelled", message: `${event.title} has been cancelled. No refund is issued because payment is simulated.`, createdAt: "Just now", read: false });
   return next;
 }
 
@@ -604,7 +604,7 @@ export function createOrganizerEvent(state: TicketingState, details: { title: st
   const event: TicketingEvent = {
     id: `created-event-${number}`, title: details.title, category: details.category, description: details.description,
     image: image("festival"), imageAlt: "Original event gathering in a warm courtyard", venue: details.venue, city: details.city,
-    organizer: "Virello Demo Organizer", ageRestriction: details.ageRestriction, policies: sharedPolicies, status: "Draft",
+    organizer: "ILBATECH", ageRestriction: details.ageRestriction, policies: sharedPolicies, status: "Draft",
     featured: false, newEvent: true, popular: false, dateBuckets: ["This Month"],
     sessions: [session(`created-session-${number}`, `${details.date} — ${details.startTime}`, details.date, details.startTime)],
     ticketTypes: [ticketType(`created-general-${number}`, "General Admission", 35, details.capacity, 0, `Sales close at ${details.endTime}`)],
@@ -623,14 +623,47 @@ export function configureTicketType(state: TicketingState, eventId: string, type
   return next;
 }
 
+function migrateTicketingCopy(value: string) {
+  return value
+    .replaceAll("VIRELLO|", "ILBATECH|")
+    .replaceAll("Virello Demo Organizer", "ILBATECH")
+    .replaceAll("Welcome to Virello", "Welcome to ILBATECH")
+    .replaceAll("Explore events, complete a safe demo checkout, and switch to Organizer View to validate the same ticket.", "Browse events, book a test ticket, and switch to Organizer to check it in.")
+    .replaceAll("This fictional demo does not issue real tickets or process payments.", "Demo tickets are not valid for admission, and no payments are processed.")
+    .replaceAll("Two fictional city squads", "Two city squads")
+    .replaceAll("Original fictional indoor futsal match in an unbranded arena", "Indoor futsal match in a contemporary arena")
+    .replaceAll("above a fictional coastal skyline", "above the coastal skyline")
+    .replaceAll("A fictional lantern walk and family performance that has been cancelled in this demo state.", "A lantern walk and family performance that has been cancelled.")
+    .replaceAll("Original family discovery experience in a bright exhibition hall", "Family discovery event in a bright exhibition hall")
+    .replaceAll("has been cancelled in the demo. No real refund is issued.", "has been cancelled. No refund is issued because payment is simulated.");
+}
+
+function migrateTicketId(ticketId: string) {
+  if (ticketId === "TKT-DEMO-CANCELLED") return "TKT-EV10710-01";
+  if (ticketId === "TKT-DEMO-WRONG") return "TKT-EV10711-01";
+  return ticketId;
+}
+
 export function loadTicketingState(raw: string | null) {
   if (!raw) return createInitialTicketingState();
   try {
     const parsed = JSON.parse(raw) as Partial<TicketingState> & Record<string, unknown>;
-    if (parsed.version !== 1 || !Array.isArray(parsed.events) || !Array.isArray(parsed.tickets)) return createInitialTicketingState();
+    if (![1, 2].includes(Number(parsed.version)) || !Array.isArray(parsed.events) || !Array.isArray(parsed.tickets)) return createInitialTicketingState();
     delete parsed.cardNumber;
     delete parsed.cvv;
-    return parsed as TicketingState;
+    const migrated = JSON.parse(JSON.stringify(parsed), (_key, value) => typeof value === "string" ? migrateTicketingCopy(value) : value) as TicketingState;
+    migrated.version = 2;
+    migrated.tickets = migrated.tickets.map((ticket) => ({
+      ...ticket,
+      id: migrateTicketId(ticket.id),
+      qrPayload: migrateTicketingCopy(ticket.qrPayload)
+        .replace("TKT-DEMO-CANCELLED", "TKT-EV10710-01")
+        .replace("TKT-DEMO-WRONG", "TKT-EV10711-01"),
+    }));
+    migrated.orders = migrated.orders.map((order) => ({ ...order, ticketIds: order.ticketIds.map(migrateTicketId) }));
+    migrated.transfers = migrated.transfers.map((transfer) => ({ ...transfer, ticketId: migrateTicketId(transfer.ticketId) }));
+    migrated.checkIns = migrated.checkIns.map((checkIn) => ({ ...checkIn, ticketId: migrateTicketId(checkIn.ticketId) }));
+    return migrated;
   } catch {
     return createInitialTicketingState();
   }

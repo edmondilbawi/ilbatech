@@ -46,7 +46,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       label: "website development services",
     },
     conceptNote:
-      "Independent concept work created to demonstrate ILBATECH’s approach to clear, privacy-conscious healthcare journeys.",
+      "Built by ILBATECH with clear service information, accessible specialist browsing, and privacy-conscious appointment requests.",
     businessNeed:
       "A private clinic needs to establish professional trust quickly while helping prospective patients understand available care and take the next step without confusion. The experience must balance warmth, clarity, privacy awareness, and practical contact options across every screen size.",
     challengeTitle: "Make specialist care feel clear before an appointment begins.",
@@ -86,7 +86,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       label: "web development and e-commerce services",
     },
     conceptNote:
-      "Independent concept work created to demonstrate ILBATECH’s approach to useful, atmospheric hospitality experiences.",
+      "Built by ILBATECH with practical visit information, clear menu browsing, and a short table-request flow.",
     businessNeed:
       "A café or restaurant website needs to communicate atmosphere and offering in seconds, then make practical information effortless to find. Menu discovery, opening times, location, and contact actions matter most on mobile, often when a guest is already deciding where to go.",
     challengeTitle: "Turn atmosphere into a practical path to visit.",
@@ -112,12 +112,12 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
   },
   {
     slug: "premium-ecommerce-store",
-    title: "Premium E-Commerce Store",
+    title: "E-Commerce Store",
     category: "E-Commerce",
     summary:
-      "A premium interactive storefront with product discovery, configurable product details, a local cart, and a safe checkout demonstration.",
+      "An online store with product discovery, configurable product details, a local cart, and simulated checkout.",
     description:
-      "A responsive e-commerce concept with product discovery, configurable details, a local cart, and a safe checkout demonstration with no payments.",
+      "A responsive e-commerce store with product discovery, configurable details, a local cart, and simulated checkout with no charges.",
     experienceLabel: "Explore the Store",
     demoPath: "/work/premium-ecommerce-store/demo",
     contactService: "E-Commerce",
@@ -126,24 +126,24 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       label: "e-commerce development services",
     },
     conceptNote:
-      "Independent concept work created to demonstrate ILBATECH’s approach to focused, trustworthy digital commerce.",
+      "Built by ILBATECH with focused product discovery, clear buying controls, and transparent checkout safety.",
     businessNeed:
       "Modern retailers need strong product presentation, easy discovery, clear product information, and a low-friction path from browsing to purchase intent. Those decisions must remain equally clear on mobile, where product comparison, variant selection, and cart management happen in limited space.",
     challengeTitle: "Make discovery and purchase intent feel equally considered.",
     approach:
-      "Shape an original editorial retail identity around a coherent collection, then connect keyboard-friendly categories, search, refinements, and sorting to focused product details. Variant and quantity choices flow into a session-only cart and lightweight checkout demonstration that requests no payment data and never submits or stores an order.",
+      "Organize the catalog around clear categories, search, refinements, and sorting, then connect product variants and quantities to a local cart and simulated checkout that stores no payment details and makes no charge.",
     approachTitle: "Connect premium presentation to a low-friction shopping flow.",
     interfaceDecisions: [
       { title: "Product-led composition", description: "A quiet grid gives each object enough room while keeping comparison efficient." },
       { title: "Variants without ambiguity", description: "Finish and quantity controls stay close to price, availability, and the primary cart action." },
-      { title: "Transparent local cart", description: "Cart and checkout states demonstrate the journey without requesting payment or placing an order." },
+      { title: "Transparent local cart", description: "Cart and checkout states stay in the browser without requesting payment or placing a real order." },
     ],
     demonstrates: [
       "Responsive premium storefront and mobile shopping navigation",
       "Product search, category filtering, refinements, and sorting",
       "Product detail presentation with finish and quantity selection",
       "Local favorites, Add to Cart, quantity, removal, and subtotal interactions",
-      "Cart review and safe checkout UX demonstration",
+      "Cart review and safe simulated checkout",
       "Accessible commerce controls across desktop, tablet, and mobile",
     ],
     capabilities: ["E-commerce UX", "Product discovery", "Product configuration", "Local cart interactions", "Responsive front-end"],
@@ -166,7 +166,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       label: "business systems and technology consulting services",
     },
     conceptNote:
-      "Independent concept work created to demonstrate ILBATECH’s approach to connected operations, automation, and grounded AI assistance.",
+      "Built by ILBATECH to connect daily operations, workflow automation, and grounded AI assistance.",
     businessNeed:
       "Some growing businesses manage important information across disconnected tools, messages, spreadsheets, and manual workflows. That fragmentation can reduce visibility, make ownership harder to understand, and leave repetitive coordination work without a dependable shared view.",
     challengeTitle: "Create one dependable view of work in motion.",

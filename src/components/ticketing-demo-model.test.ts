@@ -52,7 +52,7 @@ function buyConcert(quantity = 2) {
   });
 }
 
-test("catalog has 16 fictional events across all nine requested categories", () => {
+test("catalog has 16 events across all nine requested categories", () => {
   assert.equal(INITIAL_EVENTS.length, 16);
   assert.deepEqual(new Set(INITIAL_EVENTS.map((event) => event.category)), new Set(EVENT_CATEGORIES));
   assert.ok(INITIAL_EVENTS.every((event) => event.image.startsWith("/images/events/") && event.image.endsWith(".webp")));
@@ -146,7 +146,7 @@ test("QR payloads contain safe identifiers but no attendee or payment data", () 
   assert.equal(result.ok, true);
   if (!result.ok) return;
   for (const ticket of result.tickets) {
-    assert.match(ticket.qrPayload, /^VIRELLO\|TKT-EV10842-0[12]\|harbor-lights-live\|sat-2000$/);
+    assert.match(ticket.qrPayload, /^ILBATECH\|TKT-EV10842-0[12]\|harbor-lights-live\|sat-2000$/);
     assert.equal(ticket.qrPayload.includes("dana"), false);
     assert.equal(ticket.qrPayload.includes("4242"), false);
   }
@@ -207,7 +207,7 @@ test("transferred, used, and cancelled tickets cannot be transferred again", () 
   const checked = checkInTicket(result.state, result.tickets[0].id, "harbor-lights-live");
   assert.equal(checked.ok, true);
   assert.equal(transferTicket(checked.state, result.tickets[0].id, "Other", "other@example.test").ok, false);
-  assert.equal(transferTicket(createInitialTicketingState(), "TKT-DEMO-CANCELLED", "Other", "other@example.test").ok, false);
+  assert.equal(transferTicket(createInitialTicketingState(), "TKT-EV10710-01", "Other", "other@example.test").ok, false);
 });
 
 test("valid check-in changes the same customer ticket to Used and updates attendance", () => {
@@ -237,11 +237,11 @@ test("invalid ticket validation is safe", () => {
 });
 
 test("cancelled ticket validation prevents entry", () => {
-  assert.equal(validateTicket(createInitialTicketingState(), "TKT-DEMO-CANCELLED", "river-lantern-night").code, "TICKET_CANCELLED");
+  assert.equal(validateTicket(createInitialTicketingState(), "TKT-EV10710-01", "river-lantern-night").code, "TICKET_CANCELLED");
 });
 
 test("wrong-event validation identifies the ticket's relevant event", () => {
-  const result = validateTicket(createInitialTicketingState(), "TKT-DEMO-WRONG", "harbor-lights-live");
+  const result = validateTicket(createInitialTicketingState(), "TKT-EV10711-01", "harbor-lights-live");
   assert.equal(result.code, "WRONG_EVENT");
   if (result.code === "WRONG_EVENT") assert.equal(result.event.id, "lumen-movement");
 });
@@ -305,7 +305,20 @@ test("malformed or incompatible persistence resets safely", () => {
   assert.equal(loadTicketingState(JSON.stringify({ version: 2 })).events.length, 16);
 });
 
-test("Reset Demo restores the exact deterministic original state", () => {
+test("version 1 ticketing data migrates old branding and identifiers without losing tickets", () => {
+  const state = createInitialTicketingState();
+  state.version = 1;
+  state.notifications[0].title = "Welcome to Virello";
+  state.tickets[0].id = "TKT-DEMO-CANCELLED";
+  state.tickets[0].qrPayload = "VIRELLO|TKT-DEMO-CANCELLED|river-lantern-night|sat-1730";
+  const loaded = loadTicketingState(JSON.stringify(state));
+  assert.equal(loaded.version, 2);
+  assert.equal(loaded.notifications[0].title, "Welcome to ILBATECH");
+  assert.equal(loaded.tickets[0].id, "TKT-EV10710-01");
+  assert.equal(loaded.tickets[0].qrPayload, "ILBATECH|TKT-EV10710-01|river-lantern-night|sat-1730");
+});
+
+test("Reset Data restores the exact deterministic original state", () => {
   const modified = toggleFavorite(createInitialTicketingState(), "harbor-lights-live");
   assert.notDeepEqual(modified, createInitialTicketingState());
   assert.deepEqual(resetTicketingState(), createInitialTicketingState());

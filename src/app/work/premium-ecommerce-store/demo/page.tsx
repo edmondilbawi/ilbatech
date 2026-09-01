@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { EcommerceShowcase } from "@/components/ecommerce-showcase";
 
 export const metadata: Metadata = {
-  title: "Nestra Market Interactive E-Commerce Demo",
+  title: "E-Commerce Store",
   description:
-    "Explore ILBATECH's complete fictional commerce experience with search, categories, product variants, wishlist, cart, simulated checkout, tracking, orders, and returns.",
+    "Shop products with search, categories, variants, wishlist, cart, simulated checkout, tracking, orders and returns.",
   alternates: { canonical: null },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Nestra Market Interactive E-Commerce Demo | ILBATECH",
+    title: "E-Commerce Store | ILBATECH",
     description:
-      "A complete responsive commerce customer journey created as an original ILBATECH interactive concept demo.",
+      "A responsive ILBATECH e-commerce store with product discovery, customer accounts and post-purchase order management.",
     url: "/work/premium-ecommerce-store/demo/",
   },
 };

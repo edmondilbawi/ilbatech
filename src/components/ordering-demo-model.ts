@@ -64,7 +64,7 @@ export type Order = {
 };
 
 export type OrderingState = {
-  version: 1;
+  version: 2;
   orderType: OrderType | null;
   branchId: string | null;
   cart: CartItem[];
@@ -76,7 +76,8 @@ export type OrderingState = {
   placedCount: number;
 };
 
-export const ORDERING_STORAGE_KEY = "ilbatech-ember-bite-demo-v1";
+export const ORDERING_STORAGE_KEY = "ilbatech-restaurant-ordering-v2";
+export const LEGACY_ORDERING_STORAGE_KEY = "ilbatech-ember-bite-demo-v1";
 export const DEMO_DATE = "2026-08-30";
 
 export const BRANCHES: Branch[] = [
@@ -88,9 +89,9 @@ export const BRANCHES: Branch[] = [
 
 const image = (name: string) => `/images/ordering/${name}.webp`;
 export const PRODUCTS: Product[] = [
-  { id: "ember-double", name: "Ember Double", description: "Two flame-seared patties, cheddar, pickles, lettuce and ember sauce.", category: "Burgers", price: 8.9, image: image("double-burger"), imageAlt: "Double beef burger with cheddar, pickles and lettuce", available: true, featured: true, mealEligible: true, customizable: true, calories: 690 },
+  { id: "ember-double", name: "Double Stack", description: "Two flame-seared patties, cheddar, pickles, lettuce and smoky house sauce.", category: "Burgers", price: 8.9, image: image("double-burger"), imageAlt: "Double beef burger with cheddar, pickles and lettuce", available: true, featured: true, mealEligible: true, customizable: true, calories: 690 },
   { id: "classic-smash", name: "Classic Smash", description: "A seared beef patty with onion, pickles and house sauce.", category: "Burgers", price: 6.4, image: image("double-burger"), imageAlt: "Classic seared beef burger", available: true, mealEligible: true, customizable: true, calories: 510 },
-  { id: "smokehouse-meal", name: "Smokehouse Meal", description: "Ember Double, seasoned fries and a fountain drink.", category: "Meals", price: 13.9, image: image("double-burger"), imageAlt: "Double burger meal", available: true, featured: true, mealEligible: true, customizable: true, calories: 1120 },
+  { id: "smokehouse-meal", name: "Double Stack Meal", description: "Double Stack, seasoned fries and a fountain drink.", category: "Meals", price: 13.9, image: image("double-burger"), imageAlt: "Double burger meal", available: true, featured: true, mealEligible: true, customizable: true, calories: 1120 },
   { id: "crispy-club", name: "Crispy Pepper Club", description: "Crispy chicken, lettuce, pickles and cracked-pepper cream.", category: "Chicken", price: 7.6, image: image("crispy-chicken"), imageAlt: "Crispy chicken sandwich with lettuce and pickles", available: true, featured: true, mealEligible: true, customizable: true, calories: 640 },
   { id: "chicken-meal", name: "Crispy Club Meal", description: "Crispy Pepper Club with a side and drink of your choice.", category: "Meals", price: 12.6, image: image("crispy-chicken"), imageAlt: "Crispy chicken sandwich meal", available: true, mealEligible: true, customizable: true, calories: 1010 },
   { id: "fire-tenders", name: "Firehouse Tenders", description: "Five crunchy chicken tenders with smoky dipping sauce.", category: "Chicken", price: 7.9, image: image("chicken-tenders"), imageAlt: "Five crispy chicken tenders with dipping sauce", available: true, calories: 590 },
@@ -98,8 +99,8 @@ export const PRODUCTS: Product[] = [
   { id: "grilled-wrap", name: "Green Flame Wrap", description: "Grilled chicken, crisp greens, tomato and herb yogurt.", category: "Wraps", price: 7.2, image: image("chicken-wrap"), imageAlt: "Grilled chicken wrap with fresh vegetables", available: true, featured: true, mealEligible: true, calories: 480 },
   { id: "garden-wrap", name: "Garden Crunch Wrap", description: "Crisp vegetables, herb yogurt and seasoned potato crunch.", category: "Wraps", price: 6.8, image: image("chicken-wrap"), imageAlt: "Fresh vegetable wrap", available: true, vegetarian: true, mealEligible: true, calories: 430 },
   { id: "wrap-meal", name: "Green Flame Meal", description: "Grilled chicken wrap with your choice of side and drink.", category: "Meals", price: 12.2, image: image("chicken-wrap"), imageAlt: "Grilled chicken wrap meal", available: true, mealEligible: true, calories: 860 },
-  { id: "seasoned-fries", name: "Ember Seasoned Fries", description: "Golden skin-on fries with our signature seasoning.", category: "Sides", price: 3.49, image: image("seasoned-fries"), imageAlt: "Golden seasoned french fries", available: true, vegetarian: true, calories: 330 },
-  { id: "loaded-fries", name: "Loaded Ember Fries", description: "Seasoned fries with cheddar, jalapeños and ember sauce.", category: "Sides", price: 5.49, image: image("seasoned-fries"), imageAlt: "Seasoned fries with creamy herb dip", available: true, vegetarian: true, calories: 510 },
+  { id: "seasoned-fries", name: "House Seasoned Fries", description: "Golden skin-on fries with house seasoning.", category: "Sides", price: 3.49, image: image("seasoned-fries"), imageAlt: "Golden seasoned french fries", available: true, vegetarian: true, calories: 330 },
+  { id: "loaded-fries", name: "Loaded Fries", description: "Seasoned fries with cheddar, jalapeños and smoky house sauce.", category: "Sides", price: 5.49, image: image("seasoned-fries"), imageAlt: "Seasoned fries with creamy herb dip", available: true, vegetarian: true, calories: 510 },
   { id: "side-salad", name: "Crisp Garden Cup", description: "Lettuce, tomato, cucumber and lemon-herb dressing.", category: "Sides", price: 3.29, image: image("chicken-wrap"), imageAlt: "Fresh garden vegetables", available: true, vegetarian: true, calories: 120 },
   { id: "berry-shake", name: "Strawberry Cloud Shake", description: "Strawberry and vanilla shake finished with whipped cream.", category: "Drinks", price: 4.6, image: image("strawberry-shake"), imageAlt: "Pink strawberry milkshake with whipped cream", available: true, vegetarian: true, featured: true, calories: 440 },
   { id: "citrus-fizz", name: "Citrus Mint Fizz", description: "Sparkling lemon, lime and mint served over ice.", category: "Drinks", price: 2.9, image: image("strawberry-shake"), imageAlt: "Refreshing chilled beverage", available: true, vegetarian: true, calories: 110 },
@@ -182,7 +183,7 @@ const historyCustomization = { ...DEFAULT_CUSTOMIZATION, patty: "Double" as cons
 
 export function createInitialOrderingState(): OrderingState {
   return {
-    version: 1,
+    version: 2,
     orderType: null,
     branchId: null,
     cart: [],
@@ -202,8 +203,8 @@ export function loadOrderingState(raw: string | null): OrderingState {
   if (!raw) return createInitialOrderingState();
   try {
     const parsed = JSON.parse(raw) as OrderingState;
-    if (parsed.version !== 1 || !Array.isArray(parsed.cart) || !Array.isArray(parsed.favorites) || !Array.isArray(parsed.orderHistory)) return createInitialOrderingState();
-    return parsed;
+    if (![1, 2].includes(parsed.version) || !Array.isArray(parsed.cart) || !Array.isArray(parsed.favorites) || !Array.isArray(parsed.orderHistory)) return createInitialOrderingState();
+    return { ...parsed, version: 2 };
   } catch { return createInitialOrderingState(); }
 }
 

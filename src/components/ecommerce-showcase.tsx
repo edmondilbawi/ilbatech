@@ -47,6 +47,7 @@ import {
   CATEGORIES,
   COMMERCE_STORAGE_KEY,
   DELIVERY_OPTIONS,
+  LEGACY_COMMERCE_STORAGE_KEY,
   PRODUCTS,
   TRACKING_STAGES,
   calculateTotals,
@@ -307,9 +308,9 @@ export function EcommerceShowcase() {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setCommerce(
-        loadCommerceState(window.localStorage.getItem(COMMERCE_STORAGE_KEY)),
-      );
+      const stored = window.localStorage.getItem(COMMERCE_STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_COMMERCE_STORAGE_KEY);
+      setCommerce(loadCommerceState(stored));
+      window.localStorage.removeItem(LEGACY_COMMERCE_STORAGE_KEY);
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(timer);
@@ -590,7 +591,7 @@ export function EcommerceShowcase() {
     patchCommerce({ addresses });
     setCheckoutAddressId(id);
     setAddressEditor(null);
-    setAnnouncement("Address saved locally for this demo.");
+    setAnnouncement("Address saved in this browser.");
   }
   function setDefaultAddress(id: string) {
     patchCommerce({
@@ -614,7 +615,7 @@ export function EcommerceShowcase() {
         !card.name.trim()
       ) {
         setPaymentError(
-          "Use the safe demo card 4242 4242 4242 4242 and complete every card field.",
+          "Use the test card 4242 4242 4242 4242 and complete every card field.",
         );
         return;
       }
@@ -751,6 +752,7 @@ export function EcommerceShowcase() {
   function resetDemo() {
     const initial = createInitialCommerceState();
     setCommerce(initial);
+    window.localStorage.removeItem(LEGACY_COMMERCE_STORAGE_KEY);
     window.localStorage.setItem(COMMERCE_STORAGE_KEY, JSON.stringify(initial));
     setQuery("");
     setQueryDraft("");
@@ -760,7 +762,7 @@ export function EcommerceShowcase() {
     setBuyNowItems(null);
     setPromoDraft("");
     setPromoFeedback("");
-    setAnnouncement("Demo data restored to its original state.");
+    setAnnouncement("Data restored to its original state.");
     go("home");
   }
   function renderCards(products: Product[], limit?: number) {
@@ -807,7 +809,7 @@ export function EcommerceShowcase() {
   );
 
   return (
-    <main id="nestra-top" className={styles.storefront}>
+    <main id="commerce-top" className={styles.storefront}>
       <a className={styles.skipLink} href="#store-content">
         Skip to store content
       </a>
@@ -817,11 +819,8 @@ export function EcommerceShowcase() {
       <div className={styles.conceptBar}>
         <div className={styles.shell}>
           <span>
-            <b>Interactive Concept Demo</b>
-            <i>
-              This preview demonstrates possible functionality. Final systems
-              are customized according to each business&apos;s requirements.
-            </i>
+            <b>ILBATECH</b>
+            <i>E-Commerce Store</i>
           </span>
           <a href={getSitePath("/work")}>
             <ArrowLeft size={13} /> ILBATECH Work
@@ -843,12 +842,10 @@ export function EcommerceShowcase() {
             className={styles.brand}
             type="button"
             onClick={() => go("home")}
-            aria-label="Nestra Market home"
+            aria-label="ILBATECH home"
           >
-            <span>N</span>
-            <strong>
-              NESTRA<small>MARKET</small>
-            </strong>
+            <span>I</span>
+            <strong>ILBATECH</strong>
           </button>
           <form
             className={styles.searchBox}
@@ -1000,23 +997,23 @@ export function EcommerceShowcase() {
               <div className={`${styles.shell} ${styles.heroGrid}`}>
                 <div className={styles.heroCopy}>
                   <p className={styles.eyebrow}>
-                    <Sparkles size={14} /> One useful market
+                    <Sparkles size={14} /> Shop by category
                   </p>
                   <h1>
-                    Everything useful,
+                    Find what{" "}
                     <br />
-                    <em>thoughtfully chosen.</em>
+                    <em>you need.</em>
                   </h1>
                   <p>
-                    Discover considered technology, home, style, wellness, and
-                    work essentials from independent fictional brands.
+                    Browse technology, home, style, wellness, and office
+                    essentials from independent brands.
                   </p>
                   <div>
                     <button type="button" onClick={() => browseCategory("All")}>
                       Shop the collection <ArrowRight size={16} />
                     </button>
                     <button type="button" onClick={() => go("deals")}>
-                      Explore today&apos;s deals
+                      View today&apos;s deals
                     </button>
                   </div>
                   <small>
@@ -1199,7 +1196,7 @@ export function EcommerceShowcase() {
             </nav>
             <div className={styles.catalogHeading}>
               <div>
-                <p className={styles.eyebrow}>Explore Nestra</p>
+                <p className={styles.eyebrow}>Shop products</p>
                 <h1>
                   {query
                     ? `Search results for “${query}”`
@@ -1535,7 +1532,7 @@ export function EcommerceShowcase() {
                     <RotateCcw />
                     <span>
                       <b>30-day returns</b>
-                      <small>Simple demo return process</small>
+                      <small>Easy 30-day return process</small>
                     </span>
                   </p>
                 </div>
@@ -1676,7 +1673,7 @@ export function EcommerceShowcase() {
                       Sold by <b>{activeProduct.seller}</b>
                     </span>
                     <span>
-                      Fulfilled by <b>Nestra Market</b>
+                      Fulfilled by <b>ILBATECH</b>
                     </span>
                     <span>
                       Seller rating <b>{activeProduct.sellerRating} / 5</b>
@@ -1688,15 +1685,15 @@ export function EcommerceShowcase() {
             <div className={styles.productInformation}>
               <article>
                 <p className={styles.eyebrow}>Product details</p>
-                <h2>Designed for everyday use.</h2>
+                <h2>Everyday features</h2>
                 <p>{activeProduct.details}</p>
                 <div className={styles.returnPromise}>
                   <ShieldCheck />
                   <span>
                     <b>Simple, flexible returns</b>
                     <small>
-                      Eligible items can be returned within 30 days through the
-                      simulated account flow.
+                      Eligible items can be returned within 30 days from your
+                      account.
                     </small>
                   </span>
                 </div>
@@ -1887,7 +1884,7 @@ export function EcommerceShowcase() {
                   anytime.
                 </p>
                 <button onClick={() => browseCategory("All")}>
-                  Explore products
+                  Browse products
                 </button>
               </div>
             )}
@@ -2133,7 +2130,7 @@ export function EcommerceShowcase() {
               <div className={styles.emptyState}>
                 <ShoppingCart />
                 <h2>Your cart is empty.</h2>
-                <p>Explore the collection and add something useful.</p>
+                <p>Browse products and add an item to your cart.</p>
                 <button onClick={() => browseCategory("All")}>
                   Continue shopping
                 </button>
@@ -2153,7 +2150,7 @@ export function EcommerceShowcase() {
             </button>
             <div className={styles.checkoutHeader}>
               <div>
-                <p className={styles.eyebrow}>Secure simulated checkout</p>
+                <p className={styles.eyebrow}>Checkout</p>
                 <h1>Complete your order</h1>
               </div>
               <span>
@@ -2169,7 +2166,7 @@ export function EcommerceShowcase() {
                     aria-pressed={commerce.accountMode === "Account"}
                     onClick={() => patchCommerce({ accountMode: "Account" })}
                   >
-                    <CircleUserRound /> Noura&apos;s demo account
+                    <CircleUserRound /> Noura&apos;s account
                     <small>Use saved addresses and order history</small>
                   </button>
                   <button
@@ -2286,8 +2283,7 @@ export function EcommerceShowcase() {
                       ))}
                     </div>
                     <p className={styles.demoNote}>
-                      <Zap /> Delivery options and estimates are simulated for
-                      this concept.
+                      <Zap /> Delivery options and estimates are simulated.
                     </p>
                   </div>
                 )}
@@ -2339,10 +2335,10 @@ export function EcommerceShowcase() {
                             </b>
                             <small>
                               {method === "Card"
-                                ? "Use the safe demo card below"
+                                ? "Use the test card below"
                                 : method === "Digital Wallet"
                                   ? "Simulated wallet approval"
-                                  : "Pay when this fictional order arrives"}
+                                  : "Pay when the order arrives"}
                             </small>
                           </span>
                         </label>
@@ -2353,7 +2349,7 @@ export function EcommerceShowcase() {
                         <div className={styles.safeCard}>
                           <ShieldCheck />
                           <p>
-                            <b>Safe demo card</b>
+                            <b>Test card</b>
                             <span>4242 4242 4242 4242</span>
                           </p>
                           <small>No payment is processed or stored.</small>
@@ -2374,7 +2370,7 @@ export function EcommerceShowcase() {
                           Cardholder name
                           <input
                             autoComplete="off"
-                            placeholder="Demo Shopper"
+                            placeholder="Alex Morgan"
                             value={card.name}
                             onChange={(event) =>
                               setCard({ ...card, name: event.target.value })
@@ -2479,7 +2475,7 @@ export function EcommerceShowcase() {
                           <b>{paymentMethod}</b>
                           <span>
                             {paymentMethod === "Card"
-                              ? "Demo card ending 4242"
+                              ? "Test card ending 4242"
                               : "Simulated payment"}
                           </span>
                         </div>
@@ -2493,8 +2489,8 @@ export function EcommerceShowcase() {
                       <p>
                         <b>This is a simulation.</b>
                         <span>
-                          Placing the order will create local demo order data.
-                          No transaction or external request occurs.
+                          Placing the order saves it in this browser. No charge
+                          or external request occurs.
                         </span>
                       </p>
                     </div>
@@ -2577,8 +2573,8 @@ export function EcommerceShowcase() {
             <p className={styles.eyebrow}>Order confirmed</p>
             <h1>Thank you, Noura.</h1>
             <p>
-              Your simulated order <b>{selectedOrder.id}</b> has been created
-              locally. No real payment or fulfillment request was sent.
+              Order <b>{selectedOrder.id}</b> is ready to review. No payment
+              was processed and nothing will be shipped.
             </p>
             <div className={styles.confirmMeta}>
               <span>
@@ -2632,7 +2628,7 @@ export function EcommerceShowcase() {
               <div>
                 <p className={styles.eyebrow}>Package tracking</p>
                 <h1>{selectedOrder.id}</h1>
-                <span>{selectedOrder.trackingRef} · Nestra Parcel</span>
+                <span>{selectedOrder.trackingRef} · Delivery carrier</span>
               </div>
               <div>
                 <b>
@@ -2682,8 +2678,8 @@ export function EcommerceShowcase() {
                 <p>
                   <b>{TRACKING_STAGES[selectedOrder.statusIndex]}</b>
                   <small>
-                    This tracker is an interactive simulation. Advance it to
-                    demonstrate the full post-purchase flow.
+                    Use the status control to move this order through each
+                    delivery stage.
                   </small>
                 </p>
                 {selectedOrder.statusIndex < 5 && (
@@ -2691,7 +2687,7 @@ export function EcommerceShowcase() {
                     type="button"
                     onClick={() => advanceTracking(selectedOrder)}
                   >
-                    Advance demo status <ArrowRight />
+                    Advance status <ArrowRight />
                   </button>
                 )}
               </div>
@@ -2721,7 +2717,7 @@ export function EcommerceShowcase() {
 
         {screen === "orders" && (
           <section className={`${styles.shell} ${styles.pageSection}`}>
-            {sectionHeader("Demo account", "Orders & returns")}
+            {sectionHeader("Account", "Orders & returns")}
             <div className={styles.orderFilters}>
               <button className={styles.activePill}>All orders</button>
               <button>In progress</button>
@@ -2977,11 +2973,11 @@ export function EcommerceShowcase() {
             >
               <ArrowLeft /> Order details
             </button>
-            <p className={styles.eyebrow}>Simulated return</p>
+            <p className={styles.eyebrow}>Return request</p>
             <h1>Return an item</h1>
             <p>
-              Select an eligible item and how you would like to send it back. No
-              real logistics request is created.
+              Select an eligible item and how you would like to send it back.
+              This does not create a shipping request.
             </p>
             <div className={styles.returnForm}>
               <label>
@@ -3065,7 +3061,7 @@ export function EcommerceShowcase() {
                       <b>{method}</b>
                       <small>
                         {method === "Drop-off"
-                          ? "Leave at a fictional partner point"
+                          ? "Leave at a nearby partner point"
                           : "Schedule a simulated home pickup"}
                       </small>
                     </span>
@@ -3092,7 +3088,7 @@ export function EcommerceShowcase() {
                   better prices.
                 </h1>
                 <p>
-                  Limited-time fictional offers across technology, home,
+                  Limited-time offers across technology, home,
                   fashion, and more.
                 </p>
                 <span>
@@ -3236,7 +3232,7 @@ export function EcommerceShowcase() {
           <section className={`${styles.shell} ${styles.narrowPage}`}>
             <div className={styles.notificationHeader}>
               <div>
-                <p className={styles.eyebrow}>Demo account</p>
+                <p className={styles.eyebrow}>Account</p>
                 <h1>Notifications</h1>
               </div>
               <button
@@ -3290,7 +3286,7 @@ export function EcommerceShowcase() {
 
         {screen === "account" && (
           <section className={`${styles.shell} ${styles.pageSection}`}>
-            {sectionHeader("Welcome back", "Noura's demo account")}
+            {sectionHeader("Welcome back", "Noura's account")}
             <div className={styles.accountGrid}>
               <aside>
                 <button className={styles.activeAccount}>
@@ -3315,7 +3311,7 @@ export function EcommerceShowcase() {
                   <div>
                     <h2>Noura Karim</h2>
                     <p>noura@example.test</p>
-                    <small>Fictional customer profile · Demo account</small>
+                    <small>Saved customer profile</small>
                   </div>
                   <button>Edit profile</button>
                 </article>
@@ -3396,15 +3392,13 @@ export function EcommerceShowcase() {
       <section className={styles.salesCta}>
         <div className={`${styles.shell} ${styles.ctaGrid}`}>
           <div>
-            <p>ILBATECH · Interactive Concept Demo</p>
-            <h2>
-              A complete commerce experience, shaped around your business.
-            </h2>
+            <p>ILBATECH · E-Commerce Store</p>
+            <h2>Need an online store for your business?</h2>
           </div>
           <div>
             <p>
-              This public demonstration uses fictional products and local-only
-              data to show the breadth of a custom customer journey.
+              Talk to us about product discovery, checkout, order management,
+              and customer accounts.
             </p>
             <a href={getContactPath("E-Commerce")}>
               Discuss a similar project <ArrowRight />
@@ -3415,21 +3409,18 @@ export function EcommerceShowcase() {
       <footer className={styles.footer}>
         <div className={styles.shell}>
           <button className={styles.brand} onClick={() => go("home")}>
-            <span>N</span>
-            <strong>
-              NESTRA<small>MARKET</small>
-            </strong>
+            <span>I</span>
+            <strong>ILBATECH</strong>
           </button>
           <p>
-            Original fictional commerce concept by ILBATECH. No transactions,
-            accounts, shipments, or messages are real.
+            No payments are processed, and no orders or messages are sent.
           </p>
           <button
             className={styles.resetButton}
             type="button"
             onClick={() => setResetOpen(true)}
           >
-            <RotateCcw /> Reset Demo
+            <RotateCcw /> Reset Data
           </button>
         </div>
       </footer>
@@ -3513,17 +3504,17 @@ export function EcommerceShowcase() {
               <RotateCcw />
             </span>
             <h2 id="reset-demo-title">
-              Reset demo data to its original state?
+              Reset data to its original state?
             </h2>
             <p>
-              This clears the local cart, wishlist, recently viewed products,
-              saved addresses, simulated orders, and notifications.
+              This clears the cart, wishlist, recently viewed products, saved
+              addresses, orders, and notifications.
             </p>
             <div>
               <button onClick={() => setResetOpen(false)}>
-                Keep my demo data
+                Keep my data
               </button>
-              <button onClick={resetDemo}>Reset demo</button>
+              <button onClick={resetDemo}>Reset data</button>
             </div>
           </div>
         </div>
@@ -3580,7 +3571,8 @@ function AddressEditor({
         ))}
       </div>
       <p>
-        Use fictional information only. Address data remains in this browser.
+        Use non-sensitive contact details. Address data remains in this
+        browser.
       </p>
       <button type="submit">Save address</button>
       <button type="button" onClick={onCancel}>

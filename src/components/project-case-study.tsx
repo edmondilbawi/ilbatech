@@ -29,7 +29,7 @@ export function ProjectCaseStudy({
             </a>
             <div className="case-hero-copy">
               <div>
-                <p className="case-label">Concept Project</p>
+                <p className="case-label">ILBATECH Project</p>
                 <SectionEyebrow>{project.category}</SectionEyebrow>
                 <h1>{project.title}</h1>
               </div>
@@ -38,7 +38,7 @@ export function ProjectCaseStudy({
                 {interactiveHref && (
                   <div className="case-demo-entry">
                     <Button href={interactiveHref}>{project.experienceLabel}</Button>
-                    <p>Opens the front-end concept in a dedicated demo view.</p>
+                    <p>Opens the project in a dedicated interactive view.</p>
                   </div>
                 )}
               </div>
@@ -90,8 +90,8 @@ export function ProjectCaseStudy({
         <section className="case-demonstrates section">
           <div className="container case-demonstrates-grid">
             <div>
-              <SectionEyebrow>What the experience demonstrates</SectionEyebrow>
-              <h2>Capability made visible in the interface.</h2>
+              <SectionEyebrow>What the system includes</SectionEyebrow>
+              <h2>Core capabilities</h2>
               <ul className="case-capability-list">
                 {project.demonstrates.map((item) => (
                   <li key={item}><Check aria-hidden="true" size={16} /> {item}</li>
@@ -107,8 +107,8 @@ export function ProjectCaseStudy({
                 ))}
               </div>
               <p>
-                Independent concept work created to demonstrate ILBATECH’s
-                approach to real business needs. Explore the related{" "}
+                Built by ILBATECH around practical business needs. Explore the
+                related{" "}
                 <a
                   className="case-service-link"
                   href={getSitePath(project.relatedService.href)}
@@ -124,7 +124,7 @@ export function ProjectCaseStudy({
           <div className="container">
             <div className="section-heading">
               <div>
-                <SectionEyebrow>Interactive experience</SectionEyebrow>
+                <SectionEyebrow>Responsive interface</SectionEyebrow>
                 <h2>One connected system across screen sizes.</h2>
               </div>
               <p>

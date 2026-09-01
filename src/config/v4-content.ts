@@ -44,11 +44,11 @@ export const V4_WORK = [
   {
     title: "Restaurant Ordering System",
     description:
-      "Explore a complete customer journey from menu customization and offers to simulated checkout, live tracking and digital receipts.",
+      "Browse the menu, customize items, apply offers, complete a simulated checkout, track an order and open its digital receipt.",
     href: "/work/restaurant-ordering-system/demo",
     type: "restaurant",
     image: "/images/work/restaurant-ordering.webp",
-    imageAlt: "Ember Bite ordering menu with food photography, categories and a customer cart",
+    imageAlt: "ILBATECH restaurant ordering menu with food photography, fulfillment choices and a customer cart",
   },
   {
     title: "Restaurant Inventory Management System",
@@ -71,21 +71,21 @@ export const V4_WORK = [
   {
     title: "E-Commerce Store",
     description:
-      "A complete interactive shopping journey with search, product discovery, wishlist, cart, simulated checkout, tracking, orders and returns.",
+      "Search products, compare options, manage a wishlist and cart, complete a simulated checkout, and review delivery and returns.",
     href: "/work/premium-ecommerce-store/demo",
     type: "commerce",
     image: "/images/work/ecommerce-store.webp",
     imageAlt:
-      "Nestra Market commerce storefront with original products, search and shopping navigation",
+      "ILBATECH e-commerce storefront with product search, shopping categories and customer navigation",
   },
   {
     title: "Event Ticketing Platform",
     description:
-      "Explore event discovery, reserved seating, simulated checkout, unique QR tickets, transfers, organizer analytics and door check-in.",
+      "Find events, choose reserved or general-admission tickets, complete a simulated checkout, and manage QR entry and organizer check-in.",
     href: "/work/event-ticketing-platform/demo",
     type: "ticketing",
     image: "/images/work/event-ticketing.webp",
     imageAlt:
-      "Virello event ticketing discovery experience with original event imagery, search and featured booking cards",
+      "ILBATECH event ticketing platform with event search, featured bookings and customer navigation",
   },
 ] as const;

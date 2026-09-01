@@ -154,7 +154,7 @@ export function ProjectPreview({
   view = "overview",
   size = "card",
 }: ProjectPreviewProps) {
-  const label = `${project.title} concept interface preview showing ${project.visualDescription}.`;
+  const label = `${project.title} interface preview showing ${project.visualDescription}.`;
 
   if (view === "mobile") {
     return (

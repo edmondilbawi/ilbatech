@@ -82,8 +82,10 @@ import {
 } from "./ticketing-demo-model";
 import styles from "./ticketing-showcase.module.css";
 
-const STORAGE_KEY = "ilbatech-virello-ticketing-demo-v1";
-const NAVIGATION_KEY = "ilbatech-virello-ticketing-navigation-v1";
+const STORAGE_KEY = "ilbatech-event-ticketing-v2";
+const LEGACY_STORAGE_KEY = "ilbatech-virello-ticketing-demo-v1";
+const NAVIGATION_KEY = "ilbatech-event-ticketing-navigation-v2";
+const LEGACY_NAVIGATION_KEY = "ilbatech-virello-ticketing-navigation-v1";
 const EMPTY_ATTENDEE: Attendee = { firstName: "", lastName: "", email: "" };
 type Mode = "customer" | "organizer";
 type CustomerView = "discover" | "event" | "checkout" | "confirmation" | "tickets" | "orders" | "saved" | "notifications";
@@ -190,19 +192,23 @@ export function TicketingShowcase() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const restoredState = loadTicketingState(window.localStorage.getItem(STORAGE_KEY));
+      const stored = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
+      const restoredState = loadTicketingState(stored);
       setState(restoredState);
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY);
 
       try {
-        const navigation = JSON.parse(window.sessionStorage.getItem(NAVIGATION_KEY) ?? "null") as Record<string, unknown> | null;
+        const navigation = JSON.parse(window.sessionStorage.getItem(NAVIGATION_KEY) ?? window.sessionStorage.getItem(LEGACY_NAVIGATION_KEY) ?? "null") as Record<string, unknown> | null;
         if (navigation?.mode === "customer" || navigation?.mode === "organizer") setMode(navigation.mode);
         if (isCustomerView(navigation?.customerView)) setCustomerView(navigation.customerView);
         if (isOrganizerView(navigation?.organizerView)) setOrganizerView(navigation.organizerView);
         if (typeof navigation?.selectedEventId === "string" && restoredState.events.some((event) => event.id === navigation.selectedEventId)) setSelectedEventId(navigation.selectedEventId);
         if (typeof navigation?.activeOrganizerEventId === "string" && restoredState.events.some((event) => event.id === navigation.activeOrganizerEventId)) setActiveOrganizerEventId(navigation.activeOrganizerEventId);
         if (typeof navigation?.lastOrderId === "string" && restoredState.orders.some((order) => order.id === navigation.lastOrderId)) setLastOrderId(navigation.lastOrderId);
+        window.sessionStorage.removeItem(LEGACY_NAVIGATION_KEY);
       } catch {
         window.sessionStorage.removeItem(NAVIGATION_KEY);
+        window.sessionStorage.removeItem(LEGACY_NAVIGATION_KEY);
       }
 
       setHydrated(true);
@@ -248,28 +254,28 @@ export function TicketingShowcase() {
 
   return (
     <main className={styles.demo}>
-      <a className={styles.skipLink} href="#ticketing-main">Skip to demo content</a>
+      <a className={styles.skipLink} href="#ticketing-main">Skip to main content</a>
       <header className={styles.topbar}>
         <a className={styles.ilbatech} href={getSitePath("/")} aria-label="Return to ILBATECH">
           <Image src="/brand-mark.webp" width={42} height={42} unoptimized alt="" />
-          <span><b>ILBATECH</b><small>Interactive Concept Demo</small></span>
+          <span><b>ILBATECH</b><small>Event Ticketing Platform</small></span>
         </a>
-        <div className={styles.brand}><span>V</span><strong>virello</strong></div>
-        <div className={styles.modeSwitcher} aria-label="Demo mode">
+        <div className={styles.brand}><span>I</span><strong>ILBATECH</strong></div>
+        <div className={styles.modeSwitcher} aria-label="Platform view">
           <button type="button" aria-pressed={mode === "customer"} onClick={() => switchMode("customer")}><UserRound /> Customer</button>
           <button type="button" aria-pressed={mode === "organizer"} onClick={() => switchMode("organizer")}><LayoutDashboard /> Organizer</button>
         </div>
-        <button className={styles.menuButton} type="button" aria-label="Toggle demo navigation" aria-expanded={mobileNav} onClick={() => setMobileNav((value) => !value)}>{mobileNav ? <X /> : <Menu />}</button>
+        <button className={styles.menuButton} type="button" aria-label="Toggle navigation" aria-expanded={mobileNav} onClick={() => setMobileNav((value) => !value)}>{mobileNav ? <X /> : <Menu />}</button>
       </header>
 
       <div className={styles.shell}>
         <aside className={`${styles.sidebar} ${mobileNav ? styles.sidebarOpen : ""}`}>
-          <div className={styles.sidebarMode}><span>Demo mode</span><strong>{mode === "customer" ? "Customer experience" : "Organizer workspace"}</strong></div>
-          <div className={styles.sidebarMobileSwitch} aria-label="Mobile demo mode">
+          <div className={styles.sidebarMode}><span>View</span><strong>{mode === "customer" ? "Customer" : "Organizer"}</strong></div>
+          <div className={styles.sidebarMobileSwitch} aria-label="Mobile platform view">
             <button type="button" aria-pressed={mode === "customer"} onClick={() => switchMode("customer")}><UserRound /> Customer</button>
             <button type="button" aria-pressed={mode === "organizer"} onClick={() => switchMode("organizer")}><LayoutDashboard /> Organizer</button>
           </div>
-          <nav aria-label={`${mode} demo navigation`}>
+          <nav aria-label={`${mode} navigation`}>
             {(mode === "customer" ? CUSTOMER_NAV : ORGANIZER_NAV).map((item) => {
               const active = mode === "customer" ? customerView === item.id : organizerView === item.id;
               const Icon = item.icon;
@@ -277,7 +283,7 @@ export function TicketingShowcase() {
             })}
           </nav>
           <div className={styles.sidebarFoot}>
-            <button type="button" onClick={() => setResetOpen(true)}><RefreshCcw /> Reset Demo</button>
+            <button type="button" onClick={() => setResetOpen(true)}><RefreshCcw /> Reset Data</button>
             <a href={getSitePath("/work")}><ArrowLeft /> ILBATECH Work</a>
           </div>
         </aside>
@@ -305,13 +311,13 @@ export function TicketingShowcase() {
             />
           )}
           <footer className={styles.demoFooter}>
-            <div><Sparkles /><span><b>Interactive Concept Demo</b><small>This preview demonstrates possible functionality. Final systems are customized according to each business&apos;s requirements.</small></span></div>
+            <div><Sparkles /><span><b>ILBATECH</b><small>Event Ticketing Platform</small></span></div>
             <a href={getContactPath("Website Development")}>Discuss a ticketing platform <ArrowRight /></a>
           </footer>
         </div>
       </div>
 
-      {resetOpen && <ConfirmDialog title="Reset demo data to its original state?" text="This restores events, sales, tickets, transfers, check-ins, favorites, waitlists, notifications, and organizer changes." confirm="Reset demo" onClose={() => setResetOpen(false)} onConfirm={() => { setState(resetTicketingState()); setCustomerView("discover"); setOrganizerView("dashboard"); setSelectedEventId("harbor-lights-live"); setActiveOrganizerEventId("harbor-lights-live"); setLastOrderId(null); setResetOpen(false); }} />}
+      {resetOpen && <ConfirmDialog title="Reset data to its original state?" text="This restores events, sales, tickets, transfers, check-ins, favorites, waitlists, notifications, and organizer changes." confirm="Reset data" onClose={() => setResetOpen(false)} onConfirm={() => { setState(resetTicketingState()); setCustomerView("discover"); setOrganizerView("dashboard"); setSelectedEventId("harbor-lights-live"); setActiveOrganizerEventId("harbor-lights-live"); setLastOrderId(null); setResetOpen(false); }} />}
     </main>
   );
 }
@@ -346,9 +352,9 @@ function Discover({ state, setState, openEvent }: { state: TicketingState; setSt
   return <>
     <section className={styles.discoveryHero}>
       <div>
-        <span className={styles.eyebrow}><Sparkles /> Make plans worth remembering</span>
-        <h1>Find your next <em>live moment.</em></h1>
-        <p>Original events, effortless booking, and every ticket in one place.</p>
+        <span className={styles.eyebrow}><Sparkles /> Events</span>
+        <h1>Find events and <em>book tickets.</em></h1>
+        <p>Search by category, date, location, or price. Your bookings stay in My Tickets.</p>
         <div className={styles.heroSearch}>
           <Search />
           <input aria-label="Search events" value={query} onFocus={() => setSearchFocused(true)} onChange={(event) => { setQuery(event.target.value); setSearchFocused(true); }} onKeyDown={(event) => { if (event.key === "Enter") commitSearch(); }} placeholder="Search events, venues, cities..." />
@@ -361,7 +367,7 @@ function Discover({ state, setState, openEvent }: { state: TicketingState; setSt
         <div className={styles.quickSearch}><span>Popular:</span>{["music", "This Weekend", "family"].map((item) => <button type="button" key={item} onClick={() => item === "This Weekend" ? setFilters({ ...filters, date: "This Weekend" }) : commitSearch(item)}>{item}</button>)}</div>
       </div>
       <article className={styles.heroEvent}>
-        <Image src="/images/events/music.webp" width={1440} height={960} unoptimized priority loading="eager" alt="Original fictional live concert inside a contemporary hall" />
+        <Image src="/images/events/music.webp" width={1440} height={960} unoptimized priority loading="eager" alt="Live concert inside a contemporary hall" />
         <div><span>Editor&apos;s pick · This weekend</span><h2>Harbor Lights Live</h2><p><CalendarDays /> Saturday, September 5 · 8:00 PM</p><p><MapPin /> The Lantern Hall · Beirut</p><button type="button" onClick={() => openEvent("harbor-lights-live")}>Get Tickets <ArrowRight /></button></div>
       </article>
     </section>
@@ -371,7 +377,7 @@ function Discover({ state, setState, openEvent }: { state: TicketingState; setSt
     </section>
 
     <section className={styles.filterBar}>
-      <div><span>{activeFilter ? `${results.length} matching events` : "Curated for you"}</span><h2>{activeFilter ? "Search results" : "Discover what’s happening"}</h2></div>
+      <div><span>{activeFilter ? `${results.length} matching events` : "Popular events"}</span><h2>{activeFilter ? "Search results" : "Browse events"}</h2></div>
       <button type="button" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((value) => !value)}><Filter /> Filters{activeFilter && <em />}</button>
       {filtersOpen && <div className={styles.filterPanel}>
         <label><span>Category</span><select value={filters.category} onChange={(event) => setFilters({ ...filters, category: event.target.value as EventFilters["category"] })}><option>All</option>{EVENT_CATEGORIES.map((category) => <option key={category}>{category}</option>)}</select></label>
@@ -384,11 +390,11 @@ function Discover({ state, setState, openEvent }: { state: TicketingState; setSt
     </section>
 
     {activeFilter ? <EventGrid events={results} state={state} setState={setState} openEvent={openEvent} empty="No events match those filters." /> : <>
-      <EventSection title="Featured Events" subtitle="Unmissable picks across the city" events={availableEvents.filter((event) => event.featured).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
+      <EventSection title="Featured Events" subtitle="Selected events" events={availableEvents.filter((event) => event.featured).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
       <EventSection title="This Weekend" subtitle="Plans for Friday through Sunday" events={availableEvents.filter((event) => event.dateBuckets.includes("This Weekend")).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
-      <EventSection title="Popular Near You" subtitle="What people are booking now" events={availableEvents.filter((event) => event.popular).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
-      <EventSection title="New Events" subtitle="Freshly added to Virello" events={availableEvents.filter((event) => event.newEvent).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
-      <EventSection title="Upcoming Events" subtitle="More moments on the horizon" events={availableEvents.slice(5, 15)} state={state} setState={setState} openEvent={openEvent} />
+      <EventSection title="Popular Near You" subtitle="Most booked" events={availableEvents.filter((event) => event.popular).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
+      <EventSection title="New Events" subtitle="Recently added" events={availableEvents.filter((event) => event.newEvent).slice(0, 5)} state={state} setState={setState} openEvent={openEvent} />
+      <EventSection title="Upcoming Events" subtitle="Later this month" events={availableEvents.slice(5, 15)} state={state} setState={setState} openEvent={openEvent} />
     </>}
   </>;
 }
@@ -488,7 +494,7 @@ function EventDetail({ state, setState, eventId, back, checkout }: { state: Tick
         {lines.length > 0 && <div className={styles.lineItems}>{lines.map((line) => <div key={line.key}><span>{line.seatId ? `Seat ${line.seatId}` : `${line.quantity} × ${event.ticketTypes.find((item) => item.id === line.ticketTypeId)?.name}`}</span><b>{money(line.seatId ? event.seats.find((seat) => seat.id === line.seatId)!.price : event.ticketTypes.find((item) => item.id === line.ticketTypeId)!.price * line.quantity)}</b></div>)}</div>}
         <div className={styles.summaryTotal}><span>Ticket subtotal</span><strong>{money(totals.subtotal)}</strong></div>
         {message && <p className={styles.inlineError} role="status">{message}</p>}
-        {cancelled ? <div className={styles.unavailable}><X /><b>Event Cancelled</b><span>Ticket sales are closed. No real refunds are processed in this demo.</span></div> : soldOut ? <><div className={styles.unavailable}><Tickets /><b>Sold Out</b><span>Join the demo waitlist to see the customer flow.</span></div><button className={styles.primary} type="button" onClick={() => setWaitlistOpen(true)}>Join Waitlist</button></> : <button className={styles.primary} type="button" onClick={continueToCheckout} disabled={!lines.length}>Continue to checkout <ArrowRight /></button>}
+        {cancelled ? <div className={styles.unavailable}><X /><b>Event Cancelled</b><span>Ticket sales are closed. No payment or refund is processed.</span></div> : soldOut ? <><div className={styles.unavailable}><Tickets /><b>Sold Out</b><span>Join the waitlist for availability updates.</span></div><button className={styles.primary} type="button" onClick={() => setWaitlistOpen(true)}>Join Waitlist</button></> : <button className={styles.primary} type="button" onClick={continueToCheckout} disabled={!lines.length}>Continue to checkout <ArrowRight /></button>}
         <small className={styles.safeNote}><ShieldCheck /> Pricing, availability, and checkout are simulated locally.</small>
       </aside>
     </div>
@@ -604,7 +610,7 @@ function Checkout({ state, setState, back, confirmed }: { state: TicketingState;
   function pay(eventForm: FormEvent) {
     eventForm.preventDefault();
     setPaymentError("");
-    if (paymentMethod === "Card" && (!card.name || !card.expiry || card.cvv.length < 3)) { setPaymentError("Complete the demo card fields to continue."); return; }
+    if (paymentMethod === "Card" && (!card.name || !card.expiry || card.cvv.length < 3)) { setPaymentError("Complete the test card fields to continue."); return; }
     setProcessing(true);
     const purchaseDraft = paymentDraftRef.current ?? draft;
     window.setTimeout(() => {
@@ -620,21 +626,21 @@ function Checkout({ state, setState, back, confirmed }: { state: TicketingState;
 
   return <>
     <button className={styles.backButton} type="button" onClick={step === "payment" ? () => setStep("attendees") : back}><ArrowLeft /> {step === "payment" ? "Attendee details" : "Ticket selection"}</button>
-    <div className={styles.checkoutHeader}><span>Secure demo checkout</span><h1>{step === "attendees" ? "Who are the tickets for?" : "Complete your demo payment"}</h1><div><span data-active><Check /> Tickets</span><i /><span data-active><UserRound /> Attendees</span><i /><span data-active={step === "payment"}><WalletCards /> Payment</span></div></div>
+    <div className={styles.checkoutHeader}><span>Checkout</span><h1>{step === "attendees" ? "Who are the tickets for?" : "Complete payment"}</h1><div><span data-active><Check /> Tickets</span><i /><span data-active><UserRound /> Attendees</span><i /><span data-active={step === "payment"}><WalletCards /> Payment</span></div></div>
     <div className={styles.checkoutLayout}>
       <div className={styles.checkoutPanel}>
         {step === "attendees" ? <form onSubmit={continueToPayment}>
-          <FormSection number="1" title="Purchaser details" text="Used for this local booking confirmation only."><div className={styles.formGrid}><Field label="First name"><input required autoComplete="given-name" value={purchaser.firstName} onChange={(e) => setPurchaser({ ...purchaser, firstName: e.target.value })} placeholder="Dana" /></Field><Field label="Last name"><input required autoComplete="family-name" value={purchaser.lastName} onChange={(e) => setPurchaser({ ...purchaser, lastName: e.target.value })} placeholder="Haddad" /></Field><Field label="Email"><input required type="email" autoComplete="email" value={purchaser.email} onChange={(e) => setPurchaser({ ...purchaser, email: e.target.value })} placeholder="dana@example.test" /></Field><Field label="Phone"><input required type="tel" autoComplete="tel" value={purchaser.phone} onChange={(e) => setPurchaser({ ...purchaser, phone: e.target.value })} placeholder="+961 00 000 000" /></Field></div><label className={styles.accountChoice}><input type="radio" checked={originalDraft.customerMode === "Guest"} readOnly /><span><b>Guest checkout</b><small>No account or real sign-in required.</small></span></label></FormSection>
+          <FormSection number="1" title="Purchaser details" text="Used for your booking confirmation."><div className={styles.formGrid}><Field label="First name"><input required autoComplete="given-name" value={purchaser.firstName} onChange={(e) => setPurchaser({ ...purchaser, firstName: e.target.value })} placeholder="Dana" /></Field><Field label="Last name"><input required autoComplete="family-name" value={purchaser.lastName} onChange={(e) => setPurchaser({ ...purchaser, lastName: e.target.value })} placeholder="Haddad" /></Field><Field label="Email"><input required type="email" autoComplete="email" value={purchaser.email} onChange={(e) => setPurchaser({ ...purchaser, email: e.target.value })} placeholder="dana@example.test" /></Field><Field label="Phone"><input required type="tel" autoComplete="tel" value={purchaser.phone} onChange={(e) => setPurchaser({ ...purchaser, phone: e.target.value })} placeholder="+961 00 000 000" /></Field></div><label className={styles.accountChoice}><input type="radio" checked={originalDraft.customerMode === "Guest"} readOnly /><span><b>Guest checkout</b><small>Continue without creating an account.</small></span></label></FormSection>
           <FormSection number="2" title={`Attendee information · ${initialCount} ticket${initialCount === 1 ? "" : "s"}`} text="Names appear on the generated digital tickets."><label className={styles.checkbox}><input type="checkbox" checked={usePurchaser} onChange={(e) => setUsePurchaser(e.target.checked)} /><span><b>Use purchaser details for all tickets</b><small>Turn this off to add individual attendees or gifts.</small></span></label>{!usePurchaser && attendees.map((attendee, index) => <article className={styles.attendeeCard} key={index}><div><span>Ticket {index + 1}</span><label><input type="checkbox" checked={giftIndexes.includes(index)} onChange={() => setGiftIndexes((items) => items.includes(index) ? items.filter((item) => item !== index) : [...items, index])} /><Gift /> Gift ticket</label></div><div className={styles.formGrid}><Field label="First name"><input required value={attendee.firstName} onChange={(e) => updateAttendee(index, "firstName", e.target.value)} /></Field><Field label="Last name"><input required value={attendee.lastName} onChange={(e) => updateAttendee(index, "lastName", e.target.value)} /></Field><Field label="Email"><input required type="email" value={attendee.email} onChange={(e) => updateAttendee(index, "email", e.target.value)} /></Field></div></article>)}</FormSection>
           <FormSection number="3" title="Promotion code" text="Try EVENT10 or WELCOME5."><div className={styles.promoBox}><input aria-label="Promotion code" value={promo} onChange={(e) => { setPromo(e.target.value); setPromoMessage(""); }} placeholder="EVENT10" /><button type="button" onClick={applyPromo}>Apply</button></div>{promoMessage && <p className={promoMessage.includes("applied") ? styles.successMessage : styles.inlineError}>{promoMessage}</p>}</FormSection>
           <button className={styles.primary} type="submit">Continue to payment <ArrowRight /></button>
         </form> : <form onSubmit={pay}>
-          <div className={styles.demoPayment}><ShieldCheck /><div><span>DEMO PAYMENT</span><b>No money will be charged.</b><p>Use 4242 4242 4242 4242 for success. Use 4000 0000 0000 0002 to demonstrate a decline.</p></div></div>
-          <FormSection number="1" title="Payment method" text="Choose a safe simulated method."><div className={styles.paymentMethods}><button type="button" aria-pressed={paymentMethod === "Card"} onClick={() => setPaymentMethod("Card")}><WalletCards /><span><b>Credit / Debit Card</b><small>Safe demo fields</small></span><Check /></button><button type="button" aria-pressed={paymentMethod === "Digital Wallet"} onClick={() => setPaymentMethod("Digital Wallet")}><Zap /><span><b>Digital Wallet</b><small>Simulated approval</small></span><Check /></button></div></FormSection>
-          {paymentMethod === "Card" ? <FormSection number="2" title="Demo card details" text="Card number and CVV stay only in these fields and are never stored."><div className={styles.formGrid}><Field label="Name on card" wide><input required autoComplete="off" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })} placeholder="Demo Customer" /></Field><Field label="Card number" wide><input required inputMode="numeric" autoComplete="off" value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })} placeholder="4242 4242 4242 4242" /></Field><Field label="Expiry"><input required autoComplete="off" value={card.expiry} onChange={(e) => setCard({ ...card, expiry: e.target.value })} placeholder="12/30" /></Field><Field label="CVV"><input required inputMode="numeric" autoComplete="off" maxLength={4} value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })} placeholder="123" /></Field></div></FormSection> : <div className={styles.walletPanel}><Zap /><h2>Demo wallet ready</h2><p>Confirm below to simulate an approved digital-wallet payment.</p></div>}
+          <div className={styles.demoPayment}><ShieldCheck /><div><span>DEMO PAYMENT</span><b>No money will be charged.</b><p>Use 4242 4242 4242 4242 for success. Use 4000 0000 0000 0002 for a declined payment.</p></div></div>
+          <FormSection number="1" title="Payment method" text="Choose a simulated payment method."><div className={styles.paymentMethods}><button type="button" aria-pressed={paymentMethod === "Card"} onClick={() => setPaymentMethod("Card")}><WalletCards /><span><b>Credit / Debit Card</b><small>Test card fields</small></span><Check /></button><button type="button" aria-pressed={paymentMethod === "Digital Wallet"} onClick={() => setPaymentMethod("Digital Wallet")}><Zap /><span><b>Digital Wallet</b><small>Simulated approval</small></span><Check /></button></div></FormSection>
+          {paymentMethod === "Card" ? <FormSection number="2" title="Test card details" text="Card number and CVV stay only in these fields and are never stored."><div className={styles.formGrid}><Field label="Name on card" wide><input required autoComplete="off" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })} placeholder="Alex Morgan" /></Field><Field label="Card number" wide><input required inputMode="numeric" autoComplete="off" value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })} placeholder="4242 4242 4242 4242" /></Field><Field label="Expiry"><input required autoComplete="off" value={card.expiry} onChange={(e) => setCard({ ...card, expiry: e.target.value })} placeholder="12/30" /></Field><Field label="CVV"><input required inputMode="numeric" autoComplete="off" maxLength={4} value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })} placeholder="123" /></Field></div></FormSection> : <div className={styles.walletPanel}><Zap /><h2>Wallet ready</h2><p>Confirm below to simulate an approved digital-wallet payment.</p></div>}
           {paymentError && <p className={styles.paymentError} role="alert"><X /> {paymentError}</p>}
           <button className={styles.primary} type="submit" disabled={processing}>{processing ? <><span className={styles.spinner} /> Processing Payment</> : <>Pay {money(totals.total)} <ShieldCheck /></>}</button>
-          <p className={styles.architectureNote}><b>Public demo:</b> local simulation only. A production platform would tokenize payment details with an approved processor and verify payment server-side through signed webhooks before issuing tickets.</p>
+          <p className={styles.architectureNote}><b>Demo payment:</b> card details are not stored, and no charge will be made.</p>
         </form>}
       </div>
       <OrderReview event={event} sessionLabel={`${session.date} · ${session.time}`} lines={checkoutLines} totals={totals} promo={promo} />
@@ -643,7 +649,7 @@ function Checkout({ state, setState, back, confirmed }: { state: TicketingState;
 }
 
 function OrderReview({ event, sessionLabel, lines, totals, promo }: { event: TicketingEvent; sessionLabel: string; lines: DraftLine[]; totals: ReturnType<typeof calculateTicketTotals>; promo: string }) {
-  return <aside className={styles.checkoutSummary}><span>Order review</span><div className={styles.summaryEvent}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><span><b>{event.title}</b><small>{event.venue}</small></span></div><dl><div><dt>Date & time</dt><dd>{sessionLabel}</dd></div><div><dt>Tickets</dt><dd>{ticketCount(lines)}</dd></div>{lines.some((line) => line.seatId) && <div><dt>Seats</dt><dd>{lines.map((line) => line.seatId).filter(Boolean).join(", ")}</dd></div>}</dl><div className={styles.totalList}><div><span>Ticket subtotal</span><b>{money(totals.subtotal)}</b></div>{totals.discount > 0 && <div data-discount><span>Discount · {promo.toUpperCase()}</span><b>−{money(totals.discount)}</b></div>}<div><span>Service fee</span><b>{money(totals.serviceFee)}</b></div><div><span>Tax</span><b>{money(totals.tax)}</b></div><div><span>Total</span><b>{money(totals.total)}</b></div></div><small><ShieldCheck /> Totals are deterministic and shown before payment.</small></aside>;
+  return <aside className={styles.checkoutSummary}><span>Order review</span><div className={styles.summaryEvent}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><span><b>{event.title}</b><small>{event.venue}</small></span></div><dl><div><dt>Date & time</dt><dd>{sessionLabel}</dd></div><div><dt>Tickets</dt><dd>{ticketCount(lines)}</dd></div>{lines.some((line) => line.seatId) && <div><dt>Seats</dt><dd>{lines.map((line) => line.seatId).filter(Boolean).join(", ")}</dd></div>}</dl><div className={styles.totalList}><div><span>Ticket subtotal</span><b>{money(totals.subtotal)}</b></div>{totals.discount > 0 && <div data-discount><span>Discount · {promo.toUpperCase()}</span><b>−{money(totals.discount)}</b></div>}<div><span>Service fee</span><b>{money(totals.serviceFee)}</b></div><div><span>Tax</span><b>{money(totals.tax)}</b></div><div><span>Total</span><b>{money(totals.total)}</b></div></div><small><ShieldCheck /> Totals are shown before payment.</small></aside>;
 }
 
 function Confirmation({ state, order, viewTickets, browse }: { state: TicketingState; order: Order | null; viewTickets: () => void; browse: () => void }) {
@@ -651,7 +657,7 @@ function Confirmation({ state, order, viewTickets, browse }: { state: TicketingS
   const event = eventById(state, order.eventId)!;
   const session = event.sessions.find((item) => item.id === order.sessionId)!;
   const tickets = state.tickets.filter((ticket) => order.ticketIds.includes(ticket.id));
-  return <section className={styles.confirmation}><div className={styles.confirmIcon}><Check /></div><span>BOOKING CONFIRMED</span><h1>Your next live moment is booked.</h1><p>Order {order.id}</p><div className={styles.confirmCard}><Image src={event.image} width={1440} height={960} unoptimized alt={event.imageAlt} /><div><small>{event.category}</small><h2>{event.title}</h2><p><CalendarDays /> {session.date} · {session.time}</p><p><MapPin /> {event.venue} · {event.city}</p><dl><div><dt>Tickets</dt><dd>{tickets.length}</dd></div><div><dt>Amount paid</dt><dd>{money(order.total)}</dd></div><div><dt>Payment</dt><dd>{order.paymentMethod} · Demo</dd></div><div><dt>Purchaser</dt><dd>{attendeeName(order.purchaser)}</dd></div></dl></div></div><div className={styles.confirmTickets}>{tickets.map((ticket) => <div key={ticket.id}><MiniQr payload={ticket.qrPayload} /><span><b>{ticket.id}</b><small>{ticket.seatId ? `Seat ${ticket.seatId}` : event.ticketTypes.find((type) => type.id === ticket.ticketTypeId)?.name}</small></span></div>)}</div><div className={styles.confirmActions}><button className={styles.primary} type="button" onClick={viewTickets}>View Tickets <ArrowRight /></button><button type="button" onClick={() => downloadOrder(state, order)}>Download Tickets <Download /></button><button type="button" onClick={browse}>Continue Browsing</button></div><p className={styles.safeNote}><ShieldCheck /> Unique demo QR payloads contain ticket and event identifiers only—never attendee or payment details.</p></section>;
+  return <section className={styles.confirmation}><div className={styles.confirmIcon}><Check /></div><span>BOOKING CONFIRMED</span><h1>Your booking is confirmed.</h1><p>Order {order.id}</p><div className={styles.confirmCard}><Image src={event.image} width={1440} height={960} unoptimized alt={event.imageAlt} /><div><small>{event.category}</small><h2>{event.title}</h2><p><CalendarDays /> {session.date} · {session.time}</p><p><MapPin /> {event.venue} · {event.city}</p><dl><div><dt>Tickets</dt><dd>{tickets.length}</dd></div><div><dt>Amount</dt><dd>{money(order.total)}</dd></div><div><dt>Payment</dt><dd>{order.paymentMethod} · Simulated</dd></div><div><dt>Purchaser</dt><dd>{attendeeName(order.purchaser)}</dd></div></dl></div></div><div className={styles.confirmTickets}>{tickets.map((ticket) => <div key={ticket.id}><MiniQr payload={ticket.qrPayload} /><span><b>{ticket.id}</b><small>{ticket.seatId ? `Seat ${ticket.seatId}` : event.ticketTypes.find((type) => type.id === ticket.ticketTypeId)?.name}</small></span></div>)}</div><div className={styles.confirmActions}><button className={styles.primary} type="button" onClick={viewTickets}>View Tickets <ArrowRight /></button><button type="button" onClick={() => downloadOrder(state, order)}>Download Tickets <Download /></button><button type="button" onClick={browse}>Continue Browsing</button></div><p className={styles.safeNote}><ShieldCheck /> QR codes contain only ticket and event identifiers. These tickets are not valid for admission.</p></section>;
 }
 
 function MyTickets({ state, setState, openEvent }: { state: TicketingState; setState: (state: TicketingState) => void; openEvent: (id: string) => void }) {
@@ -661,7 +667,7 @@ function MyTickets({ state, setState, openEvent }: { state: TicketingState; setS
   const past = customerTickets.filter((ticket) => eventById(state, ticket.eventId)?.status === "Completed");
   const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
   const selectedTicket = state.tickets.find((ticket) => ticket.id === selectedTicketId) ?? null;
-  return <section><PageHeading eyebrow="Your tickets" title="Everything you need for entry." text="Open a ticket for its unique QR, transfer it when eligible, or use the printable view." /><div className={styles.ticketTabs}><span>Upcoming <b>{upcoming.length}</b></span><span>Past <b>{past.length}</b></span></div>{upcoming.length ? <div className={styles.myTicketGrid}>{upcoming.map((ticket) => <TicketCard key={ticket.id} state={state} ticket={ticket} open={() => setSelectedTicketId(ticket.id)} />)}</div> : <div className={styles.empty}><Tickets /><h2>No upcoming customer tickets</h2><p>Complete a demo checkout to create unique tickets here.</p><button type="button" onClick={() => openEvent("harbor-lights-live")}>Book Harbor Lights Live</button></div>}{past.length > 0 && <><div className={styles.sectionHeading}><h2>Past events</h2></div><div className={styles.myTicketGrid}>{past.map((ticket) => <TicketCard key={ticket.id} state={state} ticket={ticket} open={() => setSelectedTicketId(ticket.id)} />)}</div></>}{selectedTicket && <TicketDialog state={state} setState={setState} ticket={selectedTicket} close={() => setSelectedTicketId(null)} />}</section>;
+  return <section><PageHeading eyebrow="Tickets" title="My Tickets" text="Open a ticket to show its QR code, transfer it when eligible, or download a copy." /><div className={styles.ticketTabs}><span>Upcoming <b>{upcoming.length}</b></span><span>Past <b>{past.length}</b></span></div>{upcoming.length ? <div className={styles.myTicketGrid}>{upcoming.map((ticket) => <TicketCard key={ticket.id} state={state} ticket={ticket} open={() => setSelectedTicketId(ticket.id)} />)}</div> : <div className={styles.empty}><Tickets /><h2>No upcoming tickets</h2><p>Complete checkout to create tickets here.</p><button type="button" onClick={() => openEvent("harbor-lights-live")}>Book Harbor Lights Live</button></div>}{past.length > 0 && <><div className={styles.sectionHeading}><h2>Past events</h2></div><div className={styles.myTicketGrid}>{past.map((ticket) => <TicketCard key={ticket.id} state={state} ticket={ticket} open={() => setSelectedTicketId(ticket.id)} />)}</div></>}{selectedTicket && <TicketDialog state={state} setState={setState} ticket={selectedTicket} close={() => setSelectedTicketId(null)} />}</section>;
 }
 
 function TicketCard({ state, ticket, open }: { state: TicketingState; ticket: Ticket; open: () => void }) {
@@ -681,7 +687,7 @@ function TicketDialog({ state, setState, ticket, close }: { state: TicketingStat
   async function share() {
     const text = `${event.title} · ${session.date} · Ticket ${ticket.id}`;
     try {
-      if (navigator.share) await navigator.share({ title: "Virello demo ticket", text });
+      if (navigator.share) await navigator.share({ title: "ILBATECH ticket", text });
       else {
         await navigator.clipboard.writeText(text);
         setMessage("Safe ticket summary copied to clipboard.");
@@ -711,8 +717,8 @@ function TicketDialog({ state, setState, ticket, close }: { state: TicketingStat
         </button>
         <div className={styles.digitalTicket}>
           <div className={styles.ticketBrand}>
-            <span>V</span>
-            <b>virello</b>
+            <span>I</span>
+            <b>ILBATECH</b>
             <em data-ticket={ticket.status}>{ticket.status}</em>
           </div>
           <small>{event.category}</small>
@@ -775,7 +781,7 @@ function TicketDialog({ state, setState, ticket, close }: { state: TicketingStat
         {transferOpen && (
           <form className={styles.transferForm} onSubmit={submitTransfer}>
             <h3>Transfer this ticket</h3>
-            <p>The recipient becomes the ticket owner in this local demo. A transferred ticket cannot be transferred again.</p>
+            <p>The recipient becomes the ticket owner. This change is saved in this browser, and the ticket cannot be transferred again.</p>
             <Field label="Recipient name">
               <input required value={recipient.name} onChange={(e) => setRecipient({ ...recipient, name: e.target.value })} placeholder="Lina Saad" />
             </Field>
@@ -792,19 +798,19 @@ function TicketDialog({ state, setState, ticket, close }: { state: TicketingStat
             {message}
           </p>
         )}
-        <p className={styles.qrSecurity}>Demo QR validation is local and illustrative. Production entry validation would require secure server-side signing, authorization, and audit controls.</p>
+        <p className={styles.qrSecurity}>QR check-in is simulated in this browser. This ticket is not valid for admission.</p>
       </section>
     </div>
   );
 }
 
 function Orders({ state, viewTickets }: { state: TicketingState; viewTickets: () => void }) {
-  return <section><PageHeading eyebrow="Customer account demo" title="Order history" text="Every successful simulated payment creates one order and its linked tickets. Failed payments create nothing." />{state.orders.length ? <div className={styles.orders}>{state.orders.map((order) => { const event = eventById(state, order.eventId)!; return <article key={order.id}><div><span>{order.id}</span><em>{order.paymentStatus}</em></div><h2>{event.title}</h2><p>{order.purchasedAt}</p><dl><div><dt>Quantity</dt><dd>{order.ticketIds.length}</dd></div><div><dt>Total</dt><dd>{money(order.total)}</dd></div><div><dt>Payment</dt><dd>{order.paymentMethod}</dd></div></dl><div><button type="button" onClick={() => downloadOrder(state, order)}><Download /> View Order</button><button type="button" onClick={viewTickets}>View Tickets <ArrowRight /></button></div></article>; })}</div> : <div className={styles.empty}><ShoppingBag /><h2>No customer orders yet</h2><p>A completed demo checkout will appear here.</p></div>}</section>;
+  return <section><PageHeading eyebrow="Customer account" title="Order history" text="Successful simulated payments create an order and its linked tickets. Failed payments create nothing." />{state.orders.length ? <div className={styles.orders}>{state.orders.map((order) => { const event = eventById(state, order.eventId)!; return <article key={order.id}><div><span>{order.id}</span><em>{order.paymentStatus}</em></div><h2>{event.title}</h2><p>{order.purchasedAt}</p><dl><div><dt>Quantity</dt><dd>{order.ticketIds.length}</dd></div><div><dt>Total</dt><dd>{money(order.total)}</dd></div><div><dt>Payment</dt><dd>{order.paymentMethod}</dd></div></dl><div><button type="button" onClick={() => downloadOrder(state, order)}><Download /> View Order</button><button type="button" onClick={viewTickets}>View Tickets <ArrowRight /></button></div></article>; })}</div> : <div className={styles.empty}><ShoppingBag /><h2>No orders yet</h2><p>Completed orders will appear here.</p></div>}</section>;
 }
 
 function SavedEvents({ state, setState, openEvent }: { state: TicketingState; setState: (state: TicketingState) => void; openEvent: (id: string) => void }) {
   const events = state.events.filter((event) => state.favorites.includes(event.id));
-  return <section><PageHeading eyebrow="Saved events" title="Keep the moments you’re considering close." text="Favorites persist in this browser until the demo is reset." /><EventGrid events={events} state={state} setState={setState} openEvent={openEvent} empty="No saved events yet." /></section>;
+  return <section><PageHeading eyebrow="Saved events" title="Your saved events" text="Saved events remain in this browser until the data is reset." /><EventGrid events={events} state={state} setState={setState} openEvent={openEvent} empty="No saved events yet." /></section>;
 }
 
 function Notifications({ state, setState }: { state: TicketingState; setState: (state: TicketingState) => void }) {
@@ -828,7 +834,7 @@ function OrganizerDashboard({ state, selectEvent }: { state: TicketingState; sel
   const totalCapacity = onSale.reduce((sum, event) => sum + eventMetrics(state, event.id).capacity, 0);
   const revenue = state.orders.reduce((sum, order) => sum + order.total, 0);
   const checkedIn = state.tickets.filter((ticket) => ticket.status === "Used").length;
-  return <section><div className={styles.organizerWelcome}><div><span>Organizer workspace</span><h1>Good morning, Northline.</h1><p>Sales, capacity, attendees, and door activity stay connected to one shared ticket state.</p></div><button type="button" onClick={() => selectEvent("harbor-lights-live", "checkin")}><QrCode /> Open Check-in</button></div><div className={styles.metricGrid}><Metric icon={CircleDollarSign} label="Demo revenue" value={money(revenue)} note="Successful local orders" /><Metric icon={Tickets} label="Tickets sold" value={totalSold.toLocaleString()} note={`of ${totalCapacity.toLocaleString()} capacity`} /><Metric icon={CheckCircle2} label="Checked in" value={String(checkedIn)} note="Across demo events" /><Metric icon={CalendarDays} label="Upcoming events" value={String(onSale.length)} note="Currently on sale" /></div><div className={styles.dashboardGrid}><section className={styles.panel}><PanelTitle eyebrow="Event performance" title="Live sales overview" action="All events" onAction={() => selectEvent("harbor-lights-live", "events")} /><div className={styles.performanceList}>{onSale.slice(0, 6).map((event) => { const metrics = eventMetrics(state, event.id); return <button type="button" key={event.id} onClick={() => selectEvent(event.id, "manage")}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><span><b>{event.title}</b><small>{event.sessions[0].date} · {event.venue}</small><i><em style={{ width: `${Math.round((metrics.sold / metrics.capacity) * 100)}%` }} /></i></span><strong>{metrics.sold}<small>sold</small></strong></button>; })}</div></section><section className={styles.panel}><PanelTitle eyebrow="Recent sales" title="Customer activity" /><div className={styles.activityList}>{state.orders.length ? state.orders.slice(0, 5).map((order) => <div key={order.id}><span><ShoppingBag /></span><p><b>{order.id}</b><small>{eventById(state, order.eventId)?.title} · {order.ticketIds.length} tickets</small></p><strong>{money(order.total)}</strong></div>) : <div className={styles.panelEmpty}><ShoppingBag /><p>Complete a customer checkout to see the sale here.</p></div>}</div></section><section className={styles.panel}><PanelTitle eyebrow="Door activity" title="Recent check-ins" action="Open desk" onAction={() => selectEvent("harbor-lights-live", "checkin")} /><div className={styles.activityList}>{state.checkIns.length ? state.checkIns.slice(0, 5).map((item) => { const ticket = state.tickets.find((ticket) => ticket.id === item.ticketId)!; return <div key={item.id}><span><Check /></span><p><b>{attendeeName(ticket.attendee)}</b><small>{item.ticketId} · {item.gate}</small></p><strong>{item.checkedInAt.split(" · ")[1]}</strong></div>; }) : <div className={styles.panelEmpty}><QrCode /><p>No check-ins yet. Validate a customer ticket at the door.</p></div>}</div></section><section className={`${styles.panel} ${styles.salesChart}`}><PanelTitle eyebrow="Sales over time" title="Seven-day demonstration" /><div aria-label="Accessible sales summary: sales increased from 18 to 54 tickets across seven days">{[18, 26, 22, 38, 47, 41, 54].map((value, index) => <span key={index}><i style={{ height: `${value * 2}px` }} /><small>{["M", "T", "W", "T", "F", "S", "S"][index]}</small></span>)}</div></section></div></section>;
+  return <section><div className={styles.organizerWelcome}><div><span>Organizer workspace</span><h1>Good morning, Northline.</h1><p>Sales, capacity, attendees, and door activity stay connected to one shared ticket state.</p></div><button type="button" onClick={() => selectEvent("harbor-lights-live", "checkin")}><QrCode /> Open Check-in</button></div><div className={styles.metricGrid}><Metric icon={CircleDollarSign} label="Revenue" value={money(revenue)} note="Customer orders" /><Metric icon={Tickets} label="Tickets sold" value={totalSold.toLocaleString()} note={`of ${totalCapacity.toLocaleString()} capacity`} /><Metric icon={CheckCircle2} label="Checked in" value={String(checkedIn)} note="Across all events" /><Metric icon={CalendarDays} label="Upcoming events" value={String(onSale.length)} note="Currently on sale" /></div><div className={styles.dashboardGrid}><section className={styles.panel}><PanelTitle eyebrow="Event performance" title="Live sales overview" action="All events" onAction={() => selectEvent("harbor-lights-live", "events")} /><div className={styles.performanceList}>{onSale.slice(0, 6).map((event) => { const metrics = eventMetrics(state, event.id); return <button type="button" key={event.id} onClick={() => selectEvent(event.id, "manage")}><Image src={event.image} width={1440} height={960} unoptimized alt="" /><span><b>{event.title}</b><small>{event.sessions[0].date} · {event.venue}</small><i><em style={{ width: `${Math.round((metrics.sold / metrics.capacity) * 100)}%` }} /></i></span><strong>{metrics.sold}<small>sold</small></strong></button>; })}</div></section><section className={styles.panel}><PanelTitle eyebrow="Recent sales" title="Customer activity" /><div className={styles.activityList}>{state.orders.length ? state.orders.slice(0, 5).map((order) => <div key={order.id}><span><ShoppingBag /></span><p><b>{order.id}</b><small>{eventById(state, order.eventId)?.title} · {order.ticketIds.length} tickets</small></p><strong>{money(order.total)}</strong></div>) : <div className={styles.panelEmpty}><ShoppingBag /><p>Complete a customer checkout to see the sale here.</p></div>}</div></section><section className={styles.panel}><PanelTitle eyebrow="Door activity" title="Recent check-ins" action="Open desk" onAction={() => selectEvent("harbor-lights-live", "checkin")} /><div className={styles.activityList}>{state.checkIns.length ? state.checkIns.slice(0, 5).map((item) => { const ticket = state.tickets.find((ticket) => ticket.id === item.ticketId)!; return <div key={item.id}><span><Check /></span><p><b>{attendeeName(ticket.attendee)}</b><small>{item.ticketId} · {item.gate}</small></p><strong>{item.checkedInAt.split(" · ")[1]}</strong></div>; }) : <div className={styles.panelEmpty}><QrCode /><p>No check-ins yet. Validate a customer ticket at the door.</p></div>}</div></section><section className={`${styles.panel} ${styles.salesChart}`}><PanelTitle eyebrow="Sales over time" title="Last seven days" /><div aria-label="Accessible sales summary: sales increased from 18 to 54 tickets across seven days">{[18, 26, 22, 38, 47, 41, 54].map((value, index) => <span key={index}><i style={{ height: `${value * 2}px` }} /><small>{["M", "T", "W", "T", "F", "S", "S"][index]}</small></span>)}</div></section></div></section>;
 }
 
 function OrganizerEvents({ state, selectEvent, create }: { state: TicketingState; selectEvent: (id: string, view: OrganizerView) => void; create: () => void }) {
@@ -902,7 +908,7 @@ function ManageEvent({ state, setState, eventId, back, attendees, checkin }: { s
         </div>
       </div>
       <div className={styles.metricGrid}>
-        <Metric icon={CircleDollarSign} label="Gross sales" value={money(metrics.revenue)} note="Demo customer orders" />
+        <Metric icon={CircleDollarSign} label="Gross sales" value={money(metrics.revenue)} note="Customer orders" />
         <Metric icon={Tickets} label="Tickets sold" value={String(metrics.sold)} note={`of ${metrics.capacity}`} />
         <Metric icon={Activity} label="Available" value={String(metrics.available)} note="Remaining capacity" />
         <Metric icon={CheckCircle2} label="Check-in rate" value={`${metrics.checkInRate}%`} note={`${metrics.checkedIn} checked in`} />
@@ -933,7 +939,7 @@ function ManageEvent({ state, setState, eventId, back, attendees, checkin }: { s
             ))}
           </div>
           <p className={styles.chartText}>
-            Total capacity {metrics.capacity}; sold {metrics.sold}; available {metrics.available}. All values reconcile from the same event inventory.
+            Total capacity {metrics.capacity}; sold {metrics.sold}; available {metrics.available}. Figures are based on current ticket sales and capacity.
           </p>
         </section>
         <section className={styles.panel}>
@@ -975,7 +981,7 @@ function ManageEvent({ state, setState, eventId, back, attendees, checkin }: { s
         </section>
         <section className={`${styles.panel} ${styles.salesChart}`}>
           <PanelTitle eyebrow="Sales momentum" title="Tickets over time" />
-          <div aria-label="Accessible summary: steady ticket sales across seven demo periods">
+          <div aria-label="Accessible summary: steady ticket sales across seven periods">
             {[22, 31, 28, 48, 42, 61, 73].map((value, index) => (
               <span key={index}>
                 <i style={{ height: `${value * 1.5}px` }} />
@@ -1022,7 +1028,7 @@ function ManageEvent({ state, setState, eventId, back, attendees, checkin }: { s
       {cancelOpen && (
         <ConfirmDialog
           title={`Cancel ${event.title}?`}
-          text="Customer tickets will change to Cancelled immediately. This demo does not issue real refunds."
+          text="Customer tickets will change to Cancelled immediately. No refund is issued because payment is simulated."
           confirm="Cancel event"
           onClose={() => setCancelOpen(false)}
           onConfirm={() => {
@@ -1056,11 +1062,11 @@ function CheckInDesk({ state, setState, eventId, setEventId }: { state: Ticketin
   function scan(id = ticketId) { setTicketId(id); setJustCheckedIn(false); setValidation(validateTicket(state, id, event.id)); }
   function checkIn() { const result = checkInTicket(state, ticketId, event.id); if (result.ok) { setState(result.state); setValidation({ code: "ALREADY_USED", ticket: result.ticket }); setJustCheckedIn(true); } else { setJustCheckedIn(false); setValidation(result.validation); } }
 
-  return <section><PageHeading eyebrow="Door operations" title="Fast, clear ticket validation." text="Use the simulated scanner or manual attendee search. Camera access is intentionally not required." /><EventSelect state={state} value={eventId} setValue={(id) => { setEventId(id); setValidation(null); setJustCheckedIn(false); setTicketId(""); }} /><div className={styles.checkinLayout}><section className={styles.scanner}><div className={styles.scannerTop}><span><QrCode /></span><div><small>Simulated QR scanner</small><h2>Scan Ticket</h2></div><em>Gate device · North Gate</em></div><div className={styles.scanWindow}><i /><QrCode /><span>Enter or select a demo ticket identifier</span></div><label><span>Ticket ID / safe QR identifier</span><div><input value={ticketId} onChange={(e) => { setTicketId(e.target.value); setValidation(null); setJustCheckedIn(false); }} placeholder="TKT-EV10842-01" /><button type="button" onClick={() => scan()}><Search /> Validate</button></div></label><div className={styles.scanExamples}><span>Try:</span>{eventTickets.slice(-3).map((ticket) => <button type="button" key={ticket.id} onClick={() => scan(ticket.id)}>{ticket.id}</button>)}<button type="button" onClick={() => scan("TKT-DEMO-CANCELLED")}>Cancelled</button><button type="button" onClick={() => scan("TKT-DEMO-WRONG")}>Wrong event</button><button type="button" onClick={() => scan("INVALID-QR")}>Invalid</button></div>{validation && <ValidationCard validation={validation} state={state} checkIn={checkIn} checkedIn={justCheckedIn} />}</section><aside className={styles.recentCheckins}><PanelTitle eyebrow="Live door log" title="Recent Check-ins" /><div>{state.checkIns.length ? state.checkIns.slice(0, 7).map((item) => { const ticket = state.tickets.find((ticket) => ticket.id === item.ticketId)!; return <article key={item.id}><span><Check /></span><div><b>{attendeeName(ticket.attendee)}</b><small>{ticket.id} · {item.gate}</small></div><time>{item.checkedInAt.split(" · ")[1]}</time></article>; }) : <div className={styles.panelEmpty}><QrCode /><p>Validated entries will appear here.</p></div>}</div></aside></div><section className={styles.manualSearch}><div><small>Fallback workflow</small><h2>Manual attendee search</h2><p>Search name, email, ticket ID, or order ID.</p></div><label><Search /><input value={manualQuery} onChange={(e) => setManualQuery(e.target.value)} placeholder="Search attendee or ticket..." /></label>{manualQuery && <div>{manualResults.map((ticket) => <button type="button" key={ticket.id} onClick={() => scan(ticket.id)}><span><b>{attendeeName(ticket.attendee)}</b><small>{ticket.attendee.email} · {ticket.orderId}</small></span><em data-ticket={ticket.status}>{ticket.status}</em><ArrowRight /></button>)}</div>}</section></section>;
+  return <section><PageHeading eyebrow="Door operations" title="Ticket check-in" text="Use ticket lookup or manual attendee search. Camera scanning is not enabled." /><EventSelect state={state} value={eventId} setValue={(id) => { setEventId(id); setValidation(null); setJustCheckedIn(false); setTicketId(""); }} /><div className={styles.checkinLayout}><section className={styles.scanner}><div className={styles.scannerTop}><span><QrCode /></span><div><small>Ticket lookup</small><h2>Scan Ticket</h2></div><em>Gate device · North Gate</em></div><div className={styles.scanWindow}><i /><QrCode /><span>Enter or select a test ticket ID</span></div><label><span>Ticket ID / QR identifier</span><div><input value={ticketId} onChange={(e) => { setTicketId(e.target.value); setValidation(null); setJustCheckedIn(false); }} placeholder="TKT-EV10842-01" /><button type="button" onClick={() => scan()}><Search /> Validate</button></div></label><div className={styles.scanExamples}><span>Try:</span>{eventTickets.slice(-3).map((ticket) => <button type="button" key={ticket.id} onClick={() => scan(ticket.id)}>{ticket.id}</button>)}<button type="button" onClick={() => scan("TKT-EV10710-01")}>Cancelled</button><button type="button" onClick={() => scan("TKT-EV10711-01")}>Wrong event</button><button type="button" onClick={() => scan("INVALID-QR")}>Invalid</button></div>{validation && <ValidationCard validation={validation} state={state} checkIn={checkIn} checkedIn={justCheckedIn} />}</section><aside className={styles.recentCheckins}><PanelTitle eyebrow="Live door log" title="Recent Check-ins" /><div>{state.checkIns.length ? state.checkIns.slice(0, 7).map((item) => { const ticket = state.tickets.find((ticket) => ticket.id === item.ticketId)!; return <article key={item.id}><span><Check /></span><div><b>{attendeeName(ticket.attendee)}</b><small>{ticket.id} · {item.gate}</small></div><time>{item.checkedInAt.split(" · ")[1]}</time></article>; }) : <div className={styles.panelEmpty}><QrCode /><p>Validated entries will appear here.</p></div>}</div></aside></div><section className={styles.manualSearch}><div><small>Fallback workflow</small><h2>Manual attendee search</h2><p>Search name, email, ticket ID, or order ID.</p></div><label><Search /><input value={manualQuery} onChange={(e) => setManualQuery(e.target.value)} placeholder="Search attendee or ticket..." /></label>{manualQuery && <div>{manualResults.map((ticket) => <button type="button" key={ticket.id} onClick={() => scan(ticket.id)}><span><b>{attendeeName(ticket.attendee)}</b><small>{ticket.attendee.email} · {ticket.orderId}</small></span><em data-ticket={ticket.status}>{ticket.status}</em><ArrowRight /></button>)}</div>}</section></section>;
 }
 
 function ValidationCard({ validation, state, checkIn, checkedIn = false }: { validation: ValidationResult; state: TicketingState; checkIn: () => void; checkedIn?: boolean }) {
-  const config = checkedIn ? { title: "CHECKED IN", icon: CheckCircle2, tone: "valid", text: "Entry recorded successfully. The ticket is now Used." } : validation.code === "VALID" ? { title: "VALID TICKET", icon: Check, tone: "valid", text: "Ticket is eligible for entry." } : validation.code === "ALREADY_USED" ? { title: "ALREADY USED", icon: RefreshCcw, tone: "used", text: "Duplicate entry has been blocked." } : validation.code === "TICKET_CANCELLED" ? { title: "TICKET CANCELLED", icon: X, tone: "cancelled", text: "Entry is not permitted." } : validation.code === "WRONG_EVENT" ? { title: "WRONG EVENT", icon: CalendarDays, tone: "wrong", text: `This ticket belongs to ${validation.event.title}.` } : { title: "INVALID TICKET", icon: ShieldCheck, tone: "invalid", text: "No matching safe demo identifier was found." };
+  const config = checkedIn ? { title: "CHECKED IN", icon: CheckCircle2, tone: "valid", text: "Entry recorded successfully. The ticket is now Used." } : validation.code === "VALID" ? { title: "VALID TICKET", icon: Check, tone: "valid", text: "Ticket is eligible for entry." } : validation.code === "ALREADY_USED" ? { title: "ALREADY USED", icon: RefreshCcw, tone: "used", text: "Duplicate entry has been blocked." } : validation.code === "TICKET_CANCELLED" ? { title: "TICKET CANCELLED", icon: X, tone: "cancelled", text: "Entry is not permitted." } : validation.code === "WRONG_EVENT" ? { title: "WRONG EVENT", icon: CalendarDays, tone: "wrong", text: `This ticket belongs to ${validation.event.title}.` } : { title: "INVALID TICKET", icon: ShieldCheck, tone: "invalid", text: "No matching ticket identifier was found." };
   const Icon = config.icon;
   const ticket = "ticket" in validation ? validation.ticket : null;
   const event = ticket ? eventById(state, ticket.eventId)! : null;
@@ -1071,13 +1077,13 @@ function OrganizerAnalytics({ state, eventId, setEventId }: { state: TicketingSt
   const event = eventById(state, eventId)!;
   const metrics = eventMetrics(state, event.id);
   const noShowRate = metrics.sold ? 100 - metrics.checkInRate : 0;
-  return <section><PageHeading eyebrow="Sales & attendance analytics" title="Performance you can act on." text="Accessible summaries and restrained charts derive from the same shared event state." /><EventSelect state={state} value={eventId} setValue={setEventId} /><div className={styles.metricGrid}><Metric icon={Tickets} label="Tickets sold" value={String(metrics.sold)} note={`${metrics.available} remaining`} /><Metric icon={CircleDollarSign} label="Customer revenue" value={money(metrics.revenue)} note={`AOV ${money(metrics.averageOrderValue)}`} /><Metric icon={CheckCircle2} label="Attendance" value={`${metrics.checkInRate}%`} note={`${metrics.checkedIn} checked in`} /><Metric icon={Users} label="No-show rate" value={`${noShowRate}%`} note="Based on current door state" /></div><div className={styles.analyticsPanels}><section className={styles.panel}><PanelTitle eyebrow="Ticket type performance" title="Sales mix" /><div className={styles.ticketBreakdown}>{event.ticketTypes.map((type) => <div key={type.id}><span><b>{type.name}</b><small>{money(type.price)} per ticket</small></span><i><em style={{ width: `${Math.round((type.sold / type.capacity) * 100)}%` }} /></i><strong>{type.sold} / {type.capacity}</strong></div>)}</div><p className={styles.chartText}>Accessible summary: {event.ticketTypes.map((type) => `${type.name} ${type.sold} of ${type.capacity}`).join("; ")}.</p></section><section className={`${styles.panel} ${styles.lineChart}`}><PanelTitle eyebrow="Sales over time" title="Weekly momentum" /><svg viewBox="0 0 620 220" role="img" aria-label="Demo sales trend rising from 16 to 73 tickets over seven periods"><path d="M25 182 L115 145 L205 160 L295 105 L385 118 L475 65 L585 34" /><g>{[[25,182],[115,145],[205,160],[295,105],[385,118],[475,65],[585,34]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="6" />)}</g></svg><div>{["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((item) => <span key={item}>{item}</span>)}</div></section><section className={styles.panel}><PanelTitle eyebrow="Session breakdown" title="Tickets by date" /><div className={styles.sessionSales}>{event.sessions.map((session, index) => <div key={session.id}><span><b>{session.label}</b><small>{session.date}</small></span><strong>{Math.round(metrics.sold / event.sessions.length) + (index === 1 ? 3 : 0)} sold</strong></div>)}</div></section><section className={styles.panel}><PanelTitle eyebrow="Capacity reconciliation" title="At a glance" /><div className={styles.capacityRing} style={{ "--percent": `${Math.round((metrics.sold / Math.max(1, metrics.capacity)) * 360)}deg` } as React.CSSProperties}><span><b>{Math.round((metrics.sold / Math.max(1, metrics.capacity)) * 100)}%</b><small>sold</small></span></div><dl className={styles.capacityLegend}><div><dt>Capacity</dt><dd>{metrics.capacity}</dd></div><div><dt>Sold</dt><dd>{metrics.sold}</dd></div><div><dt>Available</dt><dd>{metrics.available}</dd></div></dl></section></div></section>;
+  return <section><PageHeading eyebrow="Sales & attendance analytics" title="Event performance" text="Sales, capacity, and attendance use the same event data." /><EventSelect state={state} value={eventId} setValue={setEventId} /><div className={styles.metricGrid}><Metric icon={Tickets} label="Tickets sold" value={String(metrics.sold)} note={`${metrics.available} remaining`} /><Metric icon={CircleDollarSign} label="Customer revenue" value={money(metrics.revenue)} note={`AOV ${money(metrics.averageOrderValue)}`} /><Metric icon={CheckCircle2} label="Attendance" value={`${metrics.checkInRate}%`} note={`${metrics.checkedIn} checked in`} /><Metric icon={Users} label="No-show rate" value={`${noShowRate}%`} note="Based on current door state" /></div><div className={styles.analyticsPanels}><section className={styles.panel}><PanelTitle eyebrow="Ticket type performance" title="Sales mix" /><div className={styles.ticketBreakdown}>{event.ticketTypes.map((type) => <div key={type.id}><span><b>{type.name}</b><small>{money(type.price)} per ticket</small></span><i><em style={{ width: `${Math.round((type.sold / type.capacity) * 100)}%` }} /></i><strong>{type.sold} / {type.capacity}</strong></div>)}</div><p className={styles.chartText}>Accessible summary: {event.ticketTypes.map((type) => `${type.name} ${type.sold} of ${type.capacity}`).join("; ")}.</p></section><section className={`${styles.panel} ${styles.lineChart}`}><PanelTitle eyebrow="Sales over time" title="Weekly momentum" /><svg viewBox="0 0 620 220" role="img" aria-label="Sales trend rising from 16 to 73 tickets over seven periods"><path d="M25 182 L115 145 L205 160 L295 105 L385 118 L475 65 L585 34" /><g>{[[25,182],[115,145],[205,160],[295,105],[385,118],[475,65],[585,34]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="6" />)}</g></svg><div>{["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((item) => <span key={item}>{item}</span>)}</div></section><section className={styles.panel}><PanelTitle eyebrow="Session breakdown" title="Tickets by date" /><div className={styles.sessionSales}>{event.sessions.map((session, index) => <div key={session.id}><span><b>{session.label}</b><small>{session.date}</small></span><strong>{Math.round(metrics.sold / event.sessions.length) + (index === 1 ? 3 : 0)} sold</strong></div>)}</div></section><section className={styles.panel}><PanelTitle eyebrow="Capacity reconciliation" title="At a glance" /><div className={styles.capacityRing} style={{ "--percent": `${Math.round((metrics.sold / Math.max(1, metrics.capacity)) * 360)}deg` } as React.CSSProperties}><span><b>{Math.round((metrics.sold / Math.max(1, metrics.capacity)) * 100)}%</b><small>sold</small></span></div><dl className={styles.capacityLegend}><div><dt>Capacity</dt><dd>{metrics.capacity}</dd></div><div><dt>Sold</dt><dd>{metrics.sold}</dd></div><div><dt>Available</dt><dd>{metrics.available}</dd></div></dl></section></div></section>;
 }
 
 function CreateEvent({ state, setState, created, cancel }: { state: TicketingState; setState: (state: TicketingState) => void; created: (id: string) => void; cancel: () => void }) {
   const [form, setForm] = useState({ title: "", category: "Concerts" as EventCategory, description: "", venue: "", city: "Beirut", date: "October 10, 2026", startTime: "6:00 PM", endTime: "10:00 PM", ageRestriction: "All ages", capacity: "200", reservedSeating: false, eventImage: "Curated category image" });
   function submit(e: FormEvent) { e.preventDefault(); const result = createOrganizerEvent(state, { ...form, capacity: Number(form.capacity) }); setState(result.state); created(result.event.id); }
-  return <section><button className={styles.backButton} type="button" onClick={cancel}><ArrowLeft /> Events</button><PageHeading eyebrow="Event management" title="Create Event" text="Build a local draft, then configure its ticket inventory from the management screen." /><form className={styles.createForm} onSubmit={submit}><FormSection number="1" title="Event essentials" text="Tell customers what makes this event worth attending."><div className={styles.formGrid}><Field label="Event Name" wide><input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="New Demo Gathering" /></Field><Field label="Category"><select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as EventCategory })}>{EVENT_CATEGORIES.map((item) => <option key={item}>{item}</option>)}</select></Field><Field label="Age Restriction"><input required value={form.ageRestriction} onChange={(e) => setForm({ ...form, ageRestriction: e.target.value })} /></Field><Field label="Description" wide><textarea required rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Describe the fictional event experience..." /></Field><Field label="Event Image" wide><select value={form.eventImage} onChange={(e) => setForm({ ...form, eventImage: e.target.value })}><option>Curated category image</option><option>Original festival image</option><option>Original concert image</option></select></Field></div></FormSection><FormSection number="2" title="Venue & schedule" text="Set the location and one starting session."><div className={styles.formGrid}><Field label="Venue"><input required value={form.venue} onChange={(e) => setForm({ ...form, venue: e.target.value })} /></Field><Field label="City"><input required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field><Field label="Date"><input required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} /></Field><Field label="Start Time"><input required value={form.startTime} onChange={(e) => setForm({ ...form, startTime: e.target.value })} /></Field><Field label="End Time"><input required value={form.endTime} onChange={(e) => setForm({ ...form, endTime: e.target.value })} /></Field><Field label="Capacity"><input required type="number" min="1" value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} /></Field></div></FormSection><FormSection number="3" title="Admission model" text="Choose a capacity model. Reserved seating uses the conceptual demo map."><div className={styles.paymentMethods}><button type="button" aria-pressed={!form.reservedSeating} onClick={() => setForm({ ...form, reservedSeating: false })}><Tickets /><span><b>General Admission</b><small>Quantity by ticket type</small></span><Check /></button><button type="button" aria-pressed={form.reservedSeating} onClick={() => setForm({ ...form, reservedSeating: true })}><ListChecks /><span><b>Reserved Seating</b><small>Assigned seat concept</small></span><Check /></button></div></FormSection><div className={styles.formActions}><button type="button" onClick={cancel}>Cancel</button><button className={styles.primary} type="submit">Create Draft Event <ArrowRight /></button></div></form></section>;
+  return <section><button className={styles.backButton} type="button" onClick={cancel}><ArrowLeft /> Events</button><PageHeading eyebrow="Event management" title="Create Event" text="Create a draft, then configure its ticket inventory from the management screen." /><form className={styles.createForm} onSubmit={submit}><FormSection number="1" title="Event essentials" text="Add the event name, category, age policy, and customer description."><div className={styles.formGrid}><Field label="Event Name" wide><input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Courtyard Music Night" /></Field><Field label="Category"><select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as EventCategory })}>{EVENT_CATEGORIES.map((item) => <option key={item}>{item}</option>)}</select></Field><Field label="Age Restriction"><input required value={form.ageRestriction} onChange={(e) => setForm({ ...form, ageRestriction: e.target.value })} /></Field><Field label="Description" wide><textarea required rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Describe the event..." /></Field><Field label="Event Image" wide><select value={form.eventImage} onChange={(e) => setForm({ ...form, eventImage: e.target.value })}><option>Category image</option><option>Festival image</option><option>Concert image</option></select></Field></div></FormSection><FormSection number="2" title="Venue & schedule" text="Set the location and one starting session."><div className={styles.formGrid}><Field label="Venue"><input required value={form.venue} onChange={(e) => setForm({ ...form, venue: e.target.value })} /></Field><Field label="City"><input required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field><Field label="Date"><input required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} /></Field><Field label="Start Time"><input required value={form.startTime} onChange={(e) => setForm({ ...form, startTime: e.target.value })} /></Field><Field label="End Time"><input required value={form.endTime} onChange={(e) => setForm({ ...form, endTime: e.target.value })} /></Field><Field label="Capacity"><input required type="number" min="1" value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} /></Field></div></FormSection><FormSection number="3" title="Admission model" text="Choose general admission or assigned seating."><div className={styles.paymentMethods}><button type="button" aria-pressed={!form.reservedSeating} onClick={() => setForm({ ...form, reservedSeating: false })}><Tickets /><span><b>General Admission</b><small>Quantity by ticket type</small></span><Check /></button><button type="button" aria-pressed={form.reservedSeating} onClick={() => setForm({ ...form, reservedSeating: true })}><ListChecks /><span><b>Reserved Seating</b><small>Assigned seats</small></span><Check /></button></div></FormSection><div className={styles.formActions}><button type="button" onClick={cancel}>Cancel</button><button className={styles.primary} type="submit">Create Draft Event <ArrowRight /></button></div></form></section>;
 }
 
 function WaitlistDialog({ event, state, setState, close }: { event: TicketingEvent; state: TicketingState; setState: (state: TicketingState) => void; close: () => void }) {
@@ -1102,15 +1108,15 @@ function WaitlistDialog({ event, state, setState, close }: { event: TicketingEve
           <div className={styles.dialogSuccess}>
             <Check />
             <span>Waitlist confirmed</span>
-            <h2 id="waitlist-title">You’re on the demo list.</h2>
-            <p>No real email will be sent. This entry remains in local demo state until reset.</p>
+            <h2 id="waitlist-title">You’re on the waitlist.</h2>
+            <p>No email will be sent. This entry remains in this browser until the data is reset.</p>
             <button className={styles.primary} type="button" onClick={close}>
               Done
             </button>
           </div>
         ) : (
           <form onSubmit={submit}>
-            <span>Sold out · local simulation</span>
+            <span>Sold out · Waitlist</span>
             <h2 id="waitlist-title">Join the waitlist</h2>
             <p>{event.title}</p>
             <Field label="Name">
@@ -1145,7 +1151,7 @@ function ConfirmDialog({ title, text, confirm, onClose, onConfirm }: { title: st
         <p>{text}</p>
         <div>
           <button type="button" onClick={onClose}>
-            Keep demo data
+            Keep data
           </button>
           <button type="button" onClick={onConfirm}>
             {confirm}
@@ -1180,6 +1186,6 @@ function MiniQr({ payload }: { payload: string }) { return <div className={style
 
 function customerTicketIds(state: TicketingState) { return state.orders.flatMap((order) => order.ticketIds); }
 function unreadCount(state: TicketingState) { return state.notifications.filter((item) => !item.read).length; }
-function downloadTicket(state: TicketingState, ticket: Ticket) { const event = eventById(state, ticket.eventId)!; const session = event.sessions.find((item) => item.id === ticket.sessionId)!; downloadText(`${ticket.id}.txt`, `VIRELLO DEMO TICKET\n${event.title}\n${session.date} · ${session.time}\n${event.venue}\nTicket: ${ticket.id}\nStatus: ${ticket.status}\nSafe QR payload: ${ticket.qrPayload}\n\nInteractive concept only — not valid for real entry.`); }
-function downloadOrder(state: TicketingState, order: Order) { const event = eventById(state, order.eventId)!; downloadText(`${order.id.replace("#", "")}-tickets.txt`, `VIRELLO DEMO BOOKING\nOrder ${order.id}\n${event.title}\nTickets: ${order.ticketIds.join(", ")}\nAmount: ${money(order.total)}\nPayment: ${order.paymentMethod} (simulated)\n\nInteractive concept only — no real purchase was made.`); }
+function downloadTicket(state: TicketingState, ticket: Ticket) { const event = eventById(state, ticket.eventId)!; const session = event.sessions.find((item) => item.id === ticket.sessionId)!; downloadText(`${ticket.id}.txt`, `ILBATECH TICKET\n${event.title}\n${session.date} · ${session.time}\n${event.venue}\nTicket: ${ticket.id}\nStatus: ${ticket.status}\nQR payload: ${ticket.qrPayload}\n\nDemo ticket — not valid for admission.`); }
+function downloadOrder(state: TicketingState, order: Order) { const event = eventById(state, order.eventId)!; downloadText(`${order.id.replace("#", "")}-tickets.txt`, `ILBATECH BOOKING\nOrder ${order.id}\n${event.title}\nTickets: ${order.ticketIds.join(", ")}\nAmount: ${money(order.total)}\nPayment: ${order.paymentMethod} (simulated)\n\nDemo payment — no charge was made.`); }
 function downloadText(filename: string, text: string) { const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([text], { type: "text/plain" })); link.download = filename; link.click(); URL.revokeObjectURL(link.href); }
