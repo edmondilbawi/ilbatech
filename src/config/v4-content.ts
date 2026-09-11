@@ -6,9 +6,9 @@ export const BUSINESS_SERVICES = [
     href: "/services/websites-and-commerce",
   },
   {
-    title: "Business Systems",
+    title: "Custom Business Systems",
     description:
-      "Practical systems for customers, orders, inventory, projects, operations and clear business dashboards.",
+      "Custom-built software designed around how your business actually works.",
     href: "/services/business-systems-and-consulting",
   },
   {

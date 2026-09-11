@@ -19,14 +19,15 @@ export async function generateMetadata({
 }: ServicePageProps): Promise<Metadata> {
   const offering = getServiceArea((await params).slug);
   if (!offering) return {};
+  const description = offering.seoDescription ?? offering.summary;
 
   return {
     title: offering.seoTitle ?? offering.title,
-    description: offering.summary,
+    description,
     alternates: { canonical: `/services/${offering.slug}/` },
     openGraph: {
       title: `${offering.title} | ${SITE.shortName}`,
-      description: offering.summary,
+      description,
       url: `/services/${offering.slug}/`,
     },
   };

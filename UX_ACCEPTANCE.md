@@ -56,7 +56,7 @@ Service-card mapping:
 - Professional Business Websites, E-commerce Websites, Website Redesigns → Websites & Commerce
 - Web Applications, Mobile Applications → Software & Applications
 - AI Automation, Workflow Automation → Automation & AI
-- Business Management Systems, CRM Systems, Booking & Reservation Systems, Digital Transformation, Technology Consulting → Business Systems & Consulting
+- Business Management Systems, CRM Systems, Booking & Reservation Systems, Digital Transformation, Technology Consulting → Custom Business Systems
 
 ## Solutions
 

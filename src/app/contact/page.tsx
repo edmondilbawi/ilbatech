@@ -6,7 +6,7 @@ import { SITE } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Tell ILBATECH about the website, business system, mobile app or automation your business needs.",
+  description: "Tell ILBATECH about the website, custom business system, mobile app or automation your business needs.",
   alternates: { canonical: "/contact/" },
   openGraph: { title: "Contact ILBATECH", description: "Tell us what your business needs and start a useful conversation.", url: "/contact/" },
 };

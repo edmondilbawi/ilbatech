@@ -8,7 +8,7 @@ export const SITE = {
     accent: "TECH",
   },
   description:
-    "ILBATECH helps businesses improve the way they operate through practical, business-led technology solutions.",
+    "ILBATECH builds websites, custom business systems, mobile apps, and automation around the way each business works.",
   email: "edmondilbawi@gmail.com",
   phoneDisplay: "+961 81 958 984",
   whatsappDigits: WHATSAPP_DIGITS,

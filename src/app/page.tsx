@@ -23,12 +23,12 @@ import { BUSINESS_SERVICES, V4_WORK } from "@/config/v4-content";
 export const metadata: Metadata = {
   title: "Digital Solutions That Help Businesses Grow",
   description:
-    "ILBATECH builds websites, business systems, mobile apps and AI automation tailored to how your business works.",
+    "ILBATECH builds websites, custom business systems, mobile apps and AI automation tailored to how your business works.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Digital Solutions That Help Businesses Grow | ILBATECH",
     description:
-      "Websites, business systems, mobile apps and AI automation built around your business.",
+      "Websites, custom business systems, mobile apps and AI automation built around your business.",
     url: "/",
     images: [
       {
@@ -77,14 +77,14 @@ export default function Home() {
             <div className="v4-hero-copy">
               <SectionEyebrow>Technology made useful</SectionEyebrow>
               <h1>Digital solutions that help businesses grow.</h1>
-              <p>We build websites, business systems, mobile apps and AI automation tailored to how your business works.</p>
+              <p>We build websites, custom business systems, mobile apps and AI automation tailored to how your business works.</p>
               <div className="hero-actions">
                 <Button href="/work">Explore Our Work</Button>
                 <Button href="#contact" variant="secondary">Tell Us What You Need</Button>
               </div>
             </div>
 
-            <div className="digital-ecosystem" aria-label="A connected website, business system and mobile app illustration" role="img">
+            <div className="digital-ecosystem" aria-label="A connected website, custom business system and mobile app illustration" role="img">
               <div className="ecosystem-orbit" aria-hidden="true" />
               <div className="ecosystem-laptop">
                 <div className="ecosystem-bar"><i /><i /><i /></div>

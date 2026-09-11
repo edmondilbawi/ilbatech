@@ -6,7 +6,7 @@ import { BUSINESS_SERVICES } from "@/config/v4-content";
 
 export const metadata: Metadata = {
   title: "Business Technology Services",
-  description: "Websites, business systems, mobile apps, AI automation, support and maintenance built around your business.",
+  description: "Websites, custom business systems, mobile apps, AI automation, support and maintenance built around your business.",
   alternates: { canonical: "/services/" },
   openGraph: {
     title: "Business Technology Services | ILBATECH",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const icons = [PanelsTopLeft, Workflow, Smartphone, Bot, Headphones] as const;
 const capabilityLists = [
   ["Professional websites", "Responsive web apps", "E-commerce experiences", "Customer-facing digital experiences"],
-  ["Customer and order management", "Inventory systems", "Project and operations systems", "Business dashboards"],
+  ["Inventory Management", "Internal Dashboards", "Workflow Management", "Custom Admin Platforms"],
   ["iOS and Android experiences", "Customer apps", "Internal employee apps", "Mobile ordering and services"],
   ["Repetitive task automation", "Workflow automation", "Reporting and notifications", "AI-assisted processes"],
   ["Post-launch support", "Technical maintenance", "Bug fixes and updates", "Ongoing improvement"],

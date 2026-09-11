@@ -47,7 +47,7 @@ const ogLayout = Buffer.from(`
     <path d="M92 316h78" stroke="#C8A15A" stroke-width="6"/>
     <text x="91" y="407" fill="#0F3D2E" font-family="Georgia, serif" font-size="59">Digital solutions built</text>
     <text x="91" y="480" fill="#0F3D2E" font-family="Georgia, serif" font-size="59">around your business.</text>
-    <text x="91" y="548" fill="#557066" font-family="Arial, sans-serif" font-size="25">Websites | Business systems | Mobile apps | AI automation</text>
+    <text x="91" y="548" fill="#557066" font-family="Arial, sans-serif" font-size="25">Websites | Custom business systems | Mobile apps | AI automation</text>
   </svg>
 `);
 

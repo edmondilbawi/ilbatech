@@ -10,7 +10,7 @@ type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 const SUBMISSION_TIMEOUT_MS = 20_000;
 const HELP_OPTIONS = [
   { label: "Website / Web App", service: "Website Development" },
-  { label: "Business System", service: "Not sure, I need advice" },
+  { label: "Custom Business System", service: "Not sure, I need advice" },
   { label: "Mobile App", service: "Mobile Application" },
   { label: "AI / Automation", service: "AI & Task Automation" },
   { label: "E-Commerce", service: "E-Commerce" },

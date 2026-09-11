@@ -153,7 +153,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
   {
     slug: "business-operations-dashboard",
     title: "Business Operations Dashboard",
-    category: "Business Systems & Automation",
+    category: "Custom Business Systems & Automation",
     summary:
       "An interactive operations workspace connecting sample clients, projects, tasks, analytics, demo automations, and deterministic AI-assisted insights.",
     description:
@@ -163,7 +163,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
     contactService: "AI & Task Automation",
     relatedService: {
       href: "/services/business-systems-and-consulting",
-      label: "business systems and technology consulting services",
+      label: "custom business systems services",
     },
     conceptNote:
       "Built by ILBATECH to connect daily operations, workflow automation, and grounded AI assistance.",
@@ -186,7 +186,7 @@ export const WORK_PROJECTS: readonly WorkProject[] = [
       "Enable, disable, inspect, and simulate automation concepts",
       "Deterministic AI-assisted operational summaries and priorities",
     ],
-    capabilities: ["Business systems", "Operations UX", "Workflow management", "Automation concepts", "AI-assisted operations"],
+    capabilities: ["Custom business systems", "Operations UX", "Workflow management", "Automation concepts", "AI-assisted operations"],
     visualDescription:
       "a professional operations workspace with consistent sample records, task controls, responsive analytics, automation simulations, and grounded AI insights",
   },

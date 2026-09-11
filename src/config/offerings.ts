@@ -13,6 +13,7 @@ export type Offering = {
   slug: string;
   title: string;
   seoTitle?: string;
+  seoDescription?: string;
   eyebrow: string;
   summary: string;
   introduction: string;
@@ -78,7 +79,7 @@ export const SERVICE_AREAS: Offering[] = [
         href: "/solutions/customer-experience-and-growth",
       },
       {
-        title: "Business Systems & Consulting",
+        title: "Custom Business Systems",
         description: "Connect the customer-facing experience to the operation behind it.",
         href: "/services/business-systems-and-consulting",
       },
@@ -220,46 +221,48 @@ export const SERVICE_AREAS: Offering[] = [
   },
   {
     slug: "business-systems-and-consulting",
-    title: "Business Systems & Consulting",
-    seoTitle: "Business Systems & Technology Consulting",
-    eyebrow: "Clarity, coordination, and direction",
+    title: "Custom Business Systems",
+    seoTitle: "Custom Business Systems & Business Software Development",
+    seoDescription:
+      "ILBATECH designs and develops custom business software from the ground up around specific workflows, users, data, reporting, and operational requirements.",
+    eyebrow: "Software shaped around your operation",
     summary:
-      "Practical business systems and technology guidance that improve visibility, coordination, and confident decision-making.",
+      "Custom-built software designed around how your business actually works.",
     introduction:
-      "The right system should give important business information a useful home and support the way people actually work. The right advice should make the decision clearer before any implementation begins.",
+      "We design and develop business systems from the ground up around your specific operations, workflows, users, and requirements. From inventory and internal dashboards to management platforms and operational tools, every system is tailored to the business rather than forcing the business into pre-built software.",
     problemStatement:
-      "Scattered customer information, difficult booking processes, disconnected operational data, and technology choices without a clear business case can all create unnecessary uncertainty.",
+      "Built around your workflow — not the other way around. That means the system can reflect your user roles, custom permissions, business-specific data, reporting needs, operational processes, and required integrations.",
     whoFor: [
-      "Businesses reviewing CRM, booking, or management systems",
-      "Teams whose important information is scattered across tools",
-      "Leaders planning modernization or digital transformation",
-      "Organizations that need independent clarity before committing to technology",
+      "Businesses with workflows that generic software does not fit well",
+      "Teams whose operations depend on disconnected tools or spreadsheets",
+      "Organizations that need role-specific access and permissions",
+      "Leaders planning for future operational growth",
     ],
     commonProblems: [
-      "Customer, booking, or operational information is hard to coordinate",
-      "Teams lack a shared view of important activity",
-      "Current systems are outdated, fragmented, or difficult to use",
-      "Technology options are being compared without clear decision criteria",
+      "Pre-built software forces important work into awkward workarounds",
+      "User roles and permissions do not match how responsibility is assigned",
+      "Business-specific data and reporting needs are difficult to support",
+      "Operational processes and essential tools are not connected",
     ],
     capabilities: [
-      "CRM and customer-management systems",
-      "Booking and reservation systems",
-      "Business management and operational systems",
-      "Technology discovery and option assessment",
-      "Digital transformation planning",
-      "Implementation roadmaps and integration guidance",
+      "Inventory Management",
+      "Internal Dashboards",
+      "Operations Management",
+      "Workflow Management",
+      "Reporting & Analytics",
+      "Custom Admin Platforms",
     ],
     outcomes: [
-      "More useful visibility into customers and operations",
-      "Clearer, more consistent ways of working",
-      "Technology decisions connected to defined business needs",
-      "A practical modernization path without unnecessary disruption",
+      "Software that follows the business workflow instead of reshaping it",
+      "Clear access and permissions for each type of user",
+      "Data and reporting structured around real operational needs",
+      "A scalable foundation that can evolve and integrate where required",
     ],
     approach: [
-      "Understand the decision, operation, and people affected",
-      "Clarify requirements and distinguish needs from preferences",
-      "Assess whether to improve, connect, configure, or build",
-      "Set out a practical path and support careful implementation",
+      "Understand the operation, workflows, users, and requirements",
+      "Define the data, permissions, reporting, integrations, and future needs",
+      "Design and develop the system from the ground up around that context",
+      "Test with the people who will use it and evolve it as the business grows",
     ],
     googleService: "Not sure, I need advice",
     relatedLinks: [
@@ -333,7 +336,7 @@ export const SOLUTION_AREAS: Offering[] = [
         href: "/services/websites-and-commerce",
       },
       {
-        title: "Business Systems & Consulting",
+        title: "Custom Business Systems",
         description: "Improve the customer information and follow-up behind the experience.",
         href: "/services/business-systems-and-consulting",
       },
@@ -440,8 +443,8 @@ export const SOLUTION_AREAS: Offering[] = [
     googleService: "Other",
     relatedLinks: [
       {
-        title: "Business Systems & Consulting",
-        description: "Explore CRM, booking, management, and advisory capabilities.",
+        title: "Custom Business Systems",
+        description: "Explore software designed around unique operational requirements.",
         href: "/services/business-systems-and-consulting",
       },
       {
@@ -496,8 +499,8 @@ export const SOLUTION_AREAS: Offering[] = [
     googleService: "Not sure, I need advice",
     relatedLinks: [
       {
-        title: "Business Systems & Consulting",
-        description: "Explore advisory and systems capabilities for a practical roadmap.",
+        title: "Custom Business Systems",
+        description: "Explore software built around specific workflows and operational needs.",
         href: "/services/business-systems-and-consulting",
       },
       {
