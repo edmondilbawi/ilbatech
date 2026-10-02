@@ -900,10 +900,17 @@ footer{padding:54px 0 20px}.footer-grid{display:grid;gap:38px;padding-bottom:42p
 .about-founder-story { max-width: 650px; }
 .about-founder-story > p:not(.lead) { color: var(--ink-soft); line-height: 1.75; }
 .founder-signature { margin-top: 30px; padding-top: 22px; display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--line); }
-.founder-signature > span { width: 48px; height: 48px; display: grid; place-items: center; background: var(--teal); color: white; font-family: var(--serif); font-size: 18px; }
-.founder-signature > div { display: grid; gap: 3px; }
+.founder-signature > span { width: 48px; height: 48px; flex: 0 0 auto; display: grid; place-items: center; background: var(--teal); color: white; font-family: var(--serif); font-size: 18px; }
+.founder-signature > div { min-width: 0; display: grid; gap: 3px; }
 .founder-signature strong { font-size: 13px; }
 .founder-signature small { color: var(--ink-soft); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.founder-links { display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: 10px; }
+.founder-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--teal); font-size: 11px; font-weight: 800; line-height: 1.5; text-decoration: none; text-underline-offset: 3px; }
+.founder-links a:hover { text-decoration: underline; }
+.founder-links a:focus-visible { border-radius: 2px; outline: 2px solid var(--teal); outline-offset: 3px; }
+.founder-links svg { flex: 0 0 auto; transition: transform var(--motion-standard) var(--motion-ease); }
+.founder-links a:hover svg,
+.founder-links a:focus-visible svg { transform: translate(2px,-2px); }
 
 .contact-intent {
   margin: 0 0 24px;

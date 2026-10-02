@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Check, Eye, Handshake, Lightbulb, Scale, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Check, Eye, Handshake, Lightbulb, Scale, ShieldCheck } from "lucide-react";
 import { Button, SectionEyebrow, SiteFooter, SiteHeader } from "@/components/site-shell";
 
 export const metadata: Metadata = {
@@ -64,19 +64,45 @@ export default function AboutPage() {
             </div>
             <div className="about-founder-story">
               <p className="lead">
-                ILBATECH exists to make technology decisions clearer for
-                businesses that need useful progress, not more complexity.
+                ILBATECH was founded by Edmond Ilbawi with a simple belief:
+                technology should adapt to the business, not the other way around.
               </p>
               <p>
-                Edmond founded the consultancy around a business-first approach:
-                understand how the organization works, identify what genuinely
-                needs to improve, and shape a tailored system around that reality.
+                With a background in computer science and experience across
+                technology, business, and project leadership, Edmond approaches
+                each project by first understanding how the business works, where
+                the real problems are, and what technology can genuinely improve.
+              </p>
+              <p>
+                That approach continues to shape how ILBATECH builds today —
+                practical solutions designed around the people and businesses that
+                use them.
               </p>
               <div className="founder-signature">
                 <span aria-hidden="true">EI</span>
                 <div>
                   <strong>Edmond Ilbawi</strong>
                   <small>Founder · ILBATECH</small>
+                  <div className="founder-links">
+                    <a
+                      href="https://edmondilbawi.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="View Founder Portfolio (opens in a new tab)"
+                    >
+                      View Founder Portfolio
+                      <ArrowUpRight aria-hidden="true" size={14} strokeWidth={1.8} />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/edmond-ilbawi-ba2788300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn (opens in a new tab)"
+                    >
+                      LinkedIn
+                      <ArrowUpRight aria-hidden="true" size={14} strokeWidth={1.8} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
